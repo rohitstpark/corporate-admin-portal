@@ -1,0 +1,88 @@
+<div class="site-loader" *ngIf="showLoader">
+	<div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>
+<div class="Container_scroll">
+	<div class="container_header mb-3">
+		<div class="cus_breadculam">
+		  <ul>
+		    <li class="fs_16 fsm_5 txt_lb" [routerLink]="['/shipment']">All Shipments</li>
+		    <li class="fs_16 fsm_5 txt_lb">{{shipmentNameUniqueId[0]}}<span class="ml-2">#{{shipmentNameUniqueId[1]}}</span></li>
+		  </ul>
+		</div>
+		<!-- <div class="custom_dropdown">
+		  <label class="dropdown">
+		    <span class="icon-ic-dots circle_dots rectangle_dots"></span>
+		    <input type="checkbox" class="icon-ic-dots dd-input" id="test">
+		    <ul class="dd-menu dd-rmenu">
+		      <li>Action</li>
+		      <li>Another action</li>
+		    </ul>
+		  </label>
+		</div> -->
+	</div>
+
+	<div class="tab_status">
+		<app-shipment-tabs></app-shipment-tabs>
+		<div class="current_status" *ngIf="shipmentStatusLabel">
+			<div class="status_details">
+				<span class="status_text bg_s">{{shipmentStatusLabel}}</span>
+				<shipment-progress [bgClass]="'bg_s'" [statusCount]="statusCount"></shipment-progress>
+			</div>
+		</div>
+	</div>
+
+
+ <div class="event_table" (scroll)="onTableScroll($event)">
+		<table mat-table class="all-carriers" [dataSource]="bidHistoryList" style="width: 100%;">
+			<ng-container matColumnDef="name">
+				<th mat-header-cell *matHeaderCellDef class="px-2">Name</th>
+				<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2" style="height: 64px;">
+					<div class="profile_info">
+						<span class="profile_image">
+							<span class="short_name">{{getInitials(element.userName)}}</span>
+								<!-- <img *ngIf="" src="{{element.profileImage}}" class="img-fluid" /> -->
+							</span>
+						<div class="ml-2">
+							<p class="fs_16 fsm_5 txt_b mb-0 text_truncate" style="max-width: 180px;">{{element.userName ? element.userName :'-'}}</p>
+						</div>
+					</div>
+				</td>
+			</ng-container>
+			<ng-container matColumnDef="type">
+				<th mat-header-cell *matHeaderCellDef class="px-2">Type</th>
+				<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2" style="height: 64px;">{{element.createdBy ? element.createdBy : '-'}}</td>
+			</ng-container>
+			<ng-container matColumnDef="dateTime">
+				<th mat-header-cell *matHeaderCellDef class="px-2">Date & Time</th>
+				<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2" style="height: 64px;">{{element.actionTs ? (element.actionTs | date:'MMM d, y, h:mm a') : '-'}}</td>
+			</ng-container>
+			<ng-container matColumnDef="bidAmont">
+				<th mat-header-cell *matHeaderCellDef class="px-2">Bid Amount</th>
+				<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2" style="height: 64px;">${{element.bidAmount}}</td>
+			</ng-container>
+			<ng-container matColumnDef="notes">
+				<th mat-header-cell *matHeaderCellDef class="px-2">Notes</th>
+				<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2" style="height: 64px;">{{element.note ? element.note : '-'}}</td>
+			</ng-container>
+			<ng-container matColumnDef="status">
+				<th mat-header-cell *matHeaderCellDef class="px-2">Status</th>
+				<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2" style="height: 64px;">
+					<span class="txt_p txt_s txt_d">{{element.statusLabel ? element.statusLabel : '-'}}</span>
+				</td>
+			</ng-container>
+			<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="background: #eef0f4;"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns;" style="background: #fff;"></tr>
+		</table>
+
+		<ng-container *ngIf="bidHistoryList && bidHistoryList.length == 0">
+			<div class="data_notFound">No Data Found.</div>
+		 </ng-container>
+
+		<!-- <div class="spinner_loader">
+			<div class="bounce1"></div>
+			<div class="bounce2"></div>
+			<div class="bounce3"></div>
+		</div> -->
+	</div> 
+
+</div>

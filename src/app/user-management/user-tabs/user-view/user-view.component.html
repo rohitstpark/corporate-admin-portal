@@ -1,0 +1,141 @@
+
+<div class="site-loader" *ngIf="showLoader">
+  <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div>
+<div class="Container_scroll" style="height: 100vh;">
+  <div class="cus_breadculam">
+    <ul>
+      <li class="fs_16 fsm_5 txt_lb" [routerLink]="['/user']">All Users</li>
+      <li class="fs_16 fsm_5 txt_lb" *ngIf="userDetail">{{userDetail.name ? userDetail.name : '-'}}</li>
+    </ul>
+  </div>
+  <app-user-tab></app-user-tab>
+  <div class="view_profile">
+    <div class="edit_action">
+        <button class="btn custum_button button_primary bg_w txt_lb fsm_5" (click)="openEditForm();">Edit Personal Details</button>
+    </div>
+    <div class="customExpansion_panel" *ngIf="!isEditEnabled">
+      <mat-accordion class="example-headers-align" multi>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="fs_16 fsm_5 txt_b">Personal Details</mat-panel-title>
+            <mat-panel-description></mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="sign_up_tab input_error" *ngIf="userDetail">
+            <div class="update_profile_container">
+              <div class="row">
+                <div class="col-md-4">
+                  <span style="display: flex; width: 42px; height: 42px; border-radius: 50%; overflow: hidden;" *ngIf="(userDetail.profileImage && userDetail.profileImage!='')">
+                    <img class="img-fluid" src="{{userDetail.profileImage}}">
+                  </span>
+                  <span class="short_name" *ngIf="(!userDetail.profileImage || userDetail.profileImage == '')">{{getInitials(userDetail.name)}}</span>
+                </div>
+                <div class="col-md-4">
+                  <p class="fs_14 fsn_4 txt_lb mb-1">Name</p>
+                  <p class="fs_14 fsm_5 txt_b mb-4">{{userDetail.name ? userDetail.name : '-'}}</p>
+                </div>
+                <div class="col-md-4">
+                  <p class="fs_14 fsn_4 txt_lb mb-1">Email Address</p>
+                  <p class="fs_14 fsm_5 txt_b mb-4">{{userDetail.email ? userDetail.email : '-'}}</p>
+                </div>
+                <div class="col-md-4">
+                  <p class="fs_14 fsn_4 txt_lb mb-1">Phone Number</p>
+                  <p class="fs_14 fsm_5 txt_b mb-4">{{userDetail.phone ? userDetail.phone : '-'}}</p>
+                </div>
+                
+                <div class="col-md-4">
+                  <p class="fs_14 fsn_4 txt_lb mb-1">Registration Date</p>
+                  <p class="fs_14 fsm_5 txt_b mb-4">{{userDetail.registrationDate ? (userDetail.registrationDate | date:'MMM d, y, h:mm a') : '-'}}</p>
+                </div>
+                <div class="col-md-4">
+                  <p class="fs_14 fsn_4 txt_lb mb-1">First Login</p>
+                  <p class="fs_14 fsm_5 txt_b mb-4">{{userDetail.firstLogin ? (userDetail.firstLogin | date:'MMM d, y, h:mm a') : '-'}}</p>
+                </div>
+                <div class="col-md-4">
+                  <p class="fs_14 fsn_4 txt_lb mb-1">Last Login</p>
+                  <p class="fs_14 fsm_5 txt_b mb-0">{{userDetail.lastLogin ? (userDetail.lastLogin | date:'MMM d, y, h:mm a') :'-'}}</p>
+                </div>
+                <div class="col-md-4">
+                  <p class="fs_14 fsn_4 txt_lb mb-1">Status</p>
+                  <p class="fs_14 fsm_5 txt_b mb-0" style="text-transform: capitalize;">{{userDetail.status ? userDetail.status :'-'}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="edit_profile_con" style="display: none;">
+              <p class="fs_16 fsb_7 txt_b" style="margin: 0 0 32px;">Edit Profile Details</p>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+
+  <div class="edit_profile" *ngIf="isEditEnabled">
+    <form class="mb-0 custum_input_css" [formGroup]="editUserDetailForm">
+      <p class="mt-0 fs_16 fsm_5 txt_b">Personal Details</p>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="upload_files upload_file_64 mb-4">
+            <input type="file" class="form-control input_upload" (change)="onFileSelected($event)"/>
+            <img src="{{ userDetail.profileImage }}" id="imgFilter"
+            *ngIf="userDetail.profileImage != ''" class="img-fluid" class="img_upload_field">
+            <span class="short_name" *ngIf="!userDetail.profileImage ||userDetail.profileImage == ''">{{ getInitials(userDetail.name) }}</span>
+            <span class="upload_file_icon" (click)="openDialogBox()">
+              <span class="icon-ic-upload"></span>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <p class="m-0 fs_14 fsn_4 txt_lb">FirstName</p>
+          <!-- appearance="none"  -->
+          <mat-form-field class="w-100">
+            <input type="text" matInput class="form-control custom_input" placeholder="Enter First Name" formControlName="firstName"/>
+            <mat-error>FirstName is required.</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <p class="m-0 fs_14 fsn_4 txt_lb">LastName</p>
+          <!-- appearance="none" -->
+          <mat-form-field  class="w-100">
+            <input type="text" matInput class="form-control custom_input" placeholder="Enter Last Name" formControlName="lastName"/>
+            <mat-error>LastName is required.</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <p class="m-0 fs_14 fsn_4 txt_lb">Email Address</p>
+          <!-- appearance="none" -->
+          <mat-form-field  class="w-100">
+            <input type="text" matInput class="form-control custom_input" placeholder="Enter Email Address" formControlName="email"/>
+            <mat-error>Email is required.</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <p class="m-0 fs_14 fsn_4 txt_lb">Phone Number</p>
+          <!-- appearance="none" -->
+          <mat-form-field  class="w-100">
+            <input type="text" matInput class="form-control custom_input" placeholder="Enter Phone Number" formControlName="phone"/>
+            <mat-error>Phone Number is required.</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <p class="m-0 fs_14 fsn_4 txt_lb">Status</p>
+          <!-- appearance="none" -->
+          <mat-form-field >
+            <mat-select class="form-control custom_input" placeholder="Select Status" formControlName="status">
+                <mat-option value="active" class="mat_dropdown"> Active </mat-option>
+                <mat-option value="inactive" class="mat_dropdown"> Inactive </mat-option>
+            </mat-select>
+            <mat-error>Status is required.</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <div class="float-right">
+            <button class="btn custum_button button_primary bg_w txt_lb mr-4" (click)="cancel()">Cancel</button>
+            <button class="btn custum_button button_primary" (click)="updateDetails()">Update</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+

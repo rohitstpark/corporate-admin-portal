@@ -1,0 +1,179 @@
+<div class="site-loader" *ngIf="showLoader">
+  <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div>
+  <div class="page-header">
+    <div class="float-left">
+        <h3>Lookup Management</h3>
+        <p>A place to view all of the Twilio Lookup request completed within the admin panel</p>
+    </div>
+    <div class="float-right">
+    <button _ngcontent-pqc-c142="" mat-flat-button="" color="primary" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" (click)="OpenCreate()">
+    <span class="mat-button-wrapper">New Lookup</span>
+    <span matripple="" class="mat-ripple mat-button-ripple"></span>
+    <span class="mat-button-focus-overlay"></span>
+  </button>
+    </div>
+</div>
+  
+
+<!-- new work starts here  -->
+
+
+<div class="filter_section" [ngClass]="status ? 'filter_show' : 'filter_hide'">
+  <div class="filter_bar">
+    <p class="fs_16 fsm_5 txt_b mb-0">      </p>
+    <div [ngClass]="filterActivated ? 'active_filter' : ''">
+      <button [ngClass]="filterActivated ? 'dot_circle' : ''" class="btn custum_button btn_filter" (click)="filterToggleEvent()">Filter</button>
+    </div>
+  </div>
+
+  <div class="show-filter detail_card_container">
+    <form class="example-form filter_selection" [formGroup]="filterForm">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="custom_checkbox filter_head">
+            <p class="fs_16 txt_b fsb_7 mb-3">Filter</p>
+          </div>
+        </div>
+        <div class="col-md-3 mb-2">
+          <mat-form-field class="w-100">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Enter Phone Number" type="text" name="Phone" formControlName="phone">
+          </mat-form-field>
+        </div>
+        
+        
+        <div class="col-md-3 mb-2">
+          <div class="date-picker-with-icon">
+            <mat-form-field class="w-100">
+              <mat-label>Created At</mat-label>
+              <input name="registrationDate" matInput type="text" ngxDaterangepickerMd startKey="start" endKey="end" [ranges]="ranges" [readonly]="true" formControlName="registrationDate" [alwaysShowCalendars]="true" [closeOnAutoApply]="true" [showClearButton]="true" [locale]="{ cancelLabel: 'Cancel', applyLabel: 'ok', format: 'DD-MM-YYYY'}"  drops="down" opens="right" autocomplete="off" [maxDate]="todayDate" placeholder="Select Date">
+              </mat-form-field>
+          </div>
+        </div>
+  
+  
+        <div class="col-md-12 text-right">
+          <a mat-button class="pointer mr-3" style="border-radius: 30px; padding: 2px 20px;" (click)="resetData()">Reset</a>
+          <button color="primary" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary pointer bg_s" (click)="updateSearchResults()">
+            <span class="mat-button-wrapper">Update Results</span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+<!-- lower table starts here  -->
+
+
+
+
+<div class="user_table" (scroll)="onTableScroll($event)">
+  <table mat-table [dataSource]="dataSource" style="width: 100%;">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef class="px-2">Id</th>
+      <td mat-cell *matCellDef="let element" class="px-2" matTooltip="{{element.id}}" style="max-width: 180px;">
+        <p class="fs_14 fsn_4 txt_p text_truncate mb-0">{{element.id ? element.id :'-'}}</p>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef>
+        <span>Country & Phone Number</span>
+        <!-- <span class="icon icon-Down fs_12 txt_lb px-1 arrow_filter pointer"></span> -->
+      </th>
+      <td mat-cell *matCellDef="let element"  matTooltip="{{element.nationalFormat}}" >
+        <div class="profile_info" >
+          <!-- <div></div> -->
+          <span class="profile_image">
+            <span class="short_name" *ngIf="(!element.profileImage || element.profileImage == '')">{{element.countryCode}}</span>
+            <img *ngIf="(element.profileImage && element.profileImage!='')" src="{{element.profileImage}}"/>
+          </span>
+          <div class="ml-2">
+            <p class="fs_16 fsm_5 txt_b mb-0 text_truncate" style="max-width: 180px;">{{element.phone}}</p>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="checkedBy">
+      <th mat-header-cell *matHeaderCellDef class="px-2">Checked By</th>
+      <td mat-cell *matCellDef="let element" class="px-2" matTooltip="{{element.email}}" style="max-width: 180px;">
+        <p class="fs_14 fsn_4 txt_p text_truncate mb-0">{{element.checkedBy ? element.checkedBy :'-'}}</p>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="carrierName">
+      <th mat-header-cell *matHeaderCellDef class="px-2">Carrier Name</th>
+      <td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2" style="height: 64px;">{{element.carrierName ? element.carrierName :'-'}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="carrierType">
+      <th mat-header-cell *matHeaderCellDef class="px-2">Carrier Type</th>
+      <td mat-cell *matCellDef="let element" class="px-2" matTooltip="{{element.registrationDate ? (element.registrationDate | date:'MMM d, y, h:mm a') :''}}">
+        <p class="fs_14 fsn_4 txt_lb mb-0">{{element.carrierType ? (element.carrierType) :'-'}}</p>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef class="px-2">Created At</th>
+      <td mat-cell *matCellDef="let element" class="px-2" matTooltip="{{element.createdAt ? (element.createdAt | date:'MMM d, y, h:mm a') :''}}">
+        <p class="fs_14 fsn_4 txt_lb mb-0">{{element.createdAt ? (element.createdAt | date:'MMM d, y, h:mm a') :'-'}}</p>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="updatedAt">
+      <th mat-header-cell *matHeaderCellDef class="px-2">Updated At</th>
+      <td mat-cell *matCellDef="let element" class="px-2" matTooltip="{{element.updatedAt ? (element.updatedAt | date:'MMM d, y, h:mm a') :''}}">
+        <p class="fs_14 fsn_4 txt_lb mb-0">{{element.updatedAt ? (element.updatedAt | date:'MMM d, y, h:mm a') :'-'}}</p>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="mobileCountryCode">
+      <th mat-header-cell *matHeaderCellDef class="px-2">Mobile Country Code</th>
+      <td mat-cell *matCellDef="let element" class="px-2" matTooltip="{{element.mobileCountryCode ? element.mobileCountryCode :''}}">
+        <p class="fs_14 fsn_4 txt_lb mb-0">{{element.mobileCountryCode ? (element.mobileCountryCode) :'-'}}</p>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="mobileNetworkCode">
+      <th mat-header-cell *matHeaderCellDef class="px-2">Mobile Network Code</th>
+      <td mat-cell *matCellDef="let element" class="px-2" matTooltip="{{element.mobileNetworkCode ? element.mobileNetworkCode :''}}">
+        <p class="fs_14 fsn_4 txt_lb mb-0">{{element.mobileNetworkCode ? (element.mobileNetworkCode) :'-'}}</p>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="callerName">
+      <th mat-header-cell *matHeaderCellDef class="px-2">Caller Name</th>
+      <td mat-cell *matCellDef="let element" class="px-2" matTooltip="{{element.callerName ? element.callerName:''}}">
+        <p class="fs_14 fsn_4 txt_lb mb-0">{{element.callerName ? (element.callerName) :'-'}}</p>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="callerType">
+      <th mat-header-cell *matHeaderCellDef class="px-2">Caller Type</th>
+      <td mat-cell *matCellDef="let element" class="px-2" matTooltip="{{element.callerType ? element.callerType  :''}}">
+        <p class="fs_14 fsn_4 txt_lb mb-0">{{element.callerType ? element.callerType :'-'}}</p>
+      </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="background: #eef0f4;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="background: #fff;"></tr>
+  </table>
+
+  <ng-container *ngIf="dataSource && dataSource.length == 0">
+    <div class="data_notFound">No Data Found.</div>
+  </ng-container>
+   <div class="spinner_loader" *ngIf="apiCallInProcess">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
+</div>
+  

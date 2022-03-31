@@ -1,0 +1,7 @@
+.snackbar_container { bottom: 0px; border-radius: 4px; background: #e4e4e4; position: relative; max-width: 28rem; padding: 15px; }
+.snackbar_container a:hover { text-decoration: none; }
+.snackbar_close { position: absolute; right: 10px; top: 12px; cursor: pointer; }
+.snackbar_inPart { display: flex; padding-right: 10px; }
+.snackbar_inlPart { padding-right: 12px; }
+/*.snackbar_inrPart { padding-right: 20px; }*/
+.snackbar_title { margin: 0 0 5px; }

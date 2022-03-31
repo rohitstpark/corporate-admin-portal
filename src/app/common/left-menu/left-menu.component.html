@@ -1,0 +1,159 @@
+<div class="mobile_menu_header">
+	<!-- <div class="mobile_h_r"> -->
+		<!-- <span class="material-icons" (click)="mobileMenuToggleEvent()">dehaze</span> -->
+		<span class="material-icons" (click)="menuToggleEvent()">dehaze</span>
+	<!-- </div> -->
+	<!-- <div class="mobile_h_c"> -->
+		<p class="fs_16 txt_b fsm_5 mb-0">Carrier Management</p>
+	<!-- </div> -->
+	<!-- <div class="mobile_h_l"> -->
+		<span class="material-icons">add</span>
+		<!-- <img src="https://s3.us-east-2.amazonaws.com/staticdev.laneaxis.com/admin/profile-image/rick.jpeg" class="img-fluid">
+		<p class="fs_14 txt_lb fsm_5">Rick Burnet</p> -->
+	<!-- </div> -->
+</div>
+<div class="left_side_menu" [ngClass]="status ? 'menu_min' : 'menu_max'">
+	<div class="menu_toggle_close" (click)="menuToggleEvent()">
+		<span class="material-icons">close</span>
+	</div>
+	<div class="menu_containerbg">
+		<div class="menu_container">
+			<div class="container_head" *ngIf="userDetail">
+				<div>
+					<span class="head_image" [routerLink]="['/my-profile']" *ngIf="userDetail.profileImage && userDetail.profileImage!=''">
+						<img src="{{userDetail.profileImage}}" class="img-fluid">
+					</span>
+					<span class="short_name" *ngIf="(!userDetail.profileImage || userDetail.profileImage =='')">{{getInitials()}}</span>
+				</div>
+				<div style="margin: 0 0 0 16px;">
+					<p class="head_title">{{userDetail.firstName}} {{userDetail.lastName}}</p>
+					<p class="head_subtitle mb-0">{{userType ? userType : '-'}}</p>
+				</div>
+			</div>
+			<div class="container_menu_list">
+				<ul class="left_menu_scroll">
+					<li>
+						<span class="icon-ic-home"></span>
+						<span>Dashboard</span>
+					</li>
+					<!-- <li *ngIf="userType!= 'ADMIN'">
+						<span class="icon-ic-person"></span>
+						<span>User Management</span>
+					</li> -->
+					<li routerLinkActive="active_menu" *ngIf="userType!= 'ADMIN'" [routerLink]="['/user']">
+						<span class="icon-ic-person"></span>
+						<span>User Management</span>
+					</li>
+					<li routerLinkActive="active_menu" [routerLink]="['/shipper']">
+						<span class="icon-ic-building"></span>
+						<span>Shipper Management</span>
+					</li>
+					<li routerLinkActive="active_menu" [routerLink]="['/carrier']">
+						<span class="icon-ic-carrier"></span>
+						<span>Carrier Management</span>
+					</li>
+					<li routerLinkActive="active_menu" [routerLink]="['/driver']">
+						<span class="icon-ic-driver"></span>
+						<span>Driver Management</span>
+					</li>
+					<li routerLinkActive="active_menu" [routerLink]="['/shipment']">
+						<!-- [queryParams]="{tabType: 'inProgress'}"  -->
+						<span class="icon-ic-box" ></span>
+						<span>Shipments</span>
+					</li>
+					<li routerLinkActive="active_menu" [routerLink]="['/dispute']">
+						<!--  -->
+						<span class="icon-ic-dispute"></span>
+						<span>Disputes</span>
+					</li>
+					<li routerLinkActive="active_menu" [routerLink]="['/lookup']">
+						<span class="icon-ic-box" ></span>
+						<span>Phone Lookup</span>
+					</li>
+				</ul>
+				<ul>
+					<li routerLinkActive="active_menu" [routerLink]="['/change-password']">
+						<span class="icon-ic-settings"></span>
+						<span>Settings</span>
+					</li>
+					<li routerLinkActive="active_menu" (click)="logout()">
+						<span class="icon-ic-box"></span>
+						<span>Log Out</span>
+					</li>
+					
+					<div class="menu_toggle" (click)="menuToggleEvent()">
+						<span class="icon icon-Right"></span>
+					</div>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- mobile menu -->
+<div class="mobile_menu" [ngClass]="mobileMnue ? 'menu_close' : 'menu_open'" style="display: none;">
+	<div class="mobile_menu_header">
+		<div class="mobile_h_r">
+			<span class="material-icons" (click)="mobileMenuToggleEvent()">dehaze</span>
+		</div>
+		<div class="mobile_h_c">
+			<p class="fs_16 txt_b fsm_5 mb-0">Carrier Management</p>
+		</div>
+		<div class="mobile_h_l">
+			<span class="material-icons">add</span>
+			<!-- <img src="https://s3.us-east-2.amazonaws.com/staticdev.laneaxis.com/admin/profile-image/rick.jpeg" class="img-fluid">
+			<p class="fs_14 txt_lb fsm_5">Rick Burnet</p> -->
+		</div>
+	</div>
+	<div class="menu_container">
+		<div class="container_head" *ngIf="userDetail">
+			<div>
+				<span class="head_image" [routerLink]="['/my-profile']" *ngIf="userDetail.profileImage!=''">
+					<img src="{{userDetail.profileImage}}" class="img-fluid">
+				</span>
+				<span class="short_name" *ngIf="(!userDetail.profileImage || userDetail.profileImage =='')">{{getInitials()}}</span>
+			</div>
+			<div style="margin: 0 0 0 16px;">
+				<p class="head_title">{{userDetail.firstName}} {{userDetail.lastName}}</p>
+				<p class="head_subtitle mb-0">{{userType ? userType : '-'}}</p>
+			</div>
+		</div>
+		<div class="container_menu_list">
+			<ul >
+				<li>
+					<span class="icon-ic-home"></span>
+					<span>Dashboard</span>
+				</li>
+				<li *ngIf="userType!= 'ADMIN'">
+					<span class="icon-ic-person"></span>
+					<span>User Management</span>
+				</li>
+				<li routerLinkActive="active_menu" [routerLink]="['/shipper']">
+					<span class="icon-ic-building"></span>
+					<span>Shipper Management</span>
+				</li>
+				<li routerLinkActive="active_menu" [routerLink]="['/carrier']">
+					<span class="icon-ic-carrier"></span>
+					<span>Carrier Management</span>
+				</li>
+				<li routerLinkActive="active_menu" [routerLink]="['/shipment']">
+					<span class="icon-ic-box"></span>
+					<span>Shipments</span>
+				</li>
+			</ul>
+			<ul>
+				<li routerLinkActive="active_menu" [routerLink]="['/change-password']">
+					<span class="icon-ic-settings"></span>
+					<span>Settings</span>
+				</li>
+				<li (click)="logout()">
+					<span class="icon-ic-box"></span>
+					<span>Log Out</span>
+				</li>
+				<div class="menu_toggle" (click)="menuToggleEvent()">
+					<span class="icon icon-Right"></span>
+				</div>
+			</ul>
+		</div>
+	</div>
+</div>

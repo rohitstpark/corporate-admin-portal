@@ -1,0 +1,198 @@
+<div class="site-loader" *ngIf="showLoader">
+  <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div>
+<div class="add_dot_number">
+    <form class="mb-0 custum_input_css" [formGroup]="filterForm">
+        <p class="mt-0 fs_16 fsm_5 txt_b">Add Dot Number</p>
+        <div class="row">
+          <div class="col-md-4 col-xl-3">
+            <p class="m-0 fs_14 fsn_4 txt_lb">Dot Number</p>
+            <mat-form-field appearance="none" class="w-100">
+              <input type="text" matInput class="form-control custom_input" formControlName="dotNumber" placeholder="Enter Dot Number"/>
+              <mat-error>DOT Number is required.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4 col-xl-3">
+            <p class="m-0 fs_14 fsn_4 txt_lb">Legal Name</p>
+            <mat-form-field appearance="none" class="w-100">
+              <input type="text" matInput class="form-control custom_input" formControlName="legalName" placeholder="Enter Legal Name"/>
+              <mat-error>Legal Name is required.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4 col-xl-3">
+            <p class="m-0 fs_14 fsn_4 txt_lb">DBA Name</p>
+            <mat-form-field appearance="none" class="w-100">
+              <input type="text" matInput class="form-control custom_input" formControlName="dbaName" placeholder="Enter DBA Name"/>
+            
+            </mat-form-field>
+          </div>
+          <div class="col-md-4 col-xl-3">
+             <p class="m-0 fs_14 fsn_4 txt_lb">Phone Number</p>
+             <mat-form-field appearance="none" class="w-100">
+                <input matInput type="text" formControlName="telephone" placeholder="Enter Phone Number" class="form-control custom_input" maxlength="10" />
+             </mat-form-field>
+          </div>
+          <div class="col-md-9">
+           <div class="custom_radios mb-3">
+              <p class="fs_14 fsn_4 txt_lb mb-1"> Carrier Operations </p>
+              <mat-radio-group aria-label="Select an option" class="form-control radio_select" appearance="none" formControlName="carrierOperation">
+                 <mat-radio-button value="1" class="mr-3"> Interstate </mat-radio-button>
+                 <mat-radio-button value="2" class="mx-3"> Intrastate Hazmat </mat-radio-button>
+                 <mat-radio-button value="3" class="ml-3"> Intrastate Non-Hazmat </mat-radio-button>
+              </mat-radio-group>
+           </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 col-xl-3 ic_dropdown">
+            <p class="m-0 fs_14 fsn_4 txt_lb">HM Flag</p>
+            <mat-form-field appearance="none" class="w-100">
+              <mat-select class="form-control custom_input" placeholder="Select HM flag" formControlName="hmFlag">
+                  <mat-option value="1" class="mat_dropdown"> Yes </mat-option>
+                  <mat-option value="0" class="mat_dropdown"> No </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4 col-xl-3 ic_dropdown mat_dropdown">
+            <p class="m-0 fs_14 fsn_4 txt_lb">PC Flag</p>
+            <mat-form-field appearance="none" class="w-100">
+               <mat-select class="form-control custom_input" placeholder="Select PC flag" formControlName="pcFlag">
+                  <mat-option value="1" class="mat_dropdown"> Yes </mat-option>
+                  <mat-option value="0" class="mat_dropdown"> No </mat-option>
+               </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4 col-xl-3">
+               <p class="m-0 fs_14 fsn_4 txt_lb">Total Truck</p>
+               <mat-form-field appearance="none" class="w-100">
+                  <input matInput type="number" placeholder="Enter Total Truck" class="form-control custom_input" maxlength="10" formControlName="truckTotal"/>
+               </mat-form-field>
+            </div>
+            <div class="col-md-4 col-xl-3">
+               <p class="m-0 fs_14 fsn_4 txt_lb">Total Driver</p>
+               <mat-form-field appearance="none" class="w-100">
+                  <input matInput type="number" placeholder="Enter Total Driver" class="form-control custom_input" maxlength="10" formControlName="driverTotal"/>
+               </mat-form-field>
+            </div>
+        </div>
+
+        <p class="fs_14 fsm_5 txt_b mb-2">Physical Address</p>
+        <div class="row">
+          <div class="col-md-4 col-xl-3 ic_dropdown mat_dropdown">
+            <p class="m-0 fs_14 fsn_4 txt_lb">Street</p>
+              <mat-form-field appearance="none" class="w-100">
+                <input type="text" matInput class="form-control custom_input" placeholder="Enter Street"  formControlName="phyStreet"/>
+              
+              </mat-form-field>
+          </div>
+          <div class="col-md-4 col-xl-3 ic_dropdown mat_dropdown">
+            <p class="m-0 fs_14 fsn_4 txt_lb">City</p>
+              <mat-form-field  appearance="none" class="w-100">
+                <input type="text" matInput class="form-control custom_input" placeholder="Enter City"  formControlName="phyCity"/>
+              
+              </mat-form-field>
+          </div>
+          <div class="col-md-4 col-xl-3 ic_dropdown mat_dropdown">
+            <p class="m-0 fs_14 fsn_4 txt_lb">State</p>
+            <mat-form-field appearance="none" class="w-100">
+              <mat-select class="form-control custom_input" placeholder="Select state" formControlName="phyState">
+                <mat-option *ngFor="let eValue of statesList" value="{{eValue.key}}">{{eValue.value}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4 col-xl-3 ic_dropdown mat_dropdown">
+            <p class="m-0 fs_14 fsn_4 txt_lb">Zip</p>
+              <mat-form-field appearance="none" class="w-100">
+                <input type="text" matInput class="form-control custom_input" placeholder="Enter Zip" formControlName="phyZip"/>
+              
+              </mat-form-field>
+          </div>
+          <div class="col-md-4 col-xl-3 ic_dropdown mat_dropdown">
+            <p class="m-0 fs_14 fsn_4 txt_lb">Country</p>
+            <mat-form-field  appearance="none" class="w-100">
+              <input type="text" matInput class="form-control custom_input" placeholder="Enter Country" formControlName="phyCountry"/>        
+            </mat-form-field>
+          </div>
+        </div>
+        
+        <p class="fs_14 fsm_5 txt_b mb-2">Mailing Address</p>
+        <div class="row">
+          <div class="col-md-4 col-xl-3 ic_dropdown mat_dropdown">
+            <p class="m-0 fs_14 fsn_4 txt_lb">Street</p>
+              <mat-form-field appearance="none" class="w-100">
+                <input type="text" matInput class="form-control custom_input" placeholder="Enter Street" formControlName="mailingStreet"/>              
+              </mat-form-field>
+          </div>
+          <div class="col-md-4 col-xl-3 ic_dropdown mat_dropdown">
+            <p class="m-0 fs_14 fsn_4 txt_lb">City</p>
+              <mat-form-field  appearance="none" class="w-100">
+                <input type="text" matInput class="form-control custom_input" placeholder="Enter City"  formControlName="mailingCity"/>              
+              </mat-form-field>
+          </div>
+          <div class="col-md-4 col-xl-3 ic_dropdown mat_dropdown">
+            <p class="m-0 fs_14 fsn_4 txt_lb">State</p>
+            <mat-form-field  appearance="none" class="w-100">
+              <mat-select class="form-control custom_input" placeholder="Select state" formControlName="mailingState">
+                <mat-option *ngFor="let eValue of statesList" value="{{eValue.key}}">{{eValue.value}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4 col-xl-3 ic_dropdown mat_dropdown">
+            <p class="m-0 fs_14 fsn_4 txt_lb">Zip</p>
+              <mat-form-field appearance="none" class="w-100">
+                <input type="text" matInput class="form-control custom_input" placeholder="Enter Zip" formControlName="mailingZip"/>
+              
+              </mat-form-field>
+          </div>
+          <div class="col-md-4 col-xl-3 ic_dropdown mat_dropdown">
+            <p class="m-0 fs_14 fsn_4 txt_lb">Country</p>
+            <mat-form-field appearance="none" class="w-100">
+              <input type="text" matInput class="form-control custom_input" placeholder="Enter Country" formControlName="mailingCountry"/>              
+            </mat-form-field>
+          </div>
+        </div>
+        
+        <p class="fs_14 fsm_5 txt_b mb-2">MCS 150 Details</p>
+        <div class="row">
+          <div class="col-md-4 col-xl-3 ic_calander lg_rgOnbrd">
+             <p class="m-0 fs_14 fsn_4 txt_lb">Date</p>
+             <mat-form-field  appearance="none" class="w-100" class="pass_icon custom_matSuffix_icon custom_matSuffix_iconN">
+                <input matInput [matDatepicker]="picker" placeholder="mm/dd/yy" [readonly]="true" class="form-control custom_input" formControlName="mcs150Date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+             </mat-form-field>
+          </div>
+          <div class="col-md-4 col-xl-3">
+             <p class="m-0 fs_14 fsn_4 txt_lb">Mileage Year</p>
+             <mat-form-field appearance="none" class="w-100">
+                <input matInput type="text" placeholder="Enter year" class="form-control custom_input" maxlength="10" formControlName="mcs150MileageYear"/>
+             </mat-form-field>
+          </div>
+        </div>
+
+        <p class="fs_14 fsm_5 txt_b mb-2">Email Details</p>
+        <div class="row">
+          <div class="col-md-4 col-xl-3">
+            <p class="m-0 fs_14 fsn_4 txt_lb">Email</p>
+            <mat-form-field appearance="none" class="w-100">
+               <input matInput type="email" placeholder="Enter Email" class="form-control custom_input" formControlName="email"/>
+            </mat-form-field>
+         </div>
+          <div class="col-md-4 col-xl-3">
+             <p class="m-0 fs_14 fsn_4 txt_lb">Inform To Email</p>
+             <mat-form-field appearance="none"  class="w-100">
+                <input matInput type="email" placeholder="Enter Email" class="form-control custom_input" formControlName="informToEmail"/>
+             </mat-form-field>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-12">
+            <div class="float-right">
+              <button class="btn custum_button button_primary bg_w txt_lb mr-4" (click)="cancel()">Cancel</button>
+              <button class="btn custum_button button_primary" (click)="saveDotNumber()">Save</button>
+            </div>
+          </div>
+        </div>
+    </form>
+  </div>

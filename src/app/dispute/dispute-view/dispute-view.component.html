@@ -1,0 +1,136 @@
+<div class="site-loader" *ngIf="showLoader">
+  <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div>
+
+<div class="Container_scroll">
+  <div class="container_header">
+    <div class="cus_breadculam">
+      <ul>
+        <li class="fs_16 fsm_5 txt_lb" [routerLink]="['/dispute']">All Disputes</li>
+        <li class="fs_16 fsm_5 txt_lb" *ngIf="disputeDetails">#{{disputeDetails.uniqueId}}</li>
+      </ul>
+    </div>
+    <!-- <div class="custom_dropdown">
+      <label class="dropdown">
+        <span class="icon-ic-dots circle_dots"></span>
+        <input type="checkbox" class="icon-ic-dots dd-input" id="test">
+        <ul class="dd-menu dd-rmenu">
+          <li>Action</li>
+          <li>Another action</li>
+        </ul>
+      </label>
+    </div> -->
+  </div>
+
+  <app-dispute-tabs></app-dispute-tabs>
+
+  <div class="respond_action" *ngIf="responseAction">
+    <button class="btn custum_button button_primary fsm_5" (click)="respondToDispute()">Respond to Dispute</button>
+    <!-- <div class="custom_dropdown ml-3">
+      <label class="dropdown">
+        <span class="icon-ic-dots circle_dots"></span>
+        <input type="checkbox" class="icon-ic-dots dd-input" id="test">
+        <ul class="dd-menu dd-rmenu">
+          <li>Action</li>
+          <li>Another action</li>
+        </ul>
+      </label>
+    </div> -->
+  </div>
+
+  <div class="response_box" *ngIf="showResponseBox">
+    <form>
+      <div class="custom_textarea">
+        <!-- appearance="none" -->
+        <mat-form-field appearance="none">
+          <textarea matInput type="text" placeholder="Enter your message here…" class="form-control textarea_input" style="min-height: 300px;" name="reason" [(ngModel)]="disputeReason"></textarea>
+        </mat-form-field>
+     </div>
+     <div class="respond_actions">
+       <button class="btn custum_button button_primary fsm_5 bg_w txt_lb" (click)="cancelRespond()">Cancel</button>
+       <button class="btn custum_button button_primary fsm_5 ml-3" (click)="submitResponse()">Submit Response</button>
+       <button class="btn custum_button button_primary fsm_5 bg_s txt_w ml-3" (click)="respondAndResolve()">Respond and Resolve</button>
+     </div>
+   </form>
+  </div>
+
+  <div class="submit_response bg_s" *ngIf="showSuccessResponse" id="response_hide">
+    <p class="fs_16 fsm_5 txt_w m-0">This dispute was marked as resolved.</p>
+  </div>
+
+  <div class="customExpansion_panel">
+    <mat-accordion class="example-headers-align" multi>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="fs_16 fsm_5 txt_b">Dispute Information</mat-panel-title>
+          <mat-panel-description></mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="dispute_detail" *ngIf="disputeDetails">
+          <div class="row">
+            <div class="col-md-4">
+              <p class="fs_14 fsn_4 txt_lb mb-1">Dispute created by</p>
+              <p class="fs_14 fsm_5 txt_b mb-4">{{disputeDetails.isDispute && disputeDetails.isDispute.disputeBy ? disputeDetails.isDispute.disputeBy : '-'}}</p>
+            </div>
+            <div class="col-md-4">
+              <p class="fs_14 fsn_4 txt_lb mb-1">Shipment</p>
+              <p class="fs_14 fsm_5 txt_b mb-4">{{disputeDetails.title ? disputeDetails.title : '-'}} {{disputeDetails.uniqueId ? disputeDetails.uniqueId : ''}}</p>
+            </div>
+            <div class="col-md-4">
+              <p class="fs_14 fsn_4 txt_lb mb-1">Dispute date created</p>
+              <p class="fs_14 fsm_5 txt_b mb-4">{{disputeDetails.isDispute && disputeDetails.isDispute.createdAt ? (disputeDetails.isDispute.createdAt | date:'MMM d, y, h:mm a') : '-'}}</p>
+            </div>
+            <div class="col-md-4">
+              <p class="fs_14 fsn_4 txt_lb mb-1">Dispute reason</p>
+              <p class="fs_14 fsm_5 txt_b mb-4">{{disputeDetails.isDispute && disputeDetails.isDispute.reason ? disputeDetails.isDispute.reason : '-'}}</p>
+            </div>
+            <div class="col-md-4">
+              <p class="fs_14 fsn_4 txt_lb mb-1">Dispute description</p>
+              <p class="fs_14 fsm_5 txt_b mb-4">{{disputeDetails.isDispute && disputeDetails.isDispute.description ? disputeDetails.isDispute.description : '-'}}</p>
+            </div>
+            <div class="col-md-4">
+              <p class="fs_14 fsn_4 txt_lb mb-1">Document upload</p>
+              <p class="fs_14 fsm_5 txt_b mb-4" style="word-break: break-word;">
+                <a *ngIf="disputeDetails.deliveryDoc" href="{{disputeDetails.deliveryDoc}}" target="_blank">{{disputeDetails.docName ? disputeDetails.docName : '-'}}</a>
+                <span *ngIf="!disputeDetails.deliveryDoc">-</span>
+              </p>
+            </div>
+            <div class="col-md-4">
+              <div *ngIf="!isEditEnabled">
+              <p class="fs_14 fsn_4 txt_lb mb-1">
+                <span>Dispute assignee</span>
+                <span class="txt_p pointer ml-3" (click)="isEditEnabled=true"><u>Edit</u></span>
+              </p>
+              <p class="fs_14 fsm_5 txt_b mb-0">{{disputeDetails.isDispute && disputeDetails.isDispute.disputeAssign ? disputeDetails.isDispute.disputeAssign : '-'}}</p>
+              </div>
+              <div class="custum_input_css" *ngIf="isEditEnabled">
+                <p class="fs_14 fsn_4 txt_lb mb-0">
+                  <span>Dispute assignee</span>
+                  <span class="txt_p pointer ml-3" (click)="updateAssignee()"><u>Update</u></span>
+                </p>
+                <!-- appearance="none" -->
+                <mat-form-field appearance="none" class="w-100">
+                  <!-- <mat-label>Dispute assignee</mat-label> -->
+                  <input type="text" placeholder="Search Assignee" matInput name="disputeAssign" [formControl]="myControl" [matAutocomplete]="auto4" class="custom_input">
+                  <div *ngIf="isAssignLoader" class="loader_hide spinner_loader" style="position: absolute; right: 10px; top: 10px;">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                  </div>
+                  <mat-autocomplete autoActiveFirstOption #auto4="matAutocomplete" [displayWith]="displayFnAssignee">
+                    <mat-option *ngFor="let option of assigneeList" [value]="option">
+                      {{option.firstName}} {{option.lastName}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+                <!-- <a (click)="updateAssignee()">Update</a> -->
+              </div>
+            </div>
+            <div class="col-md-4">
+              <p class="fs_14 fsn_4 txt_lb mb-1">Current dispute status</p>
+              <p class="fs_14 fsm_5 txt_b mb-0">{{disputeDetails.currentDisputeStatus ? disputeDetails.currentDisputeStatus : '-'}}</p>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>

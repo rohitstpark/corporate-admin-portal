@@ -1,0 +1,301 @@
+<div class="site-loader" *ngIf="showLoader">
+  <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div>
+<div class="hidden_scroll" style="height: calc(100vh - 60px);">
+	<div class="page-header">
+		<div class="float-left">
+		  <h3>Disputes</h3>
+		  <p>A place to manage all of the the disputes from Carriers and Shippers.</p>
+		</div>
+		<div class="float-right">
+		  <button _ngcontent-pqc-c142="" mat-flat-button="" color="primary" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary bg_p">
+		  <!-- (click)="clickEvent()" -->
+		    <span class="mat-button-wrapper">Create new Shipment</span>
+		    <span matripple="" class="mat-ripple mat-button-ripple"></span>
+		    <span class="mat-button-focus-overlay"></span>
+		  </button>
+		</div>
+	</div>
+
+  <div class="dispute_list_tab">
+    <div class="tab_header">
+      <ul>
+        <li  *ngFor="let tab of disputeStatus" [ngClass]="selectedTab == tab.value ? 'active_tab' : ''" (click)="tabClicked(tab)">
+          <span>{{tab.key}}</span>
+          <span class="{{tab.class}} ml-1">{{tab.count}}</span>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+	<div class="filter_section" [ngClass]="status ? 'filter_show' : 'filter_hide'">
+    <div class="section-head">
+      <div class="float-left">
+        <h3>All {{selectedDispute}} Disputes</h3>
+      </div>
+      <div class="float-right" [ngClass]="filterActivated ? 'active_filter' : ''">
+        <button class="mat-focus-indicator mat-flat-button mat-button-base dot_circle" (click)="filterToggleEvent()">
+          <span class="mat-button-wrapper">Filter</span>
+        </button>
+        <!-- <div class="custom_search float-right">
+          <form [formGroup]="searchForm">
+          <mat-form-field appearance="fill">
+            <input matInput #first placeholder="Search" formControlName="searchInput">
+            <mat-icon matSuffix classs="fs_18" (click)="applyFilter()">
+              <span class="icon icon-ic-search fs_18"></span>
+            </mat-icon>
+          </mat-form-field>
+        </form>
+        </div> -->
+        <!-- <span class="circle_download ml-3">
+          <span class="icon-ic-download fs_20"></span>
+        </span> -->
+      </div>
+    </div>
+    <div class="mob-section-head">
+      <div class="filter_btn active_filter">
+        <div class="custom_search m-0">
+          <mat-form-field appearance="fill">
+            <mat-icon matPrefix class="pr-2">
+              <span class="icon icon-ic-search fs_18"></span>
+            </mat-icon>
+            <input matInput #first placeholder="Search by Company" class="ml-2">
+          </mat-form-field>
+        </div>
+        <div class="active_filter" style="position: relative;">
+          <!--  -->
+          <span class="icon-ic-filter fs_24 txt_lb px-2 py-1 dot_circle" (click)="filterToggleEvent()"></span>
+        </div>
+      </div>
+      <div>
+        <h3 class="fs_16 txt_b fsm_5" style="padding: 0 15px; margin: 30px 0 0;">All Carriers</h3>
+      </div>
+    </div>
+
+    <div class="show-filter">
+      <form class="example-form filter_selection" [formGroup]="filterForm">
+        <div class="row">
+
+          <!-- <div class="col-md-3 mb-2">
+            <mat-form-field class="w-100">
+              <mat-label>Search</mat-label>
+              <input matInput placeholder="Search" type="text" formControlName="search">
+            </mat-form-field>
+          </div> -->
+
+          <div class="col-md-3 mb-2">
+            <div class="date-picker-with-icon">
+              <mat-form-field appearance="none" class="w-100">
+                <mat-label>Created Date</mat-label>
+                <input matInput type="text" ngxDaterangepickerMd startKey="start" endKey="end" [ranges]="ranges" [readonly]="true" formControlName="createdDate" [alwaysShowCalendars]="true" [closeOnAutoApply]="true" [showClearButton]="true" [locale]="{ cancelLabel: 'Cancel', applyLabel: 'ok', format: 'DD-MM-YYYY'}"  drops="down" opens="right" autocomplete="off" [maxDate]="todayDate">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-3 mb-2">
+            <div class="date-picker-with-icon">
+              <mat-form-field appearance="none" class="w-100">
+                <mat-label>Updated Date</mat-label>
+                <input matInput type="text" ngxDaterangepickerMd startKey="start" endKey="end" [ranges]="ranges" [readonly]="true" formControlName="updatedDate" [alwaysShowCalendars]="true" [closeOnAutoApply]="true" [showClearButton]="true" [locale]="{ cancelLabel: 'Cancel', applyLabel: 'ok', format: 'DD-MM-YYYY'}"  drops="down" opens="right" autocomplete="off" [maxDate]="todayDate">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-3 mb-2">
+            <mat-form-field appearance="none" class="w-100">
+              <mat-label>Carrier Name</mat-label>
+              <input type="text" placeholder="Search Carrier" matInput name="carrier" formControlName="carrier" [matAutocomplete]="auto">
+              <div *ngIf="isCarrierLoader" class="loader_hide spinner_loader" style="position: absolute; right: 0px; top: 0;">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+              </div>
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFnCarrier">
+                <mat-option *ngFor="let option of carrierList" [value]="option">
+                  {{option.legalName}}
+                </mat-option>
+              </mat-autocomplete>
+             </mat-form-field>
+          </div>
+          <div class="col-md-3 mb-2">
+            <mat-form-field appearance="none" class="w-100">
+              <mat-label>Shipper Name</mat-label>
+              <input type="text" placeholder="Search Shipper" matInput name="shipper" formControlName="shipper" [matAutocomplete]="auto2">
+              <div *ngIf="isShipperLoader" class="loader_hide spinner_loader" style="position: absolute; right: 0px; top: 0;">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+              </div>
+              <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete" [displayWith]="displayFnShipper">
+                <mat-option *ngFor="let option of shipperList" [value]="option">
+                  {{option.companyName}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3 mb-2">
+            <mat-form-field appearance="none" class="w-100">
+              <mat-label>Driver Name</mat-label>
+              <input type="text" placeholder="Search Driver" matInput name="driver" formControlName="driver" [matAutocomplete]="auto1">
+              <div *ngIf="isDriverLoader" class="loader_hide spinner_loader" style="position: absolute; right: 0px; top: 0;">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+              </div>
+              <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete" [displayWith]="displayFnDriver">
+                <mat-option *ngFor="let option of driverList" [value]="option">
+                  {{option.driverName}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-3 mb-2">
+            <mat-form-field appearance="none" class="w-100">
+              <mat-label>Shipment</mat-label>
+              <input type="text" placeholder="Search Shipment" matInput name="shipment" formControlName="shipment" [matAutocomplete]="auto3">
+              <div *ngIf="isShipmentLoader" class="loader_hide spinner_loader" style="position: absolute; right: 0px; top: 0;">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+              </div>
+              <mat-autocomplete autoActiveFirstOption #auto3="matAutocomplete" [displayWith]="displayFnShipment">
+                <mat-option *ngFor="let option of shipmentList" [value]="option">
+                  {{option.title}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-3 mb-2">
+            <mat-form-field appearance="none" class="w-100">
+              <mat-label>Assignee</mat-label>
+              <input type="text" placeholder="Search Assignee" matInput name="disputeAssign" formControlName="disputeAssigned" [matAutocomplete]="auto4">
+              <div *ngIf="isAssignLoader" class="loader_hide spinner_loader" style="position: absolute; right: 0px; top: 0;">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+              </div>
+              <mat-autocomplete autoActiveFirstOption #auto4="matAutocomplete" [displayWith]="displayFnAssignee">
+                <mat-option *ngFor="let option of assigneeList" [value]="option">
+                  {{option.firstName}} {{option.lastName}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+
+
+          <div class="col-md-3 mb-2">
+            <mat-form-field appearance="none" class="w-100">
+              <mat-label>Dispute Reason</mat-label>
+              <mat-select formControlName="disputeReason">
+                <mat-option value="{{option.value}}" *ngFor="let option of disputeReasons">{{option.key}}</mat-option>
+              </mat-select>
+             </mat-form-field>
+          </div>
+          <div class="col-md-12 text-right">
+            <a class="pointer mr-3" style="border-radius: 30px; padding: 2px 20px;" (click)="status=false;resetData()">Reset</a>
+            <button color="primary" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary pointer bg_s" (click)="updateSearchResults()">
+              <span class="mat-button-wrapper">Update Results</span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!--  -->
+  <div class="user_table" (scroll)="onTableScroll($event)">
+    <table mat-table class="all-dispute" [dataSource]="dataSource" style="width: 100%;">
+      <!-- Name Column -->
+      <ng-container matColumnDef="shipmentId">
+        <th mat-header-cell *matHeaderCellDef>
+          <div class="row_shorted">
+            <span>Shipment ID </span>
+            <span class="icon icon-Down fs_12 txt_lb px-1 arrow_filter"></span>
+          </div>
+        </th>
+        <td mat-cell *matCellDef="let element" (click)="redirectToDisputeView(element)">
+          <span class="fs_16 fsn_4 txt_b">#{{element.uniqueId ? element.uniqueId : '-'}}</span>
+       </td>
+      </ng-container>
+    
+      
+      <ng-container matColumnDef="shipmentName">
+        <th mat-header-cell *matHeaderCellDef class="px-2">Shipment Name</th>
+        <td mat-cell *matCellDef="let element" class="px-2">
+          <P class="idWithName fs_16 fsn_4 txt_p">
+            <span *ngIf="element.title" (click)="redirectToShipmentView(element)"><u>{{element.title ? element.title : '-'}}</u></span>
+            <span *ngIf="!element.title" class="ml-2"> #12345678</span>
+          </P>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="carrierName">
+        <th mat-header-cell *matHeaderCellDef class="px-2">Carrier Name</th>
+        <td mat-cell *matCellDef="let element" class="px-2">
+          <P class="idWithName fs_16 fsn_4 txt_p">
+            <span *ngIf="element.carrierName"(click)="redirectToCarrierView(element)"><u>{{element.carrierName ? element.carrierName : '-'}}</u></span>
+            <span *ngIf="!element.carrierName" class="ml-2">-</span>
+          </P>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="shipperName">
+        <th mat-header-cell *matHeaderCellDef class="px-2">Shipper Name</th>
+        <td mat-cell *matCellDef="let element" class="px-2">
+          <P class="idWithName fs_16 fsn_4 txt_p">
+            <span *ngIf="element.shipperName" (click)="redirectToShipperView(element)"><u>{{element.shipperName ? element.shipperName : '-'}}</u></span>
+            <span *ngIf="!element.shipperName" class="ml-2">-</span>
+          </P>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="assigneName">
+        <th mat-header-cell *matHeaderCellDef class="px-2">Assigned To</th>
+        <td mat-cell *matCellDef="let element" class="px-2">
+          <P class="idWithName fs_16 fsn_4">
+            <span>{{element.assigneName ? element.assigneName : '-'}}</span>
+            <!-- <span *ngIf="!element.assigneName" class="ml-2">-</span> -->
+          </P>
+        </td>
+      </ng-container>
+
+      
+    
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="reason">
+        <th mat-header-cell *matHeaderCellDef class="px-2"> Reason </th>
+        <td mat-cell *matCellDef="let element" class="px-2">
+          <span class="fs_16 fsn_4 txt_lb">{{element.disputeReason ? element.disputeReason : '-'}}</span>
+        </td>
+      </ng-container>
+
+       <!-- Symbol Column -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef class="px-2"> Description </th>
+        <td mat-cell *matCellDef="let element" class="px-2">
+          <p class="mb-0 fs_14 fsn_4 txt_lb" style="max-width: 350px;">{{element.disDescription ? element.disDescription : '-'}}</p>
+        </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="dateTime">
+        <th mat-header-cell *matHeaderCellDef class="px-2"> Date & Time </th>
+        <td mat-cell *matCellDef="let element" class="px-2">
+          <span class="fs_16 fsn_4 txt_lb">{{element.disCreatedAt ? (element.disCreatedAt | date:'MMM d, y, h:mm a') : '-'}}</span>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="background: #eef0f4;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="background: #fff;"></tr>
+    </table>
+
+    <ng-container *ngIf="dataSource && dataSource.length == 0">
+      <div class="data_notFound">No Data Found.</div>
+    </ng-container>
+     <div class="spinner_loader" *ngIf="apiCallInProcess">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+      </div>
+  </div>
+</div>

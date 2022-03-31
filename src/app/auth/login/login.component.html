@@ -1,0 +1,56 @@
+<div class="site-loader" *ngIf="showLoader">
+  <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div>
+
+<div class="main-content admin_SignInUp_con">
+  <div class="container admin_SignInUp">
+    <div class="row flex_center_y">
+      <div class="col-md-6">
+        <div class="tab_container_r">
+          <div class="tab_container_inpput bg_w log_reg_box">
+            <p class="onboarding_h">Join the direct freight network</p>
+            <div class="tab-content">
+              <!-- Sign In -->
+              <div id="signIn">
+                <form class="sign_up_tab input_error" [formGroup]="loginForm" (ngSubmit)="onSignIn($event)" autocomplete="off">
+                  <p class="fs_14 fsn_4 txt_lb" style="margin: 2rem 0 -0.34rem;">Email address</p>
+                  <!-- appearance="none" -->
+                  <mat-form-field appearance="none" class="w-100">
+                    <input matInput type="text" placeholder="Enter email address" formControlName="username" class="form-control custom_input"/>
+                    <mat-error *ngIf="isLoginFormSubmitted && loginForm.get('username').errors?.['required']" class=""> Email is required.</mat-error>
+                    <mat-error *ngIf="isLoginFormSubmitted && loginForm.get('username').errors?.['email']" class="">Please enter valid email address</mat-error>
+                  </mat-form-field>
+                  <p class="fs_14 fsn_4 txt_lb" style="margin: 0.5rem 0 -0.34rem;">Password</p>
+                  <!-- appearance="none" -->
+                  <mat-form-field appearance="none" class="w-100 custom_matSuffix_icon ic_password">
+                    <input matInput [type]="hide ? 'text' : 'password'" formControlName="password" placeholder="Enter password" class="form-control custom_input"/>
+                    <button *ngIf="loginForm.get('password').value" mat-icon-button matSuffix (click)="hide = !hide"
+                      [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" type="button">
+                    <mat-icon class="ff_im fs_18 txt_lb {{hide ? 'icon-ic-show' : 'icon-ic-hide'}}"></mat-icon>
+                    </button>
+                    <mat-error *ngIf="isLoginFormSubmitted && loginForm.get('password').errors?.['required']">Password is required.</mat-error>
+                    <mat-error *ngIf="isLoginFormSubmitted && loginForm.get('password').errors?.['minlength']">Password must be at least 6 characters long</mat-error>
+                  </mat-form-field>
+                  <small class="txt_d remember_password">{{loginmessageError}}</small>
+                  <small class="txt_d remember_password">{{unAuthorisedUser}}</small>
+                  <div class="col-md-12 px-0 py-2">
+                    <button class="btn custum_button button_primary w-100" type="submit">Sign in</button>
+                  </div>
+                </form>
+                <p class="forgot_password"><u class="pointer" [routerLink]="['/forgot']">Forgot password?</u></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="onboarding_img">
+          <img
+            src="https://s3.us-east-2.amazonaws.com/static.laneaxis.com/portal/images/after-login/illustration-signup-page.svg"
+            class="img-fluid">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

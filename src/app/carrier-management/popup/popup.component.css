@@ -1,0 +1,93 @@
+/*.bobackcolor { background: #F4F9FF; }*/
+/*.bullot_point { font-size: 30px; color:var(--clBlua); line-height:24px; }*/
+
+.inviteDriver_pop { padding: 0 1rem 0 0; }
+.custom_input { font-size: 1rem; width: 100%; height: 2.85rem; padding: .9rem; border: none; border-radius: 2px; background: var(--clBluh); }
+.input_label{ margin: 0; }
+
+.doc_container { display: flex; align-items: center; border: 1px solid #D8D8D8; border-radius: 4px; padding: 8px; margin: 30px 0 0; }
+.doc_containerl { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; background: #ddd0; }
+.doc_containerr { margin: 0 0 0 12px; }
+
+.contract_action { display: flex; border: 1px solid #D8D8D8; border-radius: 4px; margin: 16px 0 20px; }
+.contract_actionl { display: flex; width: 50%; justify-content: center; border-right: 1px solid #D8D8D8; padding: 10px; cursor: pointer; }
+.contract_actionr { display: flex; padding: 10px; width: 50%; justify-content: center; cursor: pointer; }
+
+.mess_limit { display: flex; justify-content: space-between; margin: 28px 0 -10px; }
+
+.upload_dock { display: -webkit-box; display: flex; -webkit-box-align: center; align-items: center; -webkit-box-pack: justify; justify-content: space-between; max-height: 2.85rem; overflow: hidden; margin: .75rem 0 0; background: #ededed; border-radius: 4px; }
+.upload_dock .mat-form-field { width: 100%; }
+.upload_dock input[type="file"] { max-width: 2.5rem; display: none; }
+.upload_dock .btn { margin: 0 0 0 !important; box-shadow: none; display: flex; align-items: center; border-top-left-radius: 0px; border-bottom-left-radius: 0px; background: #ededed; padding: 0 14px; height: 40px; }
+.upload_dock .btn .material-icons { margin-top: 5px; }
+
+.reg_upload_dock { display: flex; align-items: center; margin: -.1rem 0 0; border-radius: 4px; max-height: inherit; background: #f5f5f500; overflow: inherit; }
+.reg_upload_dock .btn { margin: -1px 0 0 !important; }
+
+.add_remove_lanes { display: flex; justify-content: space-between; align-items: center; }
+
+.add_more_lane .lanes { display: flex; align-items: center; width: max-content; background: none; border: none; }
+/*{ display: flex; align-items: flex-end; width: max-content; background: none; border: none; }*/
+
+@media (max-width: 460px){
+    .popup_width {  min-width: auto; }
+}
+
+.popup_vh { max-height: 60vh; overflow-y: auto; overflow-x: hidden; }
+
+.popup_title { font-size: 16px; font-weight: 500; color: var(--clBlka); margin: 22px 0 15px; }
+.chooseEqupment { border-radius: 18px; padding: 6px 16px; border: 1px solid var(--clBlkb); margin: 0 10px 12px 0; display: inline-block; cursor: pointer; }
+
+.checked { background: var(--clBlkb); color: var(--clWhta); }
+
+.lane_container { border: 1px solid #E6E6E6; padding: 24px 24px 0px; box-shadow: 0px 4px 12px 0px #0000000f; border-radius: 5px; margin: 24px 10px; position: relative; }
+.remove_laneIcon { position: absolute; top: -8px; right: -8px; cursor: pointer; }
+.removeIcon { font-size: 18px; color: var(--clWhta); background: var(--clReda); display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; box-shadow: 0px 8px 16px 0px #dd6b7382; }
+
+.signatureCon { display: flex; align-items: center; padding: 0px; margin: 12px 0px; }
+.sign_img { max-width: 100%; width: 100%; height: 105px; box-shadow: 0px 15px 25px 0px #00000026; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 4ch; cursor: pointer; }
+
+.fontActive { border:1px solid cadetblue}
+
+
+
+.form_action { text-align: right; padding: 24px 0 0; }
+.form_action span, .form_action button { height: 40px; }
+
+
+.sign_skelaton { box-shadow: 0px 15px 25px 0px #00000026; border-radius: 4px; margin: 12px 0px; }
+
+
+.equpments_loader { height: 100px; display: flex; align-items: center; justify-content: center; }
+.equpments_loader > div { width: 18px; height: 18px; background-color: var(--clBlua); }
+
+.line_before { border-left: 5px solid var(--clBlua); padding: 5px 0 5px 15px; margin: 0 0 0 -24px; display: flex; align-items: center; }
+.header_popup { display: flex; align-items: center; justify-content: space-between; margin: 0 0 24px; }
+.close_popup_Icon { display: flex; align-items: center; justify-content: flex-end; }
+.close_Icon { font-size: 20px; font-weight: 400; color: var(--clWhta); cursor: pointer; padding: 2px; background: #0000001a; border-radius: 6px; display: flex; }
+.close_Icon:hover { background: #00000080; }
+
+.hints { font-size: 12px; font-weight: 400; color: var(--clBlkb); margin: -20px 0 0; }
+
+.current_location { margin: 16px 0 24px; }
+.current_location .btn { border-radius: 6px; margin: 0; width: auto; text-align: inherit; display: flex; align-items: center; justify-content: space-between; box-shadow: none; font-size: 12px; font-weight: 400; padding: 5px 20px; }
+.current_location .equpments_loader { height: auto; }
+.current_location .equpments_loader > div { width: 8px; height: 8px; background-color: #FFFFFF; }
+.contract_action span { height: auto; }
+.crt_location { display: flex; align-items: center; }
+.crt_location img { width: 16px; }
+
+.Guidelines ul { list-style: none; padding: 0 0 0 22px; margin: 24px 0 24px; }
+.Guidelines ul li { font-size: 14px; line-height: 18px; font-weight: 400; position: relative; color: var(--clBlkb); display: flex; margin: 10px 0; }
+.Guidelines ul li::before { content: ""; position: absolute; top: 5px; left: -15px; width: 5px; height: 5px; background: var(--clBlua); font-weight: bold; }
+.Guidelines ul li .Guide_title { min-width: 150px; }
+.Guidelines ul li .Guide_value { border-bottom: 1px solid var(--clBlkb); display: inline-flex; width: 70%; margin: 0 0 0 4%; border-bottom-style: dashed; color: var(--clBlka); }
+.Guidelines .Guide_value .sign_img { height: 35px; font-size: 20px; box-shadow: none; display: initial; cursor: auto; }
+
+
+@media (min-width: 768px) and (max-width: 1024px) {  }
+
+@media (min-width: 320px) and (max-width: 480px) {  }
+
+/*new*/
+.clear_src { position: absolute; top: 5px; right: -24px; z-index: 100; background: var(--clWhta); width: 45px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; }

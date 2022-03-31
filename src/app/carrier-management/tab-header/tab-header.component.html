@@ -1,0 +1,27 @@
+<div class="tab_header">
+  <ul>
+    <li [routerLink]="['/carrier/view',carrierId,'details']" routerLinkActive="active_tab">
+      <span>Details</span>
+    </li>
+
+    <li [routerLink]="['/carrier/view',carrierId,'drivers']" routerLinkActive="active_tab">
+      <span>Drivers</span>
+    </li>
+
+    <li [routerLink]="['/carrier/view',carrierId,'shipments']" [queryParams]="{tabType: 'inProgress'}" routerLinkActive="active_tab">
+      <span>Shipments</span>
+    </li>
+
+    <li [routerLink]="['/carrier/view',carrierId,'payments']" routerLinkActive="active_tab">
+      <span>Payments</span>
+    </li>
+    <li [routerLink]="['/carrier/view',carrierId,'subscription']" routerLinkActive="active_tab">
+      <span>Subscription</span>
+    </li>
+
+    <li [routerLink]="['/carrier/view',carrierId,'connections']" routerLinkActive="active_tab">
+      <span>Connections</span>
+    </li>
+  </ul>
+</div>
+

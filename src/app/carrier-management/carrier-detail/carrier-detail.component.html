@@ -1,0 +1,628 @@
+<div class="site-loader" *ngIf="showLoader">
+  <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div>
+
+<div class="Container_scroll"> <!--  -->
+  <div class="container_header">
+    <div class="cus_breadculam" *ngIf="carrierProfile">
+      <ul>
+        <li class="fs_16 fsm_5 txt_lb" [routerLink]="['/carrier']">All Carriers</li>
+        <li class="fs_16 fsm_5 txt_lb">{{carrierProfile.legalName}}</li>
+      </ul>
+    </div>
+    <!-- <div class="custom_dropdown">
+      <label class="dropdown">
+        <span class="icon-ic-dots circle_dots rectangle_dots"></span>
+        <input type="checkbox" class="icon-ic-dots dd-input" id="test">
+        <ul class="dd-menu dd-rmenu">
+          <li>Action</li>
+          <li>Another action</li>
+        </ul>
+      </label>
+    </div> -->
+  </div>
+  <app-tab-header></app-tab-header>
+  <div class="edit_action">
+    <button (click)="redirectToCarrierEdit()" class="btn custum_button button_primary bg_w txt_lb fsm_5">Edit Profile</button>
+  </div>
+  <div class="customExpansion_panel" *ngIf="carrierProfile">
+    <mat-accordion class="example-headers-align" multi>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="fs_16 fsm_5 txt_b">Company Information</mat-panel-title>
+          <mat-panel-description></mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="sign_up_tab input_error">
+          <div class="update_profile_container">
+            <div class="row">
+              <div class="col-md-4">
+                <span class="view_profile" *ngIf="(carrierProfile.profileImage && carrierProfile.profileImage!='')">
+                  <a href="{{carrierProfile.profileImage}}" target="_blank">
+                    <img class="img-fluid" src="{{carrierProfile.profileImage}}">
+                  </a>
+                </span>
+                <span class="short_name" *ngIf="(!carrierProfile.profileImage || carrierProfile.profileImage == '')">{{getInitials(carrierProfile.legalName)}}</span>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Company Name</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.legalName ? carrierProfile.legalName : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">DOT Number</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.dotNumber ? carrierProfile.dotNumber : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Contact Number</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.telephone ? carrierProfile.telephone: '-' }}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Email Address</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.emailAddress ? carrierProfile.emailAddress : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">HM Flag</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.hmFlag ? carrierProfile.hmFlag : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">PC Flag</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.pcFlag ? carrierProfile.pcFlag : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">DBA Name</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.dbaName ? carrierProfile.dbaName : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Fax Number</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.fax ? carrierProfile.fax : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">EIN (Federal Tax ID)</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.einId ? carrierProfile.einId : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Number of Trucks</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.truckTotal ? carrierProfile.truckTotal : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Number of Drivers</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.driverTotal ? carrierProfile.driverTotal : '-'}}</p>
+              </div>
+              <!-- <div class="col-md-4"></div> -->
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Registration Date</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.registrationDate ? (carrierProfile.registrationDate | date:'MMM d, y, h:mm a') : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">First Login</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.firstLogin ? (carrierProfile.firstLogin | date:'MMM d, y, h:mm a') : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Last Login</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.lastLogin ? (carrierProfile.lastLogin | date:'MMM d, y, h:mm a') : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Created At</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.createdAt ? (carrierProfile.createdAt | date:'MMM d, y, h:mm a') : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Updated At</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.updatedAt ? (carrierProfile.updatedAt | date:'MMM d, y, h:mm a') : '-'}}</p>
+              </div>
+              <div class="col-md-4"></div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Id</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.id ? carrierProfile.id : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">User Id</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.userId ? carrierProfile.userId : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Email OTP</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.emailOtp ? carrierProfile.emailOtp : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Phone OTP</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phoneOtp ? carrierProfile.phoneOtp : '-'}}</p>
+              </div>
+            
+              <div class="col-md-12">
+                <div class="chip_container">
+                  <div class="chip_tag" [ngClass]="carrierProfile.userId ? 'bg_s' : 'bg_d'">
+                    <span class="material-icons fs_16 mr-1">how_to_reg</span>
+                    <span class="chip_text">{{carrierProfile.userId ? 'User is Registered' : 'User is not Registered'}}</span>
+                  </div>
+                  <div class="chip_tag" [ngClass]="carrierProfile.emailVerified ? 'bg_s' : 'bg_d'" >
+                    <span class="material-icons fs_16 mr-1">email</span>
+                    <span class="chip_text">{{carrierProfile.emailVerified ? 'Email is Verified' : 'Email is not Verfied'}}</span>
+                  </div>
+                  <div class="chip_tag" [ngClass]="carrierProfile.phoneVerified ? 'bg_s' : 'bg_d'">
+                    <span class="material-icons fs_16 mr-1">call</span>
+                    <span class="chip_text">{{carrierProfile.phoneVerified ? 'Phone is Verified' : 'Phone is not Verfied'}}</span>
+                  </div>
+                  <div class="chip_tag" [ngClass]="carrierProfile.subscription ? (carrierProfile.subscription['status'] == 'active' ? 'bg_s' : 'bg_d') : 'bg_y'">
+                    <span class="material-icons fs_16 mr-1">monetization_on</span>
+                    <span class="chip_text">{{carrierProfile.subscription ? (carrierProfile.subscription['status'] == 'active' ?'Subscription is Active' : 'Subscription is Inactive') : 'Subscription is not Purchased'}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="edit_profile_con" style="display: none;">
+            <p class="fs_16 fsb_7 txt_b" style="margin: 0 0 32px;">Edit Profile Details</p>
+            <!-- <form [formGroup]="editUserDetailForm"  (ngSubmit)="onSubmit($event)">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="upload_dock_pic">
+                    <p class="fs_14 fsn_4 txt_lb" style="margin: 0 0 12px;">Profile Picture
+                    </p>
+                    <div>
+                      <span class="edit_profile">
+                        <img class="img-fluid" id="imgFilter">
+                        <span class="short_name"></span>
+                      </span>
+                      <span class="ml-3 pointer">
+                        <u class="fs_14 txt_p fsn_4"
+                        (click)="openDialogBox()">Change</u>
+                        <input type="file" id="my_file"
+                        (change)="onFileSelected($event)" style="display: none;">
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <p class="fs_14 fsn_4 txt_lb" style="margin: 0 0 -0.34rem;">First Name</p>
+                  <mat-form-field appearance="none" class="w-100">
+                    <input matInput type="text" placeholder="Enter first name"
+                    class="form-control custom_input" name="firstName"
+                    formControlName="firstName" maxlength="25" />
+                    <mat-error>FirstName is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <p class="fs_14 fsn_4 txt_lb" style="margin: 0 0 -0.34rem;">Last Name</p>
+                  <mat-form-field appearance="none" class="w-100">
+                    <input matInput type="text" placeholder="Enter last name"
+                    class="form-control custom_input" name="lastName"
+                    formControlName="lastName" maxlength="25"/>
+                    <mat-error >LastName is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <p class="fs_14 fsn_4 txt_lb" style="margin: 0 0 -0.34rem;">Email</p>
+                  <mat-form-field appearance="none" class="w-100">
+                    <input matInput type="text" placeholder="Enter email"
+                    class="form-control custom_input" name="email" readonly
+                    formControlName="email"/>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <p class="fs_14 fsn_4 txt_lb" style="margin: 0 0 -0.34rem;">Phone Number</p>
+                  <mat-form-field appearance="none" class="w-100">
+                    <input matInput type="text" placeholder="Enter phone number"
+                    class="form-control custom_input" name="phone"
+                    formControlName="phone" readonly/>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <div class="text-right">
+                    <span class="botomBack_btn fs_14 txt_lb fsn_4 pointer p-3" (click)="getUserDetail()">Cancel</span>
+                    <button class="btn custum_button button_primary ml-4">Save</button>
+                  </div>
+                </div>
+              </div>
+            </form> -->
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="fs_16 fsm_5 txt_b">Subscriptions</mat-panel-title>
+          <mat-panel-description></mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="subs_details" *ngIf="carrierProfile.subscription">
+          <div class="row">
+            <div class="col-md-4">
+              <p class="mb-1 fs_14 fsn_4 txt_lb">Subscriptions</p>
+              <p class="mb-0 fs_14 fsn_4">{{carrierProfile.subscription.subscriptionPlan ? carrierProfile.subscription.subscriptionPlan : '-'}}</p>
+              <p class="mb-4 fs_11 fsn_4 txt_d">Expires at <span>{{carrierProfile.subscription.expiryDate ? (carrierProfile.subscription.expiryDate | date:'MMM d, y, h:mm a') : '-'}}</span></p>
+            </div>
+            <div class="col-md-4">
+              <p class="mb-1 fs_14 fsn_4 txt_lb">Price</p>
+              <p class="mb-0 fs_14 fsn_4">$ {{carrierProfile.subscription.amount ? carrierProfile.subscription.amount : '-'}}</p>
+              <p class="mb-4 fs_11 fsn_4 txt_b">(${{carrierProfile.subscription.perMonthAmount ? carrierProfile.subscription.perMonthAmount : '-'}} per month)</p>
+            </div>
+
+            <div class="col-md-4">
+              <p class="fs_14 fsn_4 txt_lb mb-1">Subscription Id</p>
+              <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.subscriptionId ? carrierProfile.subscriptionId : '-'}}</p>
+            </div>
+
+            <div class="col-md-4">
+              <p class="fs_14 fsn_4 txt_lb mb-1">Trial Taken</p>
+              <p class="fs_14 fsm_5 txt_b mb-0">{{carrierProfile.isTrialTaken ? carrierProfile.isTrialTaken : '-'}}</p>
+            </div>
+
+            <div class="col-md-4">
+              <p class="fs_14 fsn_4 txt_lb mb-1">Subscription Purchased</p>
+              <p class="fs_14 fsm_5 txt_b mb-0" style="text-transform: capitalize;">{{carrierProfile.isSubscriptionPurchased ? carrierProfile.isSubscriptionPurchased : '-'}}</p>
+            </div>
+
+            <div class="col-md-12">
+              <div class="auto_renew mt-4">
+                <div>
+                  <p class="fs_16 fsm_5 txt_b mb-1">Auto-renew</p>
+                  <p class="fs_14 fsn_4 txt_lb m-0">Your subscription will renew on <span>{{carrierProfile.subscription.expiryDate ? (carrierProfile.subscription.expiryDate | date:'MMM d, y, h:mm a') : '-'}}</span></p>
+                </div>
+                <div>
+                  <div class="custom_toggle cus_toggle_txt">
+                    <span class="txt_lb mr-3">{{carrierProfile.autoRenew ? 'Yes' : 'No'}}</span><mat-slide-toggle class="float-right" [checked]="carrierProfile.autoRenew" disabled></mat-slide-toggle>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+           
+
+          </div>
+        </div>
+
+        <div class="subs_details" *ngIf="!carrierProfile.subscription || !carrierProfile.isSubscriptionPurchased">
+          <div class="row">
+            -
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]="true"> 
+        <mat-expansion-panel-header>
+          <mat-panel-title class="fs_16 fsm_5 txt_b">Personal Information</mat-panel-title>
+          <mat-panel-description></mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="sign_up_tab input_error">
+          <div class="update_profile_container">
+            <div class="row">
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">First Name</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">{{carrierProfile.firstName ? carrierProfile.firstName : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Last Name</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">{{carrierProfile.lastName ? carrierProfile.lastName : '-'}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="edit_profile_con" style="display: none;">
+            <p class="fs_16 fsb_7 txt_b" style="margin: 0 0 32px;">Edit Details</p>
+            <form></form>
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="fs_16 fsm_5 txt_b">Documents</mat-panel-title>
+          <mat-panel-description></mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="row">
+          <div class="col-md-6 pointer" style="padding-bottom: 5px;" *ngFor="let doc of carrierDocumentList">
+            <div class="dri_docs" (click)="openDocument(doc.mediaUrl)" [ngClass]="{'doc_expired':!doc.isValid}">
+              <div class="dri_docsl">
+                <!-- <img src="" class="img-fluid"> -->
+                <span class="driDocIcon">
+                  <span class="icon icon-ic-documents txt_lb"></span>
+                </span>
+              </div>
+              <div class="dri_docsr">
+                <div class="dri_docsrName">
+                  <p class="mb-1 fs_14 fsm_5 txt_b">{{doc.docName}}</p>
+                  <p class="mb-0 fs_12 fsn_4 txt_lb">
+                    <span class="pr-1">Uploaded on {{doc.createdAt | date:'mediumDate'}}</span>
+                    <span class="expire_date pl-3" *ngIf="doc.isValid">Expires at {{doc.detail.expiryDate | date:'mediumDate'}}</span>
+                    <span class="expire_date pl-3" *ngIf="!doc.isValid">Expired</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6" style="padding-bottom: 25px;" *ngIf="carrierDocumentList.length == 0">
+            No Document Linked.
+
+          </div>
+          <!-- <div class="col-md-6 pointer" style="padding-bottom: 25px;">
+            <div class="dri_docs doc_expired">
+              <div class="dri_docsl">
+                <span class="driDocIcon">
+                  <span class="icon icon-ic-documents txt_lb"></span>
+                </span>
+              </div>
+              <div class="dri_docsr">
+                <div class="dri_docsrName">
+                  <p class="mb-1 fs_14 fsm_5 txt_b">insurance_certificate2.pdf</p>
+                  <p class="mb-0 fs_12 fsn_4 txt_lb">
+                    <span class="pr-1">Uploaded on Apr 12, 2019</span>
+                    <span class="expire_date pl-3">Expired</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="fs_16 fsm_5 txt_b">Addresses</mat-panel-title>
+          <mat-panel-description></mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="sign_up_tab input_error">
+          <div class="update_profile_container">
+            <div class="row">
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Default Address</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.defaultAddress ? carrierProfile.defaultAddress : '-'}}</p>
+              </div>
+
+              <div class="col-md-12">
+                <p class="fs_14 fsb_7 txt_b mb-4">Physical Address</p>
+              </div>
+             
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Address Title</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phyAddressTitle ? carrierProfile.phyAddressTitle : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Address Line 1</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phyStreet ? carrierProfile.phyStreet : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Address Line 2</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phyAddressLine2 ? carrierProfile.phyAddressLine2 : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Zip Short</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phyZipShort ? carrierProfile.phyZipShort : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Postal Code</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phyZip ? carrierProfile.phyZip : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">City</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phyCity ? carrierProfile.phyCity : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">State</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phyState ? carrierProfile.phyState : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Country</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phyCountry ? carrierProfile.phyCountry : '-'}}</p>
+              </div>
+              <div class="col-md-4"></div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Latitude</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phyLatitude  ? carrierProfile.phyLatitude  : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Longitude</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phyLongitude ? carrierProfile.phyLongitude : '-'}}</p>
+              </div>
+              <div class="col-md-12">
+                <p class="fs_14 fsb_7 txt_b mb-4">Mailing Address</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Address Title</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.mailingAddressTitle ? carrierProfile.mailingAddressTitle : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Address Line 1</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.mailingStreet ? carrierProfile.mailingStreet : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Address Line 2</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.mailingAddressLine2 ? carrierProfile.mailingAddressLine2 : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Zip Short</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.mailingZipShort ? carrierProfile.mailingZipShort : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Postal Code</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.mailingZip ? carrierProfile.mailingZip : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">City</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.mailingCity ? carrierProfile.mailingCity : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">State</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.mailingState ? carrierProfile.mailingState : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Country</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.mailingCountry ? carrierProfile.mailingCountry : '-'}}</p>
+              </div>
+              <div class="col-md-4"></div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Latitude</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">{{carrierProfile.mailingLatitude ? carrierProfile.mailingLatitude : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Longitude</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">{{carrierProfile.mailingLongitude ? carrierProfile.mailingLongitude : '-'}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="edit_profile_con" style="display: none;">
+            <p class="fs_16 fsb_7 txt_b" style="margin: 0 0 32px;">Edit Details</p>
+            <form> </form>
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="fs_16 fsm_5 txt_b">MCS Details</mat-panel-title>
+          <mat-panel-description></mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="sign_up_tab input_error">
+          <div class="update_profile_container">
+            <div class="row">
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">MCS 150 Date</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">{{carrierProfile.mcs150Date ? carrierProfile.mcs150Date : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">MCS 150 Mileage</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">{{carrierProfile.mcs150Mileage ? carrierProfile.mcs150Mileage : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">MCS 150 Mileage Year</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">{{carrierProfile.mcs150MileageYear ? carrierProfile.mcs150MileageYear : '-'}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="edit_profile_con" style="display: none;">
+            <p class="fs_16 fsb_7 txt_b" style="margin: 0 0 32px;">Edit Details</p>
+            <form> </form>
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="fs_16 fsm_5 txt_b">Equipment & Lanes</mat-panel-title>
+          <mat-panel-description></mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="sign_up_tab input_error">
+          <div class="update_profile_container">
+            <div class="row">
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Equipment type</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.equipmentType ? carrierProfile.equipmentType.join(' | ') : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Operations</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.carrierOperation ? carrierProfile.carrierOperation : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Preferred Lanes</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.laneCity ? carrierProfile.laneCity : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Industries</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">{{carrierProfile.industries ? carrierProfile.industries + ' | ' : ''}}{{carrierProfile.usSic1987Description ? carrierProfile.usSic1987Description : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Add Date</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.addDate ? (carrierProfile.addDate | date:'MMM d, y') : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">OIC State</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.oicState ? carrierProfile.oicState : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Shipment Credits</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">{{carrierProfile.shipmentCredits ? carrierProfile.shipmentCredits : '-'}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="edit_profile_con" style="display: none;">
+            <p class="fs_16 fsb_7 txt_b" style="margin: 0 0 32px;">Edit Details</p>
+            <form> </form>
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="fs_16 fsm_5 txt_b">Connect Account</mat-panel-title>
+          <mat-panel-description></mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="sign_up_tab input_error">
+          <div class="update_profile_container">
+            <div class="row">
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Stripe Account Id</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.connectAccountId ? carrierProfile.connectAccountId : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Email Id</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.emailAddress ? carrierProfile.emailAddress : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Mobile Number</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.telephone ? carrierProfile.telephone : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Type of Entity</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">-</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Status</p>
+                <p class="fs_14 fsm_5 txt_b mb-0" style="text-transform: capitalize;">{{carrierProfile.connectAccountStatus ? carrierProfile.connectAccountStatus : '-'}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="edit_profile_con" style="display: none;">
+            <p class="fs_16 fsb_7 txt_b" style="margin: 0 0 32px;">Edit Details</p>
+            <form> </form>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <!-- Transaction History List -->
+  <div class="user_table" style="display: none;">
+    <p class="fs_16 fsm_5 txt_b my-3">Transaction History</p>
+    <table mat-table class="all-carriers" [dataSource]="dataSource" style="width: 100%;">
+    
+      <!-- Weight Column -->
+      <ng-container matColumnDef="transactionId">
+        <th mat-header-cell *matHeaderCellDef class="px-2"> Transaction Id </th>
+        <td mat-cell *matCellDef="let element" class="px-2"> {{carrierProfile.subscription.subscriptionId ? carrierProfile.subscription.subscriptionId : '-'}} </td>
+      </ng-container>
+    
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="dateTime">
+        <th mat-header-cell *matHeaderCellDef class="px-2"> Date & Time </th>
+        <td mat-cell *matCellDef="let element" class="px-2">
+         <span class="eq_type max_lineTwo">{{carrierProfile.subscription.expiryDate ? carrierProfile.subscription.expiryDate : '-'}}</span></td>
+      </ng-container>
+
+       <!-- Symbol Column -->
+      <ng-container matColumnDef="subscriptionPlan">
+        <th mat-header-cell *matHeaderCellDef class="px-2"> Subscription plan </th>
+        <td mat-cell *matCellDef="let element" class="px-2"> {{carrierProfile.subscription.subscriptionPlan ? carrierProfile.subscription.subscriptionPlan : '-'}} </td>
+      </ng-container>
+
+       <!-- Symbol Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef class="px-2"> Status </th>
+        <td mat-cell *matCellDef="let element" class="px-2 txt_s"> {{carrierProfile.subscription.status ? carrierProfile.subscription.status : '-'}} </td>
+      </ng-container>
+
+       <!-- Symbol Column -->
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef class="px-2 text-right"> Amount </th>
+        <td mat-cell *matCellDef="let element" class="px-2 text-right"> {{carrierProfile.subscription.amount ? carrierProfile.subscription.amount : '-'}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="background: #eef0f4;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="background: #fff;"></tr>
+    </table>
+
+    <ng-container>
+      <div class="data_notFound">No Data Found.</div>
+    </ng-container>
+    <div class="spinner_loader">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
+  </div>
+</div>

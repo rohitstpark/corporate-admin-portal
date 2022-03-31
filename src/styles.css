@@ -1,1 +1,240 @@
 /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+
+/* Icomoon icons */
+.icon { font-family: 'icomoon' !important; }
+@font-face {
+  font-family: 'icomoon';
+  src:  url('src/icoMoon_fonts/icomoon.eot?weuue');
+  src:  url('src/icoMoon_fonts/icomoon.eot?weuue#iefix') format('embedded-opentype'),
+    url('src/icoMoon_fonts/icomoon.ttf?weuue') format('truetype'),
+    url('src/icoMoon_fonts/icomoon.woff?weuue') format('woff'),
+    url('src/icoMoon_fonts/icomoon.svg?weuue#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-Down:before {
+  content: "\e900";
+}
+.icon-ic-accepted:before {
+  content: "\e901";
+}
+.icon-ic-attachment:before {
+  content: "\e902";
+}
+.icon-ic-bg-circle:before {
+  content: "\e903";
+}
+.icon-ic-bidding:before {
+  content: "\e904";
+}
+.icon-ic-box:before {
+  content: "\e905";
+}
+.icon-ic-building:before {
+  content: "\e906";
+}
+.icon-ic-calendar:before {
+  content: "\e907";
+}
+.icon-ic-card:before {
+  content: "\e908";
+}
+.icon-ic-carrier:before {
+  content: "\e909";
+}
+.icon-ic-cross:before {
+  content: "\e90a";
+}
+.icon-ic-delete:before {
+  content: "\e90b";
+}
+.icon-ic-dispute:before {
+  content: "\e90c";
+}
+.icon-ic-documents:before {
+  content: "\e90d";
+}
+.icon-ic-dots:before {
+  content: "\e90e";
+}
+.icon-ic-download:before {
+  content: "\e90f";
+}
+.icon-ic-driver:before {
+  content: "\e910";
+}
+.icon-ic-emergency:before {
+  content: "\e911";
+}
+.icon-ic-enlarge:before {
+  content: "\e912";
+}
+.icon-ic-envelope:before {
+  content: "\e913";
+}
+.icon-ic-facebook:before {
+  content: "\e914";
+}
+.icon-ic-filter:before {
+  content: "\e915";
+}
+.icon-ic-flash:before {
+  content: "\e916";
+}
+.icon-ic-hide:before {
+  content: "\e917";
+}
+.icon-ic-home:before {
+  content: "\e918";
+}
+.icon-ic-info:before {
+  content: "\e919";
+}
+.icon-ic-information:before {
+  content: "\e91a";
+}
+.icon-ic-instagram:before {
+  content: "\e91b";
+}
+.icon-ic-lanes:before {
+  content: "\e91c";
+}
+.icon-ic-linkedin:before {
+  content: "\e91d";
+}
+.icon-ic-location:before {
+  content: "\e91e";
+}
+.icon-ic-maintenance:before {
+  content: "\e91f";
+}
+.icon-ic-map-directions-left:before {
+  content: "\e920";
+}
+.icon-ic-map-directions-right:before {
+  content: "\e921";
+}
+.icon-ic-minus:before {
+  content: "\e922";
+}
+.icon-ic-money:before {
+  content: "\e923";
+}
+.icon-ic-notifications:before {
+  content: "\e924";
+}
+.icon-ic-pause:before {
+  content: "\e925";
+}
+.icon-ic-pending:before {
+  content: "\e926";
+}
+.icon-ic-person:before {
+  content: "\e927";
+}
+.icon-ic-phone:before {
+  content: "\e928";
+}
+.icon-ic-photo:before {
+  content: "\e929";
+}
+.icon-ic-pickup:before {
+  content: "\e92a";
+}
+.icon-ic-plus:before {
+  content: "\e92b";
+}
+.icon-ic-plus-in-circle:before {
+  content: "\e92c";
+}
+.icon-ic-redo:before {
+  content: "\e92d";
+}
+.icon-ic-refuel:before {
+  content: "\e92e";
+}
+.icon-ic-resting:before {
+  content: "\e92f";
+}
+.icon-ic-right-turn-direction:before {
+  content: "\e930";
+}
+.icon-ic-search:before {
+  content: "\e931";
+}
+.icon-ic-send:before {
+  content: "\e932";
+}
+.icon-ic-settings:before {
+  content: "\e933";
+}
+.icon-ic-share:before {
+  content: "\e934";
+}
+.icon-ic-shipper:before {
+  content: "\e935";
+}
+.icon-ic-show:before {
+  content: "\e936";
+}
+.icon-ic-star-selected:before {
+  content: "\e937";
+}
+.icon-ic-status:before {
+  content: "\e938";
+}
+.icon-ic-swap-camera:before {
+  content: "\e939";
+}
+.icon-ic-tick:before {
+  content: "\e93a";
+}
+.icon-ic-twitter:before {
+  content: "\e93b";
+}
+.icon-ic-upload:before {
+  content: "\e93c";
+}
+.icon-ic-youtube:before {
+  content: "\e93d";
+}
+.icon-iic-star:before {
+  content: "\e93e";
+}
+.icon-Left:before {
+  content: "\e93f";
+}
+.icon-Right:before {
+  content: "\e940";
+}
+.icon-Up:before {
+  content: "\e941";
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@media (min-width: 1023px){
+.md-drppicker.shown.drops-down-left, .md-drppicker.shown.drops-down-right {
+    display: block;
+    width: 600px;
+}
+}

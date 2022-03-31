@@ -1,0 +1,140 @@
+<div class="site-loader" *ngIf="showLoader">
+	<div class="lds-ring">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+</div>
+			<div class="page-header">
+				<div class="float-left">
+					<h3 class="fs_20 fsb_7 txt_b" style="margin: 40px 0 12px;" *ngIf="userDetail">
+						{{firstName}} {{lastName}}</h3>
+				</div>
+			</div>
+			<div class="custom_Htabs">
+				<mat-tab-group animationDuration="0ms">
+					<mat-tab>
+						<ng-template mat-tab-label>Profile Details</ng-template>
+						<div class="sign_up_tab input_error">
+							<div class="edit_action" *ngIf="userType == 'ADMIN'">
+								<button class="btn custum_button button_primary bg_w txt_lb fsm_5"
+									(click)="openEditForm()">Edit Profile</button>
+							</div>
+							<div class="update_profile_container" *ngIf="userDetail && hideEditProfile">
+								<p class="fs_16 fsb_7 txt_b" style="margin: 0 0 32px;">Profile Details</p>
+								<div class="row">
+									<div class="col-md-4">
+										<span *ngIf="userDetail.profileImage!=''"
+											style="display: flex; width: 42px; height: 42px; border-radius: 50%; overflow: hidden;"><img
+												class="img-fluid" src="{{userDetail.profileImage}}"></span>
+												<span class="short_name" *ngIf="(!userDetail.profileImage || userDetail.profileImage =='')">{{getInitials()}}</span>
+									</div>
+									<div class="col-md-4">
+										<p class="fs_14 fsn_4 txt_lb" style="margin: 0 0 6px;">First Name</p>
+										<p class="fs_14 fsm_5 txt_b" style="margin: 0 0 30px;">{{userDetail.firstName}}
+										</p>
+									</div>
+									<div class="col-md-4">
+										<p class="fs_14 fsn_4 txt_lb" style="margin: 0 0 6px;">Last Name</p>
+										<p class="fs_14 fsm_5 txt_b" style="margin: 0 0 30px;">{{userDetail.lastName}}
+										</p>
+									</div>
+									<div class="col-md-4">
+										<p class="fs_14 fsn_4 txt_lb" style="margin: 0 0 6px;">Email</p>
+										<p class="fs_14 fsm_5 txt_b" style="margin: 0 0 30px;">{{userDetail.email}}</p>
+									</div>
+									<div class="col-md-4">
+										<p class="fs_14 fsn_4 txt_lb" style="margin: 0 0 6px;">Phone</p>
+										<p class="fs_14 fsm_5 txt_b" style="margin: 0 0 30px;">{{userDetail.phone}}</p>
+									</div>
+								</div>
+							</div>
+							<div class="edit_profile_con" *ngIf="!hideEditProfile">
+								<p class="fs_16 fsb_7 txt_b" style="margin: 0 0 32px;">Edit Profile Details</p>
+								<form [formGroup]="editUserDetailForm" *ngIf="editUserDetailForm" (ngSubmit)="onSubmit($event)">
+									<div class="row">
+										<div class="col-md-4">
+											<div class="upload_dock_pic">
+												<p class="fs_14 fsn_4 txt_lb" style="margin: 0 0 12px;">Profile Picture
+												</p>
+												<div>
+													<span class="edit_profile">
+														<img class="img-fluid" id="imgFilter" src="{{userDetail.profileImage}}" *ngIf="userDetail.profileImage!=''">
+														<span class="short_name" *ngIf="(!userDetail.profileImage || userDetail.profileImage =='')">{{getInitials()}}</span>
+													</span>
+													<span class="ml-3 pointer">
+														<u class="fs_14 txt_p fsn_4"
+															(click)="openDialogBox()">Change</u>
+														<input type="file" id="my_file"
+															(change)="onFileSelected($event)" style="display: none;">
+													</span>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<p class="fs_14 fsn_4 txt_lb" style="margin: 0 0 -0.34rem;">First Name</p>
+											<!-- appearance="none" -->
+											<mat-form-field appearance="none" class="w-100">
+												<input matInput type="text" placeholder="Enter first name"
+													class="form-control custom_input" name="firstName"
+													formControlName="firstName" maxlength="25" />
+													<mat-error *ngIf="editUserDetailForm.get('firstName').errors?.required">FirstName is required</mat-error>
+											</mat-form-field>
+										</div>
+										<div class="col-md-4">
+											<!-- appearance="none" -->
+											<p class="fs_14 fsn_4 txt_lb" style="margin: 0 0 -0.34rem;">Last Name</p>
+											<mat-form-field appearance="none" class="w-100">
+												<input matInput type="text" placeholder="Enter last name"
+													class="form-control custom_input" name="lastName"
+													formControlName="lastName" maxlength="25"/>
+													<mat-error *ngIf="editUserDetailForm.get('lastName').errors?.required">LastName is required</mat-error>
+											</mat-form-field>
+										</div>
+										<div class="col-md-4">
+											<!-- appearance="none" -->
+											<p class="fs_14 fsn_4 txt_lb" style="margin: 0 0 -0.34rem;">Email</p>
+											<mat-form-field appearance="none" class="w-100">
+												<input matInput type="text" placeholder="Enter email"
+													class="form-control custom_input" name="email" readonly
+													formControlName="email"/>
+											</mat-form-field>
+										</div>
+										<div class="col-md-4">
+											<!-- appearance="none" -->
+											<p class="fs_14 fsn_4 txt_lb" style="margin: 0 0 -0.34rem;">Phone Number</p>
+											<mat-form-field appearance="none" class="w-100">
+												<input matInput type="text" placeholder="Enter phone number"
+													class="form-control custom_input" name="phone"
+													formControlName="phone" readonly/>
+											</mat-form-field>
+										</div>
+										<div class="col-md-12">
+											<div class="text-right">
+												<span class="botomBack_btn fs_14 txt_lb fsn_4 pointer p-3" (click)="getUserDetail()">Cancel</span>
+												<button class="btn custum_button button_primary ml-4">Save</button>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</mat-tab>
+				</mat-tab-group>
+			</div>
+			<div class="tab_container">
+			</div>
+		
+
+
+
+<!-- <mat-accordion class="example-headers-align">
+  <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Personal data</mat-panel-title>
+      <mat-panel-description>Type your name and age <mat-icon>account_circle</mat-icon></mat-panel-description>
+    </mat-expansion-panel-header>
+    <div></div>
+  </mat-expansion-panel>
+</mat-accordion> -->

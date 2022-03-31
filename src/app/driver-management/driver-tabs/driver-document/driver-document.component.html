@@ -1,0 +1,72 @@
+
+<div class="site-loader" *ngIf="showLoader">
+	<div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>
+  
+  <div class="Container_scroll" style="height: 100vh;">
+	<div class="cus_breadculam">
+	  <ul>
+		<li class="fs_16 fsm_5 txt_lb" [routerLink]="['/driver']">All Drivers</li>
+		<li class="fs_16 fsm_5 txt_lb">{{driverName ? driverName :'-'}}</li>
+	  </ul>
+	</div>
+	<app-driver-tab></app-driver-tab>
+	
+	<div>
+		<div class="doc_tableScroll">
+			  <table mat-table class="all-carriers" [dataSource]="driverDocuments" style="width: 100%;">
+				  <ng-container matColumnDef="documentName">
+					  <th mat-header-cell *matHeaderCellDef>
+						  <span>Document Name</span>
+						  <span class="icon icon-Down fs_12 px-1 arrow_filter"></span>
+					  </th>
+					  <td mat-cell *matCellDef="let element" class="fs_14 fsm_5 txt_b">
+						  <div class="name_id" (click)="openDocument(element.mediaUrl)">
+							  <span class="doc_image" >
+								  <img src="{{element.mediaUrl}}" class="img-fluid">
+							  </span>
+							  <span class="ml-2"> {{element.docName ? element.docName :'-'}}</span>
+						  </div>
+					  </td>
+				  </ng-container>
+  
+				  <ng-container matColumnDef="type">
+					  <th mat-header-cell *matHeaderCellDef class="px-2">Type</th>
+					  <td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2">{{element.mediaType ? element.mediaType :'-'}}</td>
+				  </ng-container>
+  
+				  <ng-container matColumnDef="uploadedOn">
+					  <th mat-header-cell *matHeaderCellDef class="px-2">Uploaded On</th>
+					  <td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2">{{element.createdAt ? (element.createdAt | date:'MMM d, y') :'-'}}</td>
+				  </ng-container>
+  
+				  <ng-container matColumnDef="expireOn">
+					  <th mat-header-cell *matHeaderCellDef class="px-2">Expire On</th>
+					  <td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2">{{element.expireOn ? (element.expireOn | date:'MMM d, y' ):'-'}}</td>
+				  </ng-container>
+  
+				  <!-- <ng-container matColumnDef="rowAction">
+					  <th mat-header-cell *matHeaderCellDef class="px-2"></th>
+					  <td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2">
+						  <span class="icon-ic-dots fs_16 "></span>
+					  </td>
+				  </ng-container> -->
+  
+				  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="background: #eef0f4;"></tr>
+				  <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="background: #fff;"></tr>
+			  </table>
+
+			  <ng-container *ngIf="driverDocuments && driverDocuments.length == 0">
+				<div class="data_notFound">No Data Found.</div>
+			  </ng-container>
+
+			  <!-- <div class="spinner_loader">
+				  <div class="bounce1"></div>
+				  <div class="bounce2"></div>
+				  <div class="bounce3"></div>
+			  </div> -->
+		  </div>
+	</div>
+  </div>
+  
+  

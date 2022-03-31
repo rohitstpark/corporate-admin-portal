@@ -1,0 +1,17 @@
+.bg_container { display: flex; }
+.page_container { background: #EEF0F4; padding: 32px; width: 100%; }
+
+/* table */
+.connection_tableScroll { height: calc(100vh - 212px); overflow-y: auto; }
+.arrow_filter { cursor: pointer; color: #818181; }
+.arrow_filter:hover { color: #000; }
+.row_shorted .arrow_filter { transform: rotate(180deg); display: inline-block; }
+
+.name_id { display: flex; align-items: center; }
+.doc_image { overflow: hidden; display: flex; width: 32px; height: 32px; }
+
+.data_notFound { background: #fff; padding: 20px; text-align: center; font-size: 16px; font-weight: 500; color: #818181; }
+
+@media (max-width: 420px){
+	
+}

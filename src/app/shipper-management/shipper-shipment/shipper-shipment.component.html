@@ -1,0 +1,10 @@
+<div class="" style="height: 100vh;"> <!-- Container_scroll -->
+	<div class="cus_breadculam">
+		<ul>
+			<li class="fs_16 fsm_5 txt_lb" [routerLink]="['/shipper']">All Shippers</li>
+			<li class="fs_16 fsm_5 txt_lb">{{shipperName ? shipperName : '-'}}</li>
+		</ul>
+	</div>
+    <app-shipper-tab></app-shipper-tab>
+    <app-shipments [moduleName]="'shipper'" (outputUserName)="showName($event)"></app-shipments>
+</div>

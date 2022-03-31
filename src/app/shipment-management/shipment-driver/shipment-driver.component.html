@@ -1,0 +1,132 @@
+<div class="site-loader" *ngIf="showLoader">
+	<div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>
+<div class="Container_scroll">
+	<div class="container_header mb-3">
+		<div class="cus_breadculam">
+		  <ul>
+		    <li class="fs_16 fsm_5 txt_lb" [routerLink]="['/shipment']">All Shipments</li>
+		    <li class="fs_16 fsm_5 txt_lb">{{shipmentNameUniqueId[0]}}<span class="ml-2">#{{shipmentNameUniqueId[1]}}</span></li>
+		  </ul>
+		</div>
+		<!-- <div class="custom_dropdown">
+		  <label class="dropdown">
+		    <span class="icon-ic-dots circle_dots rectangle_dots"></span>
+		    <input type="checkbox" class="icon-ic-dots dd-input" id="test">
+		    <ul class="dd-menu dd-rmenu">
+		      <li>Action</li>
+		      <li>Another action</li>
+		    </ul>
+		  </label>
+		</div> -->
+	</div>
+
+	<div class="tab_status">
+		<app-shipment-tabs></app-shipment-tabs>
+		<div class="current_status" *ngIf="shipmentStatusLabel">
+			<div class="status_details">
+				<span class="status_text bg_s">{{shipmentStatusLabel}}</span>
+				<shipment-progress [bgClass]="'bg_s'" [statusCount]="statusCount"></shipment-progress>
+			</div>
+		</div>
+	</div>
+
+	<div class="user_table" style="height:125px;"> <!-- *ngIf="dataSource.length"  -->
+		<table mat-table class="all-carriers" [dataSource]="driverProfile" style="width: 100%;">
+			<ng-container matColumnDef="name">
+				<th mat-header-cell *matHeaderCellDef>
+					<span>Name</span>
+					<span class="icon icon-Down fs_12 txt_lb px-1 arrow_filter"></span>
+				</th>
+				<td mat-cell *matCellDef="let element">
+					<div class="profile_info" (click)="redirectToDriverView(element)">
+						 <span class="profile_image">
+							 <span class="short_name" *ngIf="(!element.profileImage || element.profileImage == '')">{{getInitials(element.name)}}</span>
+							 <img *ngIf="(element.profileImage && element.profileImage!='')" src="{{element.profileImage}}" class="img-fluid" />
+						 </span>
+						 <div class="ml-2">
+							<p class="fs_16 fsm_5 txt_b mb-0 text_truncate" style="max-width: 180px;">{{element.name ? element.name : '-'}}</p>
+							 <span class="driver_location" matTooltip="{{element.state}}, {{element.city}}">{{element.state ? (element.state+ ',') : '-'}} {{element.city ? element.city : '-'}}</span>
+						 </div>
+					</div>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="phone">
+				<th mat-header-cell *matHeaderCellDef class="px-2">Contact Number</th>
+				<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2" style="height: 64px;">{{element.phone ? element.phone : '-'}}</td>
+			</ng-container>
+
+			<ng-container matColumnDef="email">
+				<th mat-header-cell *matHeaderCellDef class="px-2">Email Address</th>
+				<td mat-cell *matCellDef="let element" class="px-2" matTooltip="{{element.email}}" style="max-width: 180px;">
+					<p class="fs_14 fsn_4 txt_p text_truncate mb-0">{{element.email ? element.email : '-'}}</p> <!-- style="max-width: 200px;" -->
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="dotNumber">
+				<th mat-header-cell *matHeaderCellDef class="px-2">Dot Number</th>
+				<td mat-cell *matCellDef="let element" class="px-2" matTooltip="{{element.dotNumber}}">
+					<p class="fs_14 fsn_4 txt_lb mb-0">{{element.dotNumber ? element.dotNumber : '-'}}</p>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="cdlNumber">
+				<th mat-header-cell *matHeaderCellDef class="px-2">CDL Number</th>
+				<td mat-cell *matCellDef="let element" class="px-2" matTooltip="{{element.cdlNumber}}">
+					<p class="fs_14 fsn_4 txt_lb mb-0">{{element.cdlNumber ? element.cdlNumber : '-'}}</p>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="currentLocation">
+				<th mat-header-cell *matHeaderCellDef class="px-2"> Real Time Location </th>
+				<td mat-cell *matCellDef="let element;let i=index" class="px-2">
+					<div class="show_location_con">		
+						<u class="fs_14 fsn_4 txt_p" *ngIf="!element.shortAddress && !locationStatus[i]" (click)="clickLocation(element,i)">Show Location</u>
+							<span class="fs_14 fsn_4 txt_b" matTooltip="{{element.fullAddress}}" *ngIf="element.shortAddress">{{element.shortAddress ? element.shortAddress : '-'}}</span>
+							<div class="spinner_loader location_loader" *ngIf="locationLoader && locationStatus[i] && !element.shortAddress">
+								<div class="bounce1"></div>
+								<div class="bounce2"></div>
+								<div class="bounce3"></div>
+							</div>			
+					</div>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="status">
+				<th mat-header-cell *matHeaderCellDef class="px-2"> Status </th>
+				<!-- <td mat-cell *matCellDef="let element" class="px-2"> {{element.status ? element.status : '-'}} </td> -->
+				<td mat-cell *matCellDef="let element" class="px-2">
+					<span class="dri_status bg_s" *ngIf="element.status == 3">
+						<span class="fs_12 fsn_4 txt_w ml-1">Available</span>
+					</span>
+					<span class="dri_status bg_p" *ngIf="element.status == 6">
+						<span class="icon-ic-driver"></span>
+						<span class="fs_12 fsn_4 txt_w ml-1">In Transit</span>
+					</span>
+					<span class="dri_status txt_p status_invited" *ngIf="element.status == 1">
+						<span class="icon-ic-envelope"></span>
+						<span class="fs_12 fsn_4 ml-1">Pending</span>
+					</span>
+					<span class="dri_status bg_d" *ngIf="element.status == 2">
+						<span class="fs_12 fsn_4 txt_w ml-1">Suspended</span>
+					</span>
+				</td>
+			</ng-container>
+
+			<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="background: #eef0f4;"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns;" style="background: #fff;"></tr>
+		</table>
+
+		
+
+		<ng-container *ngIf="driverProfile && driverProfile.length == 0">
+			<div class="data_notFound">No Data Found.</div>
+		 </ng-container>
+	</div>
+
+	<div class="mapOn_shipView" *ngIf="driverProfile && driverProfile[0] && driverProfile[0].locationLat && driverProfile[0].locationLong">
+		<app-map-box-shipment [driverProfile]="driverProfile[0]"></app-map-box-shipment>
+	</div>
+	
+</div>

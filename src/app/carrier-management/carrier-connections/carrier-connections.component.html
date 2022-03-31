@@ -1,0 +1,11 @@
+<div class="" style="height: calc(100vh - 65px);
+    padding: 0 0 15px;"><!-- Container_scroll -->
+    <div class="cus_breadculam">
+        <ul>
+            <li class="fs_16 fsm_5 txt_lb" [routerLink]="['/carrier']">All Carriers</li>
+            <li class="fs_16 fsm_5 txt_lb">{{carrierName ? carrierName : '-'}}</li>
+        </ul>
+    </div>
+    <app-tab-header></app-tab-header>
+    <app-connectins  [moduleName]="'carrier'" (outputUserName)="showName($event)"></app-connectins>
+</div>

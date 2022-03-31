@@ -1,0 +1,4 @@
+.tab_header ul { list-style: none; padding: 0px; margin: 0px; border-bottom: 2px solid #cbcbcb40; }
+.tab_header li { display: inline-block; font-size: 16px; font-weight: 500; color: #818181; border-bottom: 2px solid #3787e600; margin: 0 20px -2px 0; padding: 15px 2px; cursor: pointer; }
+.tab_header li:focus { outline: none; }
+.tab_header li.active_tab { border-bottom: 2px solid #3787e6; }

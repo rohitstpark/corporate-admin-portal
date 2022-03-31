@@ -1,0 +1,16 @@
+.bg_container { display: flex; }
+.page_container { background: #EEF0F4; padding: 32px; width: 100%; }
+
+/* table */
+.connection_tableScroll { height: calc(100vh - 212px); overflow-y: auto; }
+.arrow_filter { cursor: pointer; color: #818181; }
+.arrow_filter:hover { color: #000; }
+.row_shorted .arrow_filter { transform: rotate(180deg); display: inline-block; }
+
+.name_id { display: flex; align-items: center; }
+.doc_image { margin-top: 32px; max-height: 32px; overflow: hidden; }
+
+
+@media (max-width: 420px){
+	
+}

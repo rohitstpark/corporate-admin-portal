@@ -1,0 +1,91 @@
+<div class="site-loader" *ngIf="showLoader">
+	<div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>
+<div class="Container_scroll">
+	<div class="container_header mb-3">
+		<div class="cus_breadculam">
+		  <ul>
+		    <li class="fs_16 fsm_5 txt_lb" [routerLink]="['/shipment']">All Shipments</li>
+		    <li class="fs_16 fsm_5 txt_lb">{{shipmentNameUniqueId[0]}}<span class="ml-2">#{{shipmentNameUniqueId[1]}}</span></li>
+		  </ul>
+		</div>
+		<!-- <div class="custom_dropdown">
+		  <label class="dropdown">
+		    <span class="icon-ic-dots circle_dots rectangle_dots"></span>
+		    <input type="checkbox" class="icon-ic-dots dd-input" id="test">
+		    <ul class="dd-menu dd-rmenu">
+		      <li>Action</li>
+		      <li>Another action</li>
+		    </ul>
+		  </label>
+		</div> -->
+	</div>
+
+	<div class="tab_status">
+		<app-shipment-tabs></app-shipment-tabs>
+		<div class="current_status" *ngIf="shipmentStatusLabel">
+			<div class="status_details">
+				<span class="status_text bg_s">{{shipmentStatusLabel}}</span>
+				<shipment-progress [bgClass]="'bg_s'" [statusCount]="statusCount"></shipment-progress>
+			</div>
+		</div>
+	</div>
+
+	<div>
+		<div class="doc_tableScroll" (scroll)="onTableScroll($event)">
+			  <table mat-table class="all-carriers" [dataSource]="shipmentDocuments" style="width: 100%;">
+				  <ng-container matColumnDef="documentName">
+					  <th mat-header-cell *matHeaderCellDef>
+						  <span>Document Name</span>
+						  <span class="icon icon-Down fs_12 px-1 arrow_filter"></span>
+					  </th>
+					  <td mat-cell *matCellDef="let element" class="fs_14 fsm_5 txt_b">
+						  <div class="name_id" (click)="openDocument(element.mediaUrl)">
+							  <span class="doc_image">
+								  <img src="{{element.mediaUrl}}" class="img-fluid">
+							  </span>
+							  <span class="ml-2 text_truncate" matTooltip="{{element.docName}}" style="max-width: 350px;"> {{element.docName ? element.docName :'-'}}</span>
+						  </div>
+					  </td>
+				  </ng-container>
+  
+				  <ng-container matColumnDef="type">
+					  <th mat-header-cell *matHeaderCellDef class="px-2">Type</th>
+					  <td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2">{{element.mediaType ? element.mediaType :'-'}}</td>
+				  </ng-container>
+  
+				  <ng-container matColumnDef="uploadedOn">
+					  <th mat-header-cell *matHeaderCellDef class="px-2">Uploaded On</th>
+					  <td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2" style="min-width: 125px;">{{element.createdAt ? (element.createdAt | date:'MMM d, y') :'-'}}</td>
+				  </ng-container>
+  
+				  <ng-container matColumnDef="expireOn">
+					  <th mat-header-cell *matHeaderCellDef class="px-2">Expire On</th>
+					  <td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2" style="min-width: 125px;">{{element.expireOn ? (element.expireOn | date:'MMM d, y' ):'-'}}</td>
+				  </ng-container>
+  
+				  <!-- <ng-container matColumnDef="rowAction">
+					  <th mat-header-cell *matHeaderCellDef class="px-2"></th>
+					  <td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2">
+						  <span class="icon-ic-dots fs_16 "></span>
+					  </td>
+				  </ng-container> -->
+  
+				  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="background: #eef0f4;"></tr>
+				  <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="background: #fff;"></tr>
+			  </table>
+
+			  <ng-container *ngIf="shipmentDocuments && shipmentDocuments.length == 0">
+				<div class="data_notFound">No Data Found.</div>
+			  </ng-container>
+
+			  <!-- <div class="spinner_loader">
+				  <div class="bounce1"></div>
+				  <div class="bounce2"></div>
+				  <div class="bounce3"></div>
+			  </div> -->
+		  </div>
+	</div>
+
+	
+</div>

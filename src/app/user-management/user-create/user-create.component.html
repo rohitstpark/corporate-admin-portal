@@ -1,0 +1,85 @@
+
+<div class="site-loader" *ngIf="showLoader">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>
+  
+  <div class="Container_scroll" style="height: 100vh;">
+  
+    <div class="edit_profile">
+      <form class="mb-0 custum_input_css" [formGroup]="createUserDetailForm">
+        <p class="mt-0 fs_16 fsm_5 txt_b">Create User</p>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="upload_files upload_file_64 mb-4">
+              <input type="file" class="form-control input_upload" (change)="onFileSelected($event)"/>
+              <img src="" id="imgFilter" class="img-fluid" class="img_upload_field">             
+              <span class="upload_file_icon" (click)="openDialogBox()">
+                <span class="icon-ic-upload"></span>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <p class="m-0 fs_14 fsn_4 txt_lb">FirstName</p>
+            <!-- appearance="none" -->
+            <mat-form-field appearance="none" class="w-100">
+              <input type="text" matInput class="form-control custom_input" placeholder="Enter First Name" formControlName="firstName"/>
+              <mat-error>First Name is required.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <p class="m-0 fs_14 fsn_4 txt_lb">LastName</p>
+            <!-- appearance="none" -->
+            <mat-form-field appearance="none" class="w-100">
+              <input type="text" matInput class="form-control custom_input" placeholder="Enter Last Name" formControlName="lastName"/>
+              <mat-error>Last Name is required.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <p class="m-0 fs_14 fsn_4 txt_lb">Email Address</p>
+            <!-- appearance="none" -->
+            <mat-form-field  appearance="none" class="w-100">
+              <input type="text" matInput class="form-control custom_input" placeholder="Enter Email Address" formControlName="email"/>
+              <mat-error>Email is required.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <p class="m-0 fs_14 fsn_4 txt_lb">Phone Number</p>
+            <!-- appearance="none" -->
+            <mat-form-field appearance="none" class="w-100">
+              <input type="number" matInput class="form-control custom_input" placeholder="Enter Phone Number" formControlName="phone"/>
+              <mat-error>Phone Number is required.</mat-error>
+              <!-- <mat-error *ngIf="name.touched &&  name.errors.minlength">minlength is 10.</mat-error> -->
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <p class="m-0 fs_14 fsn_4 txt_lb">Password</p>
+            <!-- appearance="none" -->
+            <mat-form-field appearance="none" class="w-100">
+              <input type="text" matInput class="form-control custom_input" placeholder="Enter Password" formControlName="password"/>
+              <mat-error>Password is required.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <p class="m-0 fs_14 fsn_4 txt_lb">Status</p>
+            <!-- appearance="none" -->
+            <mat-form-field appearance="none">
+              <mat-select class="form-control custom_input" placeholder="Select Status" formControlName="status">
+                  <mat-option value="" class="mat_dropdown">Select Status</mat-option>
+                  <mat-option value="active" class="mat_dropdown"> Active </mat-option>
+                  <mat-option value="inactive" class="mat_dropdown"> Inactive </mat-option>
+              </mat-select>
+              <mat-error>Status is required.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-12">
+            <div class="float-right">
+              <button class="btn custum_button button_primary bg_w txt_lb mr-4" (click)="cancel()">Cancel</button>
+              <button class="btn custum_button button_primary" (click)="updateDetails()">Create</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  

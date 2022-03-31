@@ -1,0 +1,20 @@
+<div class="tab_header">
+  <ul>
+    <li [routerLink]="['/shipper/view',shipperId,'details']" routerLinkActive="active_tab">
+      <span>Details</span>
+    </li>
+
+    <li [routerLink]="['/shipper/view',shipperId,'shipments']" [queryParams]="{tabType: 'inProgress'}" routerLinkActive="active_tab">
+      <span>Shipments</span>
+    </li>
+
+    <li [routerLink]="['/shipper/view',shipperId,'payments']" routerLinkActive="active_tab">
+      <span>Payments</span>
+    </li>
+
+    <li [routerLink]="['/shipper/view',shipperId,'connections']" routerLinkActive="active_tab">
+      <span>Connections</span>
+    </li>
+  </ul>
+</div>
+

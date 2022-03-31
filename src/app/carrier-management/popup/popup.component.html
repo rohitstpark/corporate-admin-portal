@@ -1,0 +1,138 @@
+<!-- Upload General Liability Document -->
+<div *ngIf="data.openPop =='generalLiability'">
+    <div class="header_popup">
+      <p class="fs_20 fsm_5 txt_b line_before">Upload General Liability Document</p>
+      <span class="close_popup_Icon" (click)="closePopup()">
+        <span class="icon-ic-cross close_Icon"></span>
+      </span>
+    </div> 
+    <form [formGroup]="generalLiabilityForm" (ngSubmit)="generalLiabilitySave(generalLiabilityForm)" class="mb-0 custum_input_css inputInPopup" autocomplete="off">
+      <div class="inviteDriver_pop v_scrollBar popup_vh">
+        <div class="row">
+          <div class="col-md-12">
+            <p class="fs_14 fsn_4 txt_lb input_label">Upload Document <span class="txt_d"> *</span></p>
+            <div class="upload_dock reg_upload_dock">
+              <!-- appearance="none" -->
+              <mat-form-field  class="custom_matSuffix_icon">
+                <input matInput type="text" formControlName="generalLiability" value="{{name}}" placeholder="Browse Document" class="form-control custom_input" readonly="readonly">
+                <mat-error *ngIf="imagmessage" class="error_mess">{{ imagmessage }}</mat-error>
+              </mat-form-field>
+  
+              <div>
+                <input accept="application/pdf" class="inputfile" id="file" name="file" type="file" (change)="onSelectedFileGeneral($event)" style="display: none;">
+                <label class="btn btn-primary py-0 mb-3" for="file" style="background: #f5f5f5; border-radius: 0 4px 4px 0; margin: -23px 0 0 !important;">
+                  <span class="icon icon-ic-upload fs_16 txt_lb"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form_action">
+        <span class="fs_16 fsn_4 txt_lb pointer px-4 py-3 mr-4" (click)="closePopup()">Cancel</span>
+        <button type="submit" [disabled]="disbu" class="btn custum_button button_success fs_16 fsn_4">Update</button>
+      </div>
+    </form>
+  </div>
+
+  
+<!-- Upload Worker Compensation Document -->
+<div *ngIf="data.openPop =='workerCompensation'">
+  <div class="header_popup">
+    <p class="fs_20 fsm_5 txt_b line_before">Upload Worker Compensation Document</p>
+    <span class="close_popup_Icon" (click)="closePopup()">
+      <span class="icon-ic-cross close_Icon"></span>
+    </span>
+  </div>
+  <form [formGroup]="workerCompensationForm" (ngSubmit)="workerCompensationSave(workerCompensationForm)" class="mb-0 custum_input_css inputInPopup" autocomplete="off">
+    <div class="inviteDriver_pop v_scrollBar popup_vh">
+      <div class="row">
+        <div class="col-md-12">
+          <p class="fs_14 fsn_4 txt_lb input_label">Upload Document <span class="txt_d"> *</span></p>
+          <div class="upload_dock reg_upload_dock">
+            <!-- appearance="none" -->
+            <mat-form-field  class="custom_matSuffix_icon">
+              <input matInput type="text" formControlName="workerCompensation" value="{{name}}" placeholder="Browse Document" class="form-control custom_input" readonly="readonly">
+              <mat-error *ngIf="imagmessage" class="error_mess">{{ imagmessage }}</mat-error>
+            </mat-form-field>
+            <div>
+              <input accept="application/pdf" class="inputfile" id="file" name="file" type="file" (change)="onSelectedWorkerCompensation($event)" style="display: none;">
+              <label class="btn btn-primary py-0 mb-3" for="file" style="background: #f5f5f5; border-radius: 0 4px 4px 0; margin: -23px 0 0 !important;">
+                <span class="icon icon-ic-upload fs_16 txt_lb"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form_action">
+      <span class="fs_16 fsn_4 txt_lb pointer px-4 py-3 mr-4" (click)="closePopup()">Cancel</span>
+      <button type="submit" [disabled]="disbu" class="btn custum_button button_success fs_16 fsn_4">Update</button>
+    </div>
+  </form>
+</div>
+
+
+<!-- Success popu -->
+<div class="" *ngIf="data.openPop =='remove_document'">
+  <div class="header_popup">
+    <p class="fs_20 fsm_5 txt_b line_before">{{data.title}}</p>
+    <span class="close_popup_Icon" (click)="closePopup()">
+      <span class="icon-ic-cross close_Icon"></span>
+    </span>
+  </div>
+  <div class="v_scrollBar pop_vh">
+    <p class="fs_16 fsn_4 mb-3">{{data.contain}}</p>
+  </div>
+  <div class="form_action">
+    <span class="fs_16 fsn_4 txt_lb pointer px-4 py-3 mr-4" (click)="closePopup()">Cancel</span>
+    <button type="button" class="btn custum_button button_success fs_16 fsn_4" (click)="donePopup()">OK</button>
+  </div>
+</div>
+
+<!-- certificate insurance -->
+<div *ngIf="data.openPop =='certificate'" class="pdf_doc_upload">
+  <div class="header_popup">
+    <p class="fs_20 fsm_5 txt_b line_before">Upload New Certificate Of Insurance</p>
+    <span class="close_popup_Icon" (click)="closePopup()">
+      <span class="icon-ic-cross close_Icon"></span>
+    </span>
+  </div>
+  <form [formGroup]="certifcateVerify" (ngSubmit)="certifcateUpload(certifcateVerify)" class="mb-0 custum_input_css">
+    <div class="inviteDriver_pop v_scrollBar popup_vh">
+      <div class="">
+        <p class="fs_14 fsn_4 txt_lb input_label">Upload Certificate Of Insurance <span class="txt_d"> *</span></p>
+        <div class="upload_dock reg_upload_dock">
+          <!-- appearance="none" -->
+          <mat-form-field  appearance="none" class="custom_matSuffix_icon">
+            <input matInput type="text" formControlName="certificate" value="{{name}}" placeholder="Browse certificate of insurance" class="form-control custom_input" readonly="readonly">
+            <mat-error *ngIf="imagmessage" class="error_mess">{{ imagmessage }}</mat-error>
+          </mat-form-field>
+          <div>
+            <input accept="application/pdf" class="inputfile" id="file" name="file" type="file" (change)="onSelectedFileCertifcate($event)" style="display: none;">
+            <label class="btn btn-primary py-0 mb-3" for="file" style="background: #f5f5f5; border-radius: 0 4px 4px 0; margin: -23px 0 0 !important;">
+              <span class="icon icon-ic-upload fs_16 txt_lb"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="ic_calander">
+        <p class="fs_14 fsn_4 txt_lb input_label">Expiry Date <span class="txt_d"> *</span></p>
+        <!-- appearance="none" -->
+        <mat-form-field appearance="none" >
+          <input matInput formControlName="insurance_expiry_date" [matDatepicker]="dp1" placeholder="Select Date" [min]="minDateBefore" [readonly]="true" class="form-control custom_input">
+          <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+          <mat-datepicker #dp1 disabled="false"></mat-datepicker>
+          <mat-error class="error_mess" *ngIf="certifcateVerify.get('insurance_expiry_date').errors?.['required']">Expiry date is required.</mat-error>
+        </mat-form-field>
+      </div>
+      <p class="fs_14 fsn_4 txt_d" style="margin: -1rem 0 2rem"></p>
+    </div>
+    <div class="form_action">
+      <span class="fs_16 fsn_4 txt_lb pointer px-4 py-3 mr-4" (click)="closePopup()">Cancel</span>
+      <button type="submit" [disabled]="disbu" class="btn custum_button button_success fs_16 fsn_4">Upload</button>
+    </div>
+  </form>
+</div>
+
+<!-- <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px',fullScreenBackdrop:true }"></ngx-loading> -->

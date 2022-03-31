@@ -1,0 +1,15 @@
+
+.progragess_line_status .pro_single_line { display: flex; flex-direction: row;}
+.progragess_lines .lines { display: block; width: 8px; height: 8px; background: #FFFFFF; margin: 0 4px 0 0; border-radius: 50%; border: 1px solid #EDEDED; }
+
+.progragess_line_status .inprocess_status { display: block; margin: 8px 0 0; }
+
+.gn_line { background: #2FAA77 !important; }
+.red_line { background: #B74F52 !important; }
+.gray_line { background: #E6F1FF !important; }
+
+/* gray line color for view page */
+.gray_line_view_pge { background: #C7DAF2 !important}
+
+
+.inTransit_status{ position: absolute; top: -24px; width: 100%; padding: 0 6px 0 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

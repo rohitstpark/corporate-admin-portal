@@ -1,0 +1,202 @@
+<div class="site-loader" *ngIf="showLoader">
+	<div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div>
+
+<div>
+	<div class="filter_section" [ngClass]="status ? 'filter_show' : 'filter_hide'">
+		<div class="section_head">
+			<div class="connection_count" *ngIf="tabCountData">
+				<ul>
+					<li class="fs_16 fsm_5 txt_b">Connected <span class="txt_s ml-1">{{tabCountData.connected}}</span></li>
+					<li class="fs_16 fsm_5 txt_b">New Invitations <span class="txt_p ml-1">{{tabCountData.invitation}}</span></li>
+					<li class="fs_16 fsm_5 txt_b">Pending Requests <span class="txt_d ml-1">{{tabCountData.pending}}</span></li>
+				</ul>
+			</div>
+			<div></div>
+			<div> 
+				<button [ngClass]="filterActivated ? 'dot_circle' : ''" class="btn custum_button button_primary bg_w txt_lb fsm_5  h_40" (click)="filterToggleEvent()">
+					<span class="mat-button-wrapper">Filter</span>
+				</button>
+				<!-- <div class="custom_search float-right">
+				<form [formGroup]="searchForm">
+					<mat-form-field appearance="fill">
+						<input matInput #first placeholder="Search" formControlName="searchInput">
+						<mat-icon matSuffix style="height: auto !important;" (click)="applySearchFilter()">
+							<span class="icon icon-ic-search fs_18"></span>
+						</mat-icon>
+					</mat-form-field>
+				</form>
+				</div> -->
+			</div>
+		</div>
+		<div class="mob-section-head">
+			<div class="filter_btn active_filter">
+				<div class="custom_search m-0">
+					<mat-form-field appearance="fill">
+						<mat-icon matPrefix class="pr-2">
+							<span class="icon icon-ic-search fs_18"></span>
+						</mat-icon>
+						<input matInput #first placeholder="Search by Company" class="ml-2">
+					</mat-form-field>
+				</div>
+				<div class="active_filter" style="position: relative;">
+					<span class="icon-ic-filter fs_24 txt_lb px-2 py-1 dot_circle" (click)="filterToggleEvent()"></span>
+				</div>
+			</div>
+			<div>
+				<h3 class="fs_16 txt_b fsm_5" style="padding: 0 15px; margin: 30px 0 0;">All Carriers</h3>
+			</div>
+		</div>
+
+		<div class="show-filter">
+			<form class="example-form filter_selection" [formGroup]="filterForm">
+				<div class="row">
+
+					<div class="col-md-3 mb-2">
+						<mat-form-field class="w-100">
+							<mat-label>Search</mat-label>
+							<input matInput placeholder="Search" type="text" formControlName="search">
+						</mat-form-field>
+					</div>
+					<div class="col-md-3 mb-2">
+						<div class="date-picker-with-icon">
+							<mat-form-field class="w-100">
+								<mat-label>Connection Date</mat-label>
+								<input matInput type="text" ngxDaterangepickerMd startKey="start" endKey="end" [ranges]="ranges" [readonly]="true" [alwaysShowCalendars]="true" [closeOnAutoApply]="true" [locale]="{ cancelLabel: 'Cancel', applyLabel: 'ok', format: 'DD-MM-YYYY'}"  [showClearButton]="true"  formControlName="createdDate" drops="down" opens="right" autocomplete="off" [maxDate]="todayDate">
+							</mat-form-field>
+						</div>
+					</div>
+
+					<div class="col-md-3 mb-2">
+						<mat-form-field class="w-100">
+							<mat-label>Equipment Types</mat-label>
+							<mat-select multiple formControlName="equipmentType">
+								<mat-option *ngFor="let eValue of equipmentTypes" value="{{eValue.key}}">{{eValue.value}}</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+
+					<div class="col-md-3 mb-2">
+						<mat-form-field class="w-100">
+							<mat-label>Connection Type</mat-label>
+							<mat-select formControlName="tabType">
+								<mat-option value="">None</mat-option>
+								<mat-option value="CONNECTED">Connected</mat-option>
+								<mat-option value="INVITATION">New Invitations</mat-option>
+								<mat-option value="PENDING">Pending Requests</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+
+					<div class="col-md-3 mb-2">
+						<mat-form-field class="w-100">
+							<mat-label>Min Revenue</mat-label>
+							<input matInput placeholder="Enter Min Revenue" type="number" formControlName="minRevenue">					   
+						</mat-form-field>
+					</div>
+					<div class="col-md-3 mb-2">
+						<mat-form-field class="w-100">
+							<mat-label>Max Revenue</mat-label>
+							<input matInput placeholder="Enter Max Revenue" type="number" formControlName="maxRevenue">
+					 </mat-form-field>
+					 <small class="txt_d" *ngIf="revenueValidationFailed">Minimum required revenue is {{filterForm.get('minRevenue').value}}</small>
+					</div>
+					<div class="col-md-12 text-right">
+						<a class="pointer mr-3" style="border-radius: 30px; padding: 2px 20px;" (click)="reset()">Reset</a>
+						<button color="primary" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary pointer bg_s" (click)="updateFilterList()">
+							<span class="mat-button-wrapper">Update Results</span>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div class="connection_tableScroll" (scroll)="onTableScroll($event)"> <!-- *ngIf="dataSource.length" -->
+		<table mat-table class="all-carriers"  [dataSource]="connectionList" style="width: 100%;">
+			<ng-container matColumnDef="shipperName">
+				<th mat-header-cell *matHeaderCellDef>
+					<span>Shipper Name </span>
+					<span class="icon icon-Down fs_12 px-1 arrow_filter"></span>
+				</th>
+				<td mat-cell *matCellDef="let element" style="height: 64px;" (click)="redirectToShipperView(element)">
+					<div class="profile_info">
+						<span class="profile_image">
+							<span class="short_name" *ngIf="(!element.profileImage || element.profileImage == '')">{{getInitials(element.companyName)}}</span>
+							<img *ngIf="(element.profileImage && element.profileImage!='')" src="{{element.profileImage}}" class="img-fluid" />
+						</span>
+						<div class="profile_name">
+							<p class="mb-0 text_truncate" matTooltip="{{element.companyName}}">{{element.companyName}}</p>
+							<span class="fs_14 txt_lb">{{element.revenueUsd ? 'Revenue: ' + element.revenueUsd : '-'}}</span>
+						</div>
+					</div>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="carrierName">
+				<th mat-header-cell *matHeaderCellDef>
+					<span>Carrier Name </span>
+					<span class="icon icon-Down fs_12 px-1 arrow_filter"></span>
+				</th>
+				<td mat-cell *matCellDef="let element" style="height: 64px;" (click)="redirectToCarrierView(element)">
+					<div class="profile_info">
+						<span class="profile_image">
+							<span class="short_name" *ngIf="(!element.profileImage || element.profileImage == '')">{{getInitials(element.legalName)}}</span>
+							<img *ngIf="(element.profileImage && element.profileImage!='')" src="{{element.profileImage}}" class="img-fluid" />
+						</span>
+						<div class="profile_name">
+							<p class="mb-0 text_truncate" matTooltip="{{element.legalName}}">{{element.legalName}}</p>
+							
+						</div>
+					</div>
+				</td>
+			</ng-container>
+
+		 <ng-container matColumnDef="equipmentType">
+			<th mat-header-cell *matHeaderCellDef class="px-2"> Equipment Type </th>
+			<td mat-cell *matCellDef="let element" class="px-2" matTooltip="{{element.equipmentType ? (element.equipmentType.join(' | ')) : '-'}}" style="max-width: 180px;">
+			 <span class="max_lineTwo">{{element.equipmentType ? (element.equipmentType.join(' | ')) : '-'}}</span></td>
+		  </ng-container>
+
+			<ng-container matColumnDef="loadInformation">
+				<th mat-header-cell *matHeaderCellDef class="px-2">Load Information</th>
+				<td mat-cell *matCellDef="let element" class="fs_16 txt_lb fsn_4 px-2">{{element.shipmentCount.completed}} completed, {{element.shipmentCount.upcoming}} upcoming</td>
+			</ng-container>
+
+			<ng-container matColumnDef="dateTime">
+				<th mat-header-cell *matHeaderCellDef class="px-2">Connection Date & Time</th>
+				<td mat-cell *matCellDef="let element" class="fs_16 txt_lb fsn_4 px-2 text_truncate" style="max-width: 180px;">
+					<span class="eq_type">{{element.createdAt ? (element.createdAt | date:'MMM d, y, h:mm a') : '-'}}</span>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="status">
+				<th mat-header-cell *matHeaderCellDef class="px-2"> Status </th>
+				<td mat-cell *matCellDef="let element" class="fs_16 txt_lb fsn_4 px-2">
+					<!-- <span [ngClass]="element.networkLabel == 'CONNECTED' ? 'txt_s' : (element.networkLabel == 'PENDING' ? 'txt_d' : 'txt_y')">{{element.networkLabel}}</span> -->
+
+					<span class="connection_status bg_s" *ngIf="element.networkLabel == 'CONNECTED'">
+					<span class="fs_12 fsn_4 txt_w">Connected</span>
+				</span>
+				<span class="connection_status bg_p" *ngIf="element.networkLabel == 'INVITATION'">
+					<span class="fs_12 fsn_4 txt_w">New Invitation</span>
+				</span>
+				<span class="connection_status txt_p status_invited" *ngIf="element.networkLabel == 'PENDING'">
+					<span class="fs_12 fsn_4">Pending Request</span>
+				</span>
+				</td>
+			</ng-container>
+		
+			<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="background: #eef0f4;"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns;" style="background: #fff;"></tr>
+	 </table>
+	 <ng-container *ngIf="connectionList && connectionList.length == 0">
+		<div class="data_notFound">No Data Found.</div>
+	</ng-container>
+		<div class="spinner_loader" *ngIf="apiCallInProcess">
+			<div class="bounce1"></div>
+			<div class="bounce2"></div>
+			<div class="bounce3"></div>
+		</div>
+	</div>
+</div>

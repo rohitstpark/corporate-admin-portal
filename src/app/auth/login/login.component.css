@@ -1,0 +1,66 @@
+.admin_SignInUp_con {
+    width: 100%;
+    height: 100%;
+    background: #EEF0F4;
+}
+.flex_center_y { align-items: center; }
+.tab_container_r { height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+.tab_container_r .nav-tabs { display: flex; flex-direction: row; padding: 0; }
+.tab_container_r .nav-tabs li { flex-grow: 1; text-align: center; }
+.tab_container_r .nav-tabs li a { font-size: 1.143rem; font-weight: 500; color: #3787e6; padding: 0.96rem; display: block; border-radius: 4px; }
+.tab_container_r .nav-tabs li a.active { color: #ffffff !important; background: #3787E6 !important; }
+.tab_container_inpput { background: #fff; border-radius: 4px; padding: 2.5rem 2rem; }
+.tab_container_inpput .tab-content .fade:not(.show) { opacity: 1; }
+.tab_container_inpput .tab-content { margin: 1.5rem 0 0; }
+/*.tab_container_inpput .btn { border-radius: 30px; font-size: 1.143rem; padding: .9rem 0.714rem; box-shadow: none; }*/
+.tab_container_inpput .remember_password { font-size: 0.857rem; line-height: 0.714rem; margin: 0 0 7px; padding: 0; display: flex; align-items: center; color: #888888; font-weight: 500; }
+
+.log_reg_box { border-radius: 4px; padding: 2rem; max-width: 480px; }
+.onboarding_h { font-size: 1.429rem; font-weight: 700; color: #000; margin: 0 0 2rem; }
+.redioBtn_registration { margin: 2rem 0 0; }
+.custom_input { font-size: 1rem; font-weight: 500; color: #000; width: 100%; height: 2.85rem; padding: .9rem; border: none; border-radius: 2px; background: #f6f6f6; }
+.tab_con_heading { font-size: 2.286rem; font-weight: 600; line-height: 2.8578rem; margin: 0 0 2.143rem; }
+.forgot_dotNumber, .forgot_password { font-size: 1.143rem; font-weight: 400; color: #0186EE; text-align: center; margin: 1rem 0 0; }
+
+.singUp_page_heading { margin: 2rem 0 0; text-align: center; }
+/*.verify_Dot_number { padding: 2.143rem 2.857rem; border-radius: 10px; background-color: #FFFFFF; margin: 40px 0 50px; }*/
+.tab_container_r .mat-hint, .verify_Dot_number .mat-hint { margin: 1rem 0 0; font-size: 0.786rem; color: #C8C6C6; }
+.dot_verify_heading { font-size: 1rem; color: #222222; font-weight: 400; margin: 1.6rem 0; }
+.terms_Condition { margin: 1.5rem 0; }
+.terms_Condition a { color: #C8C6C6; font-size: 1rem; }
+
+.upload_dock { display: flex; align-items: center; }
+.upload_dock .mat-form-field { width: 100%; }
+.upload_dock input[type="file"] { max-width: 2.5rem; display: none; }
+.upload_dock .btn { margin: 0 0 0 !important; box-shadow: none; display: flex; align-items: center; border-top-left-radius: 0px; border-bottom-left-radius: 0px; background: #ededed; padding: 0 14px; height: 40px; }
+.upload_dock .btn .material-icons {  margin-top: 5px; }
+
+.resend_otp { display: flex; align-items: center; justify-content: space-between; }
+.spinner_border { width: 12px; height: 12px; border: 0.15rem solid currentColor; border-right-color: transparent; animation: spinner-border 1s linear infinite; -webkit-animation: spinner-border 1s linear infinite; -moz-animation: spinner-border 1s linear infinite; margin: 3px 0; }
+
+
+  .hint_txt { margin: 7px 0 -7px; display: block; }
+
+  .OTP_no_error { margin: 17px 1px 0; }
+
+
+.shipper_registration { display: flex; height: calc(100vh - 75px); max-width: 720px; margin: 0 auto; align-items: center; }
+.shipper_registration_Otp { display: flex; height: calc(100vh - 75px); max-width: 480px; margin: 0 auto; align-items: center; }
+.shipper_verifyOTP { display: flex; height: calc(100vh - 75px); max-width: 480px; margin: 0 auto; align-items: center; }
+
+.shipper_reg_step1 { background: #ffff; padding: 2rem; }
+
+.signup_title { margin: 0 0 1rem; }
+.shipper_resend_oTP { display: flex; align-items: center; -webkit-box-pack: justify; margin: 1.5rem 0; }
+
+/* carrier registration flow */
+.carrier_registration { display: flex; max-width: 720px; margin: 4rem auto; -webkit-box-align: center; align-items: center; justify-items: center; padding: 4rem 0; }
+.ca_signup_title { margin: 0 0 1rem; }
+.upload_dock { display: -webkit-box; display: flex; -webkit-box-align: center; align-items: center; -webkit-box-pack: justify; justify-content: space-between; max-height: 2.85rem; overflow: hidden; margin: .75rem 0 0; background: #ededed; border-radius: 4px; }
+
+.custom_inpu { background: #F6F6F6; }
+
+.reg_upload_dock { display: flex; align-items: center; margin: -.1rem 0 0; border-radius: 4px; max-height: inherit; background: #f5f5f500; overflow: inherit; }
+.reg_upload_dock .btn { margin: -1px 0 0 !important; }
+
+

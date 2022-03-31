@@ -1,0 +1,144 @@
+
+<div class="site-loader" *ngIf="showLoader">
+  <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div>
+
+<div class="Container_scroll" style="height: 100vh;">
+  <div class="cus_breadculam">
+    <ul>
+      <li class="fs_16 fsm_5 txt_lb" [routerLink]="['/driver']">All Drivers</li>
+      <li class="fs_16 fsm_5 txt_lb" *ngIf="driverProfile">{{driverProfile.name ? driverProfile.name : '-'}}</li>
+    </ul>
+  </div>
+  <app-driver-tab></app-driver-tab>
+  <div class="edit_action">
+      <button class="btn custum_button button_primary bg_w txt_lb fsm_5">Edit Details</button>
+  </div>
+  <div class="customExpansion_panel" *ngIf="driverProfile">
+    <mat-accordion class="example-headers-align" multi>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="fs_16 fsm_5 txt_b">Personal Information</mat-panel-title>
+          <mat-panel-description></mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="sign_up_tab input_error">
+          <div class="update_profile_container">
+            <div class="row">
+              <div class="col-md-4">
+                <span *ngIf="(driverProfile.profileImage && driverProfile.profileImage!='')" style="display: flex; width: 42px; height: 42px; border-radius: 50%; overflow: hidden;">
+                  <img class="img-fluid"  src="{{driverProfile.profileImage}}">
+                </span>
+                <span class="short_name" *ngIf="(!driverProfile.profileImage || driverProfile.profileImage == '')">{{getInitials(driverProfile.name)}}</span>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Phone Number</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{driverProfile.phone ? driverProfile.phone : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Email Address</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{driverProfile.email ? driverProfile.email : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Date of birth</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{driverProfile.dob ? (driverProfile.dob | date:'MMM d, y') : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Medical insurance number</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{driverProfile.medicalInsuranceNo ? driverProfile.medicalInsuranceNo : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Home address</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">
+                  {{driverProfile.address ? (driverProfile.address + ',') : ''}}
+                  {{driverProfile.city ? (driverProfile.city + ',') : ''}}
+                  {{driverProfile.state ? (driverProfile.state + ',') : ''}}
+                  {{driverProfile.country ? (driverProfile.country) : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Status</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">{{driverProfile.statusName ? driverProfile.statusName : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Email OTP</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">{{driverProfile.emailOtp ? driverProfile.emailOtp : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Phone OTP</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">{{driverProfile.phoneOtp ? driverProfile.phoneOtp : '-'}}</p>
+              </div>
+
+              <div class="col-md-12">
+                <div class="chip_container" style=" margin: 16px 0 0 0 ">
+                  <div class="chip_tag" [ngClass]="driverProfile.emailVerified ? 'bg_s' : 'bg_d'" >
+                    <span class="material-icons fs_16 mr-1">email</span>
+                    <span class="chip_text">{{driverProfile.emailVerified ? 'Email is Verified' : 'Email is not Verfied'}}</span>
+                  </div>
+                  <div class="chip_tag" [ngClass]="driverProfile.phoneVerified ? 'bg_s' : 'bg_d'">
+                    <span class="material-icons fs_16 mr-1">call</span>
+                    <span class="chip_text">{{driverProfile.phoneVerified ? 'Phone is Verified' : 'Phone is not Verfied'}}</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="edit_profile_con" style="display: none;">
+            <p class="fs_16 fsb_7 txt_b" style="margin: 0 0 32px;">Edit Profile Details</p>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="fs_16 fsm_5 txt_b">Professional information</mat-panel-title>
+          <mat-panel-description></mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="sign_up_tab input_error">
+          <div class="update_profile_container">
+            <div class="row">
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Equipment type</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{driverProfile.equipmentName ? driverProfile.equipmentName : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">DOT number</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{driverProfile.dotNumber ? driverProfile.dotNumber :'-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">CDL number</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{driverProfile.cdlNumber ? driverProfile.cdlNumber : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Total trips</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{driverProfile.totalShipments ? driverProfile.totalShipments : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Total miles driven</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{driverProfile.milesDriven ? driverProfile.milesDriven : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Experience</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{driverProfile.experience ? driverProfile.experience : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Allow driver to negotiate & accept loads</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">{{driverProfile.isLoadsInterested ? driverProfile.isLoadsInterested : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Number of accidents</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">{{driverProfile.noOfAccident ? driverProfile.noOfAccident : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Last shipment date</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">{{driverProfile.lastLoad ? (driverProfile.lastLoad | date:'MMM d, y') : '-'}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="edit_profile_con" style="display: none;">
+            <p class="fs_16 fsb_7 txt_b" style="margin: 0 0 32px;">Edit Profile Details</p>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>
+

@@ -1,0 +1,5 @@
+.tab_header { overflow-x: auto; overflow-y: hidden; white-space: nowrap; }
+.tab_header ul { list-style: none; padding: 0px; margin: 0px; border-bottom: 2px solid rgb(203 203 203 / 0.25); border-bottom-color: #cbcbcb40; }
+.tab_header li { display: inline-block; font-size: 14px; font-weight: 500; color: #000000; border-bottom: 2px solid #3787e600; margin: 0 30px -2px 0; padding: 15px 2px; cursor: pointer; }
+.tab_header li:focus { outline: none; }
+.tab_header li.active_tab { border-bottom: 2px solid #3787e6; }

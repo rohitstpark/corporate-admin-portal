@@ -1,0 +1,66 @@
+.bg_container { display: flex; }
+.page_container { background: #EEF0F4; padding: 32px; width: 100%; }
+.edit_action { text-align: end; margin: 30px 0; }
+.update_profile_container,
+.edit_profile_con { background: #fff; border-radius: 4px; /*padding: 18px;*/ }
+
+/*Document View*/
+.dri_docs { display: flex; border: 1px solid #D8D8D8; border-radius: 4px; }
+.dri_docsl { width: 70px; height: 70px; display: flex; justify-content: center; align-items: center; background: #EEF0F4; }
+.driDocIcon { font-size: 32px; }
+.dri_docsr { display: flex; width: 85%; align-items: center; justify-content: space-between; padding: 0 1rem; }
+/*.dri_docsrEdit { margin: -30px 0 0; }*/
+.expire_date { position: relative; }
+.expire_date:before { content: ""; position: absolute; width: 4px; height: 4px; background: #999999; top: 5px; left: 6px; border-radius: 50%; }
+.doc_expired { border: 1px solid #C44851; }
+.doc_expired .expire_date  { color: #C44851; }
+
+.filter_section .section_head { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
+.filter_section .mob-section-head { display: none; }
+  
+.show-filter { width: 100%; background-color: #fff; padding: 24px;  border-radius:4px; overflow: hidden; margin-bottom: 40px; margin-top: 20px; }
+
+.filter_hide .show-filter { display: none; }
+.filter_show .show-filter { display: block; overflow: initial; }
+.filter_show .col-md-12, .filter_show .col-md-3 { padding: 0 20px; }
+.filter_head { display: flex; justify-content: space-between; align-items: center; }
+
+.dot_circle { position: relative; }
+.dot_circle:after { content: ""; position: absolute; width: 8px; height: 8px; background: #C44851; top: 2px; right: 2px; border-radius: 50%; }
+
+.view_profile { display: flex; width: 42px; height: 42px; border-radius: 50%; overflow: hidden; }
+.view_profile img { width: 42px; height: 42px; }
+
+
+@media (max-width: 420px){
+/*.page-main-content {
+    margin: 0px;
+    padding: 15px;
+}*/
+  .filter_section .section_head { display: none; }
+  .filter_section .mob-section-head { display: inherit; }
+  .chip_container .chip_tag { margin: 0 0 10px 0 !important; }
+}
+
+.chip_container .chip_tag { display: inline-flex; border-radius: 2px; align-items: center; margin: 0 18px 0 0; padding: 2px 8px; color: #fff; }
+.chip_tag  .chip_text { color: #fff; font-size: 12px; line-height: 14px; }
+
+.auto_renew { display: flex; align-items: center; justify-content: space-between; }
+.cus_toggle_txt { display: flex; align-items: center; }
+
+.user_table { height: calc(100vh - 225px);  overflow: auto; margin-top: 30px; }
+
+.data_notFound { background: #fff; padding: 20px; text-align: center; font-size: 16px; font-weight: 500; color: #818181; }
+
+/*.subs_details { padding: 18px; }*/
+
+
+.document_card { border: 1px solid #D8D8D8; border-radius: 4px; margin: 0 0 1rem; }
+.ins_certificate { display: flex; align-items: center; margin: 1.5rem 0 0; }
+.ins_certificate_icon { width: 85px; height: 70px; background: #F6F6F6; display: flex; align-items: center; justify-content: center; border-radius: 4px 0px 0px 4px; }
+.ins_certificate_info { margin: 0 0 0 1rem; }
+.create_date { margin: 0 .6rem 0 0; }
+.expire_date { padding: 0 1rem; position: relative; }
+.expire_date::before { position: absolute; width: 4px; height: 4px; content: ""; background: #CBCBCB; top: 5px; left: 2px; border-radius: 50%; }
+
+.certificate_doc_uploaded { max-width: 500px; }

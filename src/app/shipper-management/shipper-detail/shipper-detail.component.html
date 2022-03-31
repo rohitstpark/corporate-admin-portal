@@ -1,0 +1,338 @@
+<div class="site-loader" *ngIf="showLoader">
+  <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div>
+
+<div class="Container_scroll">
+  <div class="container_header">
+    <div class="cus_breadculam">
+      <ul>
+        <li class="fs_16 fsm_5 txt_lb" [routerLink]="['/shipper']">All Shippers</li>
+        <li class="fs_16 fsm_5 txt_lb"  *ngIf="shipperProfile">{{shipperProfile.companyName ? shipperProfile.companyName : '-'}}</li>
+      </ul>
+    </div>
+    <!-- <div class="custom_dropdown">
+      <label class="dropdown">
+        <span class="icon-ic-dots circle_dots rectangle_dots"></span>
+        <input type="checkbox" class="icon-ic-dots dd-input" id="test">
+        <ul class="dd-menu dd-rmenu">
+          <li>Action</li>
+          <li>Another action</li>
+        </ul>
+      </label>
+    </div> -->
+  </div>
+  <app-shipper-tab></app-shipper-tab>
+  <div class="edit_action">
+    <button class="btn custum_button button_primary bg_w txt_lb fsm_5">Edit Profile</button>
+  </div>
+  <div class="customExpansion_panel" *ngIf="shipperProfile">
+    <mat-accordion class="example-headers-align" multi>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="fs_16 fsm_5 txt_b">Company Information</mat-panel-title>
+          <mat-panel-description></mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="sign_up_tab input_error">
+          <div class="update_profile_container">
+            <div class="row">
+              <div class="col-md-4">
+                <span class="view_profile" *ngIf="(shipperProfile.profileImage && shipperProfile.profileImage!='')">
+                  <a href="{{shipperProfile.profileImage}}" target="_blank">
+                    <img class="img-fluid" src="{{shipperProfile.profileImage}}">
+                  </a>
+                </span>
+                <span class="short_name" *ngIf="(!shipperProfile.profileImage || shipperProfile.profileImage == '')">{{getInitials(shipperProfile.companyName)}}</span>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Company Name</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{shipperProfile.companyName ? shipperProfile.companyName : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Company Email</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{shipperProfile.companyEmail ? shipperProfile.companyEmail : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Revenue (USD)</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{shipperProfile.revenueUsd ? shipperProfile.revenueUsd : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Website URL</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">{{shipperProfile.websiteUrl ? shipperProfile.websiteUrl : '-'}}</p>
+              </div>
+              <!-- <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Revenue in Millions </p>
+                <p class="fs_14 fsm_5 txt_b mb-4">$ 5M</p>
+              </div> -->
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Industry</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">{{shipperProfile.industries ? shipperProfile.industries : ''}}{{shipperProfile.industries ? ' | ' : ''}}{{shipperProfile.usSic1987Description}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Registration Date</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{shipperProfile.registrationDate ? (shipperProfile.registrationDate | date:'MMM d, y, h:mm a') : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">First Login</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{shipperProfile.firstLogin ? (shipperProfile.firstLogin | date:'MMM d, y, h:mm a') : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Last Login</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{shipperProfile.lastLogin ? (shipperProfile.lastLogin | date:'MMM d, y, h:mm a') : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Created At</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{shipperProfile.createdAt ? (shipperProfile.createdAt | date:'MMM d, y, h:mm a') : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Updated At</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{shipperProfile.updatedAt ? (shipperProfile.updatedAt | date:'MMM d, y, h:mm a') : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Email OTP</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{shipperProfile.emailOtp ? shipperProfile.emailOtp : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Phone OTP</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{shipperProfile.phoneOtp ? shipperProfile.phoneOtp : '-'}}</p>
+              </div>
+            
+              <div class="col-md-12">
+                <div class="chip_container">
+                  <div class="chip_tag" [ngClass]="shipperProfile.userId ? 'bg_s' : 'bg_d'">
+                    <span class="material-icons fs_16 mr-1">how_to_reg</span>
+                    <span class="chip_text">{{shipperProfile.userId ? 'User is Registered' : 'User is not Registered'}}</span>
+                  </div>
+                  <div class="chip_tag" [ngClass]="shipperProfile.emailVerified ? 'bg_s' : 'bg_d'" >
+                    <span class="material-icons fs_16 mr-1">email</span>
+                    <span class="chip_text">{{shipperProfile.emailVerified ? 'Email is Verified' : 'Email is not Verfied'}}</span>
+                  </div>
+                  <div class="chip_tag" [ngClass]="shipperProfile.phoneVerified ? 'bg_s' : 'bg_d'">
+                    <span class="material-icons fs_16 mr-1">call</span>
+                    <span class="chip_text">{{shipperProfile.phoneVerified ? 'Phone is Verified' : 'Phone is not Verfied'}}</span>
+                  </div>
+                  <!-- <div class="chip_tag" [ngClass]="shipperProfile.isSubscriptionPurchased && shipperProfile.subscription ? (shipperProfile.subscription['status'] == 'active' ? 'bg_s' : 'bg_d') : 'bg_y'">
+                    <span class="material-icons fs_16 mr-1">monetization_on</span>
+                    <span class="chip_text">{{shipperProfile.isSubscriptionPurchased && shipperProfile.subscription ? (shipperProfile.subscription['status'] == 'active' ?'Subscription is Active' : 'Subscription is Inactive') : 'Subscription is not Purchased'}}</span>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="fs_16 fsm_5 txt_b">Contract</mat-panel-title>
+          <mat-panel-description></mat-panel-description>
+        </mat-expansion-panel-header>
+        <div>
+          <div class="row">
+            <!-- <div class="col-md-6 col-lg-6 col-xl-4"> -->
+            <div class="col-md-6">
+              <div class="certificate_doc_uploaded" *ngIf="shipperProfile.docName">
+                <div class="list-lable-wrapper document_card">
+                  <a target="_blank" class="w-100" (click)="openDocument(shipperProfile.contractDocument)">
+                    <!-- <span class="icon-ic-cross fs_16 txt_lb" style=" position: absolute; right: 22px; top: 3px; cursor: pointer;"></span> -->
+                    <div class="ins_certificate m-0">
+                      <div class="ins_certificate_icon">
+                        <span class="icon icon-ic-documents txt_lb" style="font-size: 36px"></span>
+                        <!-- <img src="" class="img-fluid"> -->
+                      </div>
+                      <div class="ins_certificate_info" class="w-100 ml-3">
+                        <p class="fs_14 fsm_5 txt_b mb-1 text_truncate">{{shipperProfile.docName ? shipperProfile.docName :'-'}}</p>
+                        <!-- <p class="fs_12 fsn_4 mb-0 txt_lb"> -->
+                          <!-- <span class="create_date">Uploaded on Apr 12, 2019</span>
+                          <span class="expire_date">Expires at Apr 12, 2021</span> -->
+                          <!-- <span class="create_date">ND</span>
+                          <span class="expire_date">ND</span> -->
+                        <!-- </p> -->
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="certificate_doc_uploaded" *ngIf="!shipperProfile.docName">
+                No Contract Found
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]="true"> 
+        <mat-expansion-panel-header>
+          <mat-panel-title class="fs_16 fsm_5 txt_b">Contact Information</mat-panel-title>
+          <mat-panel-description></mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="sign_up_tab input_error">
+          <div class="update_profile_container">
+            <div class="row">
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">First Name</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{shipperProfile.firstName ? shipperProfile.firstName : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Last Name</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{shipperProfile.lastName ? shipperProfile.lastName : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Email</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{shipperProfile.email ? shipperProfile.email : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Mobile Number</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">{{shipperProfile.phone ? shipperProfile.phone : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Job Title</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">{{shipperProfile.title ? shipperProfile.title : '-'}}</p>
+              </div>
+              <!-- <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Social Profile</p>
+                <img src="" class="img-fluid">
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="fs_16 fsm_5 txt_b">Addresses</mat-panel-title>
+          <mat-panel-description></mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="sign_up_tab input_error">
+          <div class="update_profile_container">
+            <div class="row">
+              <!-- <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Default Address</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.defaultAddress ? carrierProfile.defaultAddress : '-'}}</p>
+              </div> -->
+
+              <div class="col-md-12">
+                <p class="fs_14 fsb_7 txt_b mb-4">Physical Address</p>
+              </div>
+             
+              <!-- <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Address Title</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phyAddressTitle ? carrierProfile.phyAddressTitle : '-'}}</p>
+              </div> -->
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Address Line 1</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{shipperProfile.phyAddressLine1 ? shipperProfile.phyAddressLine1 : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Address Line 2</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{shipperProfile.phyAddressLine2 ? shipperProfile.phyAddressLine2 : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Zip Short</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">-</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Postal Code</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{shipperProfile.phyZip ? shipperProfile.phyZip : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">City</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{shipperProfile.phyCity ? shipperProfile.phyCity : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">State</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{shipperProfile.phyState ? shipperProfile.phyState : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Country</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{shipperProfile.phyCountry ? shipperProfile.phyCountry : '-'}}</p>
+              </div>
+              <!-- <div class="col-md-4"></div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Latitude</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phyLatitude  ? carrierProfile.phyLatitude  : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Longitude</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phyLongitude ? carrierProfile.phyLongitude : '-'}}</p>
+              </div> -->
+              <div class="col-md-12">
+                <p class="fs_14 fsb_7 txt_b mb-4">Mailing Address</p>
+              </div>
+              <!-- <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Address Title</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.mailingAddressTitle ? carrierProfile.mailingAddressTitle : '-'}}</p>
+              </div> -->
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Address Line 1</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{shipperProfile.mailingAddressLine1 ? shipperProfile.mailingAddressLine1 : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Address Line 2</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{shipperProfile.mailingAddressLine2 ? shipperProfile.mailingAddressLine2 : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Zip Short</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">-</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Postal Code</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{shipperProfile.mailingZip ? shipperProfile.mailingZip : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">City</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{shipperProfile.mailingCity ? shipperProfile.mailingCity : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">State</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{shipperProfile.mailingState ? shipperProfile.mailingState : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Country</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">{{shipperProfile.mailingCountry ? shipperProfile.mailingCountry : '-'}}</p>
+              </div>
+              <!-- <div class="col-md-4"></div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Latitude</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">{{carrierProfile.mailingLatitude ? carrierProfile.mailingLatitude : '-'}}</p>
+              </div>
+              <div class="col-md-4">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Longitude</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">{{carrierProfile.mailingLongitude ? carrierProfile.mailingLongitude : '-'}}</p>
+              </div> -->
+            </div>
+          </div>
+          <div class="edit_profile_con" style="display: none;">
+            <p class="fs_16 fsb_7 txt_b" style="margin: 0 0 32px;">Edit Details</p>
+            <form> </form>
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="fs_16 fsm_5 txt_b">Equipment & Lanes</mat-panel-title>
+          <mat-panel-description></mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="sign_up_tab input_error">
+          <div class="update_profile_container">
+            <div class="row">
+              <div class="col-md-6">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Equipment type</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">{{shipperProfile.equipmentType ? shipperProfile.equipmentType.join(' | ') : '-'}}</p>
+              </div>
+              <div class="col-md-6">
+                <p class="fs_14 fsn_4 txt_lb mb-1">Preferred Lanes</p>
+                <p class="fs_14 fsm_5 txt_b mb-0">{{shipperProfile.lane ? shipperProfile.lane : '-'}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="edit_profile_con" style="display: none;">
+            <p class="fs_16 fsb_7 txt_b" style="margin: 0 0 32px;">Edit Details</p>
+            <form> </form>
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+    </mat-accordion>
+  </div>
+</div>

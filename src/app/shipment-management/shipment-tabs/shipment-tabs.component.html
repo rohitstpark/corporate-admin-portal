@@ -1,0 +1,27 @@
+<div class="tab_header" style="margin: 0 0 32px;">
+  <ul>
+    <li [routerLink]="['/shipment/view',shipmentId,'details']" routerLinkActive="active_tab">
+      <span>Details</span>
+    </li>
+    <li [routerLink]="['/shipment/view',shipmentId,'driver']" routerLinkActive="active_tab">
+      <span>Driver</span>
+    </li>
+    <li [routerLink]="['/shipment/view',shipmentId,'loadhistory']" routerLinkActive="active_tab">
+      <span>Load History</span>
+    </li>
+    <!-- [routerLink]="['/driver/view',driverId,'documents']" routerLinkActive="active_tab" -->
+    <li [routerLink]="['/shipment/view',shipmentId,'documents']" routerLinkActive="active_tab">
+      <span>Documents</span>
+    </li>
+
+    <li>
+      <span>Payments</span>
+    </li>
+    <li [routerLink]="['/shipment/view',shipmentId,'bidhistory']" routerLinkActive="active_tab" *ngIf="shipperId!=null">
+      <span>Bid History</span>
+    </li>
+
+  </ul>
+</div>
+
+

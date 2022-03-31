@@ -1,0 +1,272 @@
+
+<div class="site-loader" *ngIf="showLoader">
+	<div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>
+	
+	<div>
+		<div class="filter_section" [ngClass]="status ? 'filter_show' : 'filter_hide'">
+			<div class="section_head">
+				<div class="connection_count driver_tab connection_tableScroll">
+					<ul>
+						<li class="fs_16 fsm_5 txt_b" *ngFor="let tab of driverTabTypes" [ngClass]="selectedTab == tab.key ? 'active_tab' : ''" (click)="tabClicked(tab)">{{tab.value}} <span class="ml-1 {{tab.class}}">{{tab.count}}</span></li>	
+					</ul>
+				</div>
+				<div style="display: flex;">
+					<div class="create_action" *ngIf="!moduleName">
+						<button class="btn custum_button button_primary">Create New</button>
+					</div>
+					<!-- <div> -->
+						<button [ngClass]="filterActivated ? 'dot_circle' : ''" class="btn custum_button button_primary bg_w txt_lb fsm_5  h_40" (click)="filterToggleEvent()" style="margin: 0 0 0 16px;">
+							<span class="mat-button-wrapper">Filter</span>
+						</button>
+						<!-- <div class="custom_search">
+							<form [formGroup]="searchForm">
+							<mat-form-field appearance="fill">
+								<input matInput #first placeholder="Search" formControlName="searchInput">
+								<mat-icon matSuffix style="height: auto !important;" (click)="applyFilter()">
+									<span class="icon icon-ic-search fs_18"></span>
+								</mat-icon>
+							</mat-form-field>
+							</form>
+						</div> -->
+					<!-- </div> -->
+				</div>
+			</div>
+			<div class="mob-section-head">
+				<div class="filter_btn active_filter">
+					<div class="custom_search m-0">
+						<mat-form-field appearance="fill">
+							<mat-icon matPrefix class="pr-2">
+								<span class="icon icon-ic-search fs_18"></span>
+							</mat-icon>
+							<input matInput #first placeholder="Search by Company" class="ml-2">
+						</mat-form-field>
+					</div>
+					<div class="active_filter" style="position: relative;">
+						<!-- dot_circle -->
+						<span class="icon-ic-filter fs_24 txt_lb px-2 py-1 " (click)="filterToggleEvent()"></span>
+					</div>
+				</div>
+				<div>
+					<h3 class="fs_16 txt_b fsm_5" style="padding: 0 15px; margin: 30px 0 0;">All Carriers</h3>
+				</div>
+			</div>
+
+			<div class="show-filter">
+				<form class="example-form filter_selection" [formGroup]="filterForm">
+					<div class="row">
+						<div class="col-md-3 mb-2">
+							<mat-form-field class="w-100">
+								<mat-label>Search</mat-label>
+								<input matInput placeholder="Enter Search" type="text" formControlName="search">
+							</mat-form-field>
+						</div>
+						<div class="col-md-3 mb-2">
+							<mat-form-field class="w-100">
+								<mat-label>Phone or Email</mat-label>
+								<input matInput placeholder="Enter Phone or Email" type="text" formControlName="phoneAndEmail">
+							</mat-form-field>
+						</div>
+						<div class="col-md-3 mb-2">
+							<mat-form-field class="w-100">
+								<mat-label>Shipment Id</mat-label>
+								<input matInput placeholder="Enter Shipment Id" type="text" formControlName="shipmentId">
+							</mat-form-field>
+						</div>
+						<div class="col-md-3 mb-2">
+							<mat-form-field class="w-100">
+								<mat-label>Real Time Location</mat-label>
+								<input matInput placeholder="Enter Real Time Location" matGoogleMapsAutocomplete formControlName="location" (onGermanAddressMapped)="pickUpAutocomplete($event)" (keyup)="clearPickupLocation($event)">
+								<!-- <input matInput placeholder="Enter location" type="text" formControlName="location"> -->
+							</mat-form-field>
+						</div>
+						<div class="col-md-3 mb-2">
+							<mat-form-field class="w-100">
+								<mat-label>City</mat-label>
+								<input matInput placeholder="Enter City" type="text" formControlName="city">
+							</mat-form-field>
+						</div>
+						<div class="col-md-3 mb-2">
+							<mat-form-field class="w-100">
+								<mat-label>Equipment Type</mat-label>
+								<mat-select formControlName="equipmentId">
+									<mat-option *ngFor="let eValue of equipmentTypes" value="{{eValue.key}}">{{eValue.value}}</mat-option>
+								  </mat-select>
+							</mat-form-field>
+						</div>
+						<div class="col-md-3 mb-2">
+							<mat-form-field class="w-100">
+								<mat-label>State</mat-label>
+								<mat-select formControlName="state">
+									<mat-option *ngFor="let eValue of statesList" value="{{eValue.key}}">{{eValue.value}}</mat-option>
+								  </mat-select>
+							</mat-form-field>
+						</div>
+						<div class="col-md-3 mb-2">
+							<div class="date-picker-with-icon">
+								<mat-form-field class="w-100">
+									<mat-label>Registration Date</mat-label>
+									<input matInput type="text" ngxDaterangepickerMd formControlName="registrationDate" startKey="start" endKey="end" [ranges]="ranges" [readonly]="true" [showClearButton]="true" [alwaysShowCalendars]="true" [closeOnAutoApply]="true" [locale]="{ cancelLabel: 'Cancel', applyLabel: 'ok', format: 'DD-MM-YYYY'}"  drops="down" opens="left" autocomplete="off" [maxDate]="todayDate">
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-md-3 mb-2">
+							<div class="date-picker-with-icon">
+								<mat-form-field class="w-100">
+									<mat-label>Updated Date</mat-label>
+									<input matInput type="text" ngxDaterangepickerMd formControlName="updatedDate" startKey="start" endKey="end" [ranges]="ranges" [readonly]="true" [showClearButton]="true" [alwaysShowCalendars]="true" [closeOnAutoApply]="true" [locale]="{ cancelLabel: 'Cancel', applyLabel: 'ok', format: 'DD-MM-YYYY'}"  drops="down" opens="right" autocomplete="off" [maxDate]="todayDate">
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-md-3 mb-2">
+							<div class="date-picker-with-icon">
+								<mat-form-field class="w-100">
+									<mat-label>Invitation Date</mat-label>
+									<input matInput type="text" ngxDaterangepickerMd formControlName="invitationDate" startKey="start" endKey="end" [ranges]="ranges" [readonly]="true" [showClearButton]="true" [alwaysShowCalendars]="true" [closeOnAutoApply]="true" [locale]="{ cancelLabel: 'Cancel', applyLabel: 'ok', format: 'DD-MM-YYYY'}"  drops="down" opens="right" autocomplete="off" [maxDate]="todayDate">
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-md-3 mb-2">
+							<div class="date-picker-with-icon">
+								<mat-form-field class="w-100">
+									<mat-label>First Login Date</mat-label>
+									<input matInput type="text" ngxDaterangepickerMd formControlName="firstLoginDate" startKey="start" endKey="end" [ranges]="ranges" [readonly]="true" [showClearButton]="true" [alwaysShowCalendars]="true" [closeOnAutoApply]="true" [locale]="{ cancelLabel: 'Cancel', applyLabel: 'ok', format: 'DD-MM-YYYY'}"  drops="down" opens="left" autocomplete="off" [maxDate]="todayDate">
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-md-3 mb-2">
+							<div class="date-picker-with-icon">
+								<mat-form-field class="w-100">
+									<mat-label>Last Login Date</mat-label>
+									<input matInput type="text" ngxDaterangepickerMd formControlName="lastLoginDate" startKey="start" endKey="end" [ranges]="ranges" [readonly]="true" [showClearButton]="true" [alwaysShowCalendars]="true" [closeOnAutoApply]="true" [locale]="{ cancelLabel: 'Cancel', applyLabel: 'ok', format: 'DD-MM-YYYY'}"  drops="down" opens="left" autocomplete="off" [maxDate]="todayDate">
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-md-3 mb-2">
+							<mat-form-field class="w-100">
+								<mat-label>Status</mat-label>
+								<mat-select formControlName="tabType">									
+									<mat-option *ngFor="let tab of driverTabTypes" value="{{tab.key}}">{{tab.value}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+						<div class="col-md-12 text-right">
+							<a class="pointer mr-3" style="border-radius: 30px; padding: 2px 20px;" (click)="status=false;reset()">Reset</a>
+							<button color="primary" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary pointer bg_s" (click)="updateFilterList()">
+								<span class="mat-button-wrapper">Update Results</span>
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="user_table" (scroll)="onTableScroll($event)"> <!-- *ngIf="dataSource.length"  -->
+			<table mat-table class="all-carriers" [dataSource]="driverList" style="width: 100%;">
+				<ng-container matColumnDef="name">
+					<th mat-header-cell *matHeaderCellDef>
+						<span>Name</span>
+						<span class="icon icon-Down fs_12 txt_lb px-1 arrow_filter"></span>
+					</th>
+					<td mat-cell *matCellDef="let element">
+						<div class="profile_info" (click)="redirectToDriverView(element)">
+ 							<span class="profile_image">
+ 								<span class="short_name" *ngIf="(!element.profileImage || element.profileImage == '')">{{getInitials(element.name)}}</span>
+ 								<img *ngIf="(element.profileImage && element.profileImage!='')" src="{{element.profileImage}}" class="img-fluid" />
+ 							</span>
+ 							<div class="ml-2">
+								<p class="fs_16 fsm_5 txt_b mb-0 text_truncate" style="max-width: 180px;">{{element.name ? element.name : '-'}}</p>
+ 								<span class="driver_location" matTooltip="{{element.state}}, {{element.city}}">{{element.state ? (element.state+ ',') : '-'}} {{element.city ? element.city : '-'}}</span>
+ 							</div>
+						</div>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="phone">
+					<th mat-header-cell *matHeaderCellDef class="px-2">Contact Number</th>
+					<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2" style="height: 64px;">{{element.phone ? element.phone : '-'}}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="email">
+					<th mat-header-cell *matHeaderCellDef class="px-2">Email Address</th>
+					<td mat-cell *matCellDef="let element" class="px-2" matTooltip="{{element.email}}" style="max-width: 180px;">
+						<p class="fs_14 fsn_4 txt_p text_truncate mb-0">{{element.email ? element.email : '-'}}</p> <!-- style="max-width: 200px;" -->
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="registrationDate">
+					<th mat-header-cell *matHeaderCellDef class="px-2">Registration Date</th>
+					<td mat-cell *matCellDef="let element" class="px-2" matTooltip="{{element.registrationDate}}">
+						<p class="fs_14 fsn_4 txt_lb mb-0">{{element.registrationDate ? (element.registrationDate | date:'MMM d, y, h:mm a') : '-'}}</p>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="dotNumber">
+					<th mat-header-cell *matHeaderCellDef class="px-2">Dot Number</th>
+					<td mat-cell *matCellDef="let element" class="px-2" matTooltip="{{element.dotNumber}}">
+						<p class="fs_14 fsn_4 txt_lb mb-0">{{element.dotNumber ? element.dotNumber : '-'}}</p>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="cdlNumber">
+					<th mat-header-cell *matHeaderCellDef class="px-2">CDL Number</th>
+					<td mat-cell *matCellDef="let element" class="px-2" matTooltip="{{element.cdlNumber}}">
+						<p class="fs_14 fsn_4 txt_lb mb-0">{{element.cdlNumber ? element.cdlNumber : '-'}}</p>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="currentLocation">
+					<th mat-header-cell *matHeaderCellDef class="px-2"> Real Time Location </th>
+					<td mat-cell *matCellDef="let element;let i=index" class="px-2">
+						<!-- <p class="fs_14 fsn_4 txt_lb text_truncate mb-0" style="max-width: 200px;"> {{element.shortAddress ? element.shortAddress : '-'}}</p> -->
+						<div class="show_location_con">
+							<!-- <p class="fsn_4 txt_lb mb-0" [ngClass]="locationStatus[i] ? 'show_location' : 'hide_location'">{{element.shortAddress ? element.shortAddress : '-'}}</p> -->
+							<u class="fs_14 fsn_4 txt_p" *ngIf="!element.shortAddress && !locationStatus[i]" (click)="clickLocation(element,i)">Show Location</u>
+							<span class="fs_14 fsn_4 txt_b" matTooltip="{{element.fullAddress}}" >{{element.shortAddress ? element.shortAddress : ''}}</span>
+							<div class="spinner_loader location_loader" *ngIf="locationLoader && locationStatus[i] && !element.shortAddress">
+								<div class="bounce1"></div>
+								<div class="bounce2"></div>
+								<div class="bounce3"></div>
+							</div>
+						</div>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="status">
+					<th mat-header-cell *matHeaderCellDef class="px-2"> Status </th>
+					<!-- <td mat-cell *matCellDef="let element" class="px-2"> {{element.status ? element.status : '-'}} </td> -->
+					<td mat-cell *matCellDef="let element" class="px-2">
+						<span class="dri_status bg_s" *ngIf="element.status == 3">
+							<span class="fs_12 fsn_4 txt_w ml-1">Available</span>
+						</span>
+						<span class="dri_status bg_p" *ngIf="element.status == 6">
+							<span class="icon-ic-driver"></span>
+							<span class="fs_12 fsn_4 txt_w ml-1">In Transit</span>
+						</span>
+						<span class="dri_status txt_p status_invited" *ngIf="element.status == 1">
+							<span class="icon-ic-envelope"></span>
+							<span class="fs_12 fsn_4 ml-1">Pending</span>
+						</span>
+						<span class="dri_status bg_d" *ngIf="element.status == 2">
+							<span class="fs_12 fsn_4 txt_w ml-1">Suspended</span>
+						</span>
+					</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="background: #eef0f4;"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns;" style="background: #fff;"></tr>
+			</table>
+
+			<ng-container *ngIf="driverList && driverList.length == 0">
+				<div class="data_notFound">No Data Found.</div>
+			 </ng-container>
+
+			<div class="spinner_loader" *ngIf="apiCallInProcess">
+				<div class="bounce1"></div>
+				<div class="bounce2"></div>
+				<div class="bounce3"></div>
+			</div>
+		</div>
+	</div>
+<!-- </div> -->
+
+

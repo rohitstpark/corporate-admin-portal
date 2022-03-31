@@ -1,0 +1,6 @@
+.bg_container { display: flex; }
+.page_container { background: #EEF0F4; padding: 32px; width: 100%; }
+
+.edit_action { text-align: end; margin: 30px 0; }
+.chip_container .chip_tag { display: inline-flex; border-radius: 2px; align-items: center; margin: 0 18px 0 0; padding: 2px 8px; color: #fff; }
+.chip_tag  .chip_text { color: #fff; font-size: 12px; line-height: 14px; }
