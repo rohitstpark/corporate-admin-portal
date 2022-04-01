@@ -45,6 +45,7 @@ public certifcateVerify : FormGroup;
 public imgURL:any;
 public imagmessage:any;
 public imagePath:any;
+public showLoader=false;
 public loading = false;
 public disbu:any;
 public name:any;
@@ -117,7 +118,7 @@ constructor(
     /*upload worker compensation*/
     generalLiabilitySave({value, valid}){
       if(valid){
-        this.loading=true;
+        this.showLoader=true;
         const formData = new FormData();
         formData.append('mediaLiabilityDoc', this.generalLiabilityForm.get('generalLiability').value);
         formData.append('mediaType', 'LIABILITY_DOCUMENT');
@@ -127,22 +128,24 @@ constructor(
   
     this.httpService.post(url, formData).subscribe(resp => {
      if (resp['success']) {
-      this.loading=false;
+      this.showLoader=false;
       this.dialogRef.close({event:"Ok"});
        this.sharedService.openMessagePopup('Success - Profile Updated Successfully');
        }
      }, (err) => {
-       this.loading = false;
+       this.showLoader = false;
      });
     }
-    this.closePopup();
+    // this.closePopup();
   }
 
    /*Upload certificate of insurance*/
    certifcateUpload({value, valid}){
+     console.log('valid');
+     console.log(valid);
     if(valid){
-      this.loading=true;
-      const formData = new FormData();
+      this.showLoader=true;
+      const formData = new FormData(); 
       let expiryDate = this.datePipe.transform(new Date(value.insurance_expiry_date),"MM/dd/yyyy");
       formData.append('mediaCoi', this.certifcateVerify.get('certificate').value);
       formData.append('coiExpiryDate', expiryDate);
@@ -151,16 +154,14 @@ constructor(
       const url = APIURL.envConfig.USERENDPOINTS.updateCarrier;
       this.httpService.post(url, formData).subscribe(resp => {
      if (resp['success']) {
-      this.loading=false;
+      this.showLoader=false;
       this.dialogRef.close({event:"Ok"});
        this.sharedService.openMessagePopup('Success - Profile Updated Successfully');
-       
        }
      }, (err) => {
-       this.loading = false;
+       this.showLoader = false;
      });
     }
-    this.closePopup();
   }
   
     // certifcate insurace 
@@ -192,26 +193,23 @@ constructor(
     workerCompensationSave({value, valid}){
     
       if(valid){
-        this.loading=true;
+        this.showLoader=true;
         const formData = new FormData();
         formData.append('mediaCompensationDoc', this.workerCompensationForm.get('workerCompensation').value);
         formData.append('mediaType', 'COMPENSATION_DOCUMENT');
         const url = APIURL.envConfig.USERENDPOINTS.updateCarrier;
         formData.append('id', this.data.id);
-        
-  
     this.httpService.post(url, formData).subscribe(resp => {
      if (resp['success']) {
-      this.loading=false;
+      this.showLoader=false;
       this.dialogRef.close({event:"Ok"});
        this.sharedService.openMessagePopup('Success - Profile Updated Successfully');
-      
        }
      }, (err) => {
-       this.loading = false;
+       this.showLoader = false;
      });
     }
-    this.closePopup();
+    // this.closePopup();
   }
 
 

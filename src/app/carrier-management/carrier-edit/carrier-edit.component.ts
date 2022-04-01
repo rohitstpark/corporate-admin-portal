@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 // import {MatTableDataSource} from '@angular/material';
 import { environment } from 'src/environments/environment';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA ,} from '@angular/material/dialog';
-// import { ControlPosition, MapsAPILoader } from '@agm/core';
 import { MapsAPILoader } from '@agm/core';
 import { DatePipe } from '@angular/common'
 import * as moment from "moment";
@@ -17,9 +16,10 @@ import * as APIURL from '../../common/config/api-endpoints';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Appearance, GermanAddress } from '@angular-material-extensions/google-maps-autocomplete';
 import $ from 'jquery';
-import * as _ from "lodash";
-// import { timeStamp } from 'console';s
-declare var _: _.groupBy;
+import * as _ from 'lodash';
+// import { timeStamp } from 'console';
+// import * as _ from "lodash";
+// declare var _: _.groupBy;
 
 @Component({
   selector: 'app-carrier-edit',
@@ -33,29 +33,36 @@ dataSource : any = [];
 carrierId:any;
 panelOpenState:boolean;
 showLoader:boolean=false;
-laneDisabled:boolean=false;
-skeletonLoader:boolean=false;
 public certiOfInsuraExpired = false;
 carrierProfile : any;
 selectedFile:any;
+newEquipmentTypeSelected=false;
 public certiOfInExDatethire =false;
 public searchCtrlValue:any;
 selectedLanes : any=[];
 public data:any={};
 subscriptionDetail : any;
+backEndError=false;
+public laneDisabled = false;
 searchRestriction:any;
 sameAsPhysicalAdd=false;
 serverPathForUrl:any;
 selected:any;
 public page=1;
+phyLongitude:any;
+operations:any
+phyLatitude:any;
+mailingLatitude:any;
+mailingLongitude:any;
 public currentDate:any;
+public emailPattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$";
+valid2 = true;
 // selectedIndus:any = ['value','id'];
 public selectedAddress: PlaceResult;
 public geoCoder:any;
 public mediaTypeDoc:any;
-preferredLanes:any='';
+preferredLanes='';
 public addOption = false;
-public disbu:boolean=false;
 public totalLanes=0;
 public certiOfInExDate :any;
 public laneError:any;
@@ -79,6 +86,13 @@ selectedEquipmentType:string[]=[];
 statesList:any = [];
 industries:any
 selectedIndustry:any;
+disableFormeEuipmentLanesEdit=true;
+disableFormeEditCompanyInfo=true;
+phyAddressChangeDetect=false;
+mailAddressChangeDetect=false;
+phyAutoNot:any;
+mailAutoNot:any;
+disableFormeditAddress=true;
 public checkValueLane = true;
 searchBlank:any;
 public backdropClass = "g-transparent-backdrop";
@@ -102,6 +116,7 @@ ranges: any = {
   'This Month': [moment().startOf('month'), moment().endOf('month')],
   'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
 }
+
 filterToggleEvent() {
   this.status = !this.status;
 }
@@ -135,10 +150,11 @@ ngOnInit() {
  this.getEquipmentType();
  this.getIndustries(null);
  this.getLanes();
+ 
+
  this.mapsAPILoader.load().then(() => {
   this.geoCoder = new google.maps.Geocoder;
 });
-
 
 }
 
@@ -213,12 +229,12 @@ getCarrierDetails(){
       this.carrierProfile.lastLogin = resp['response'].lastLogin ? new Date(resp['response'].lastLogin +' '+'UTC') : null;
       this.carrierProfile.createdAt = resp['response'].createdAt ? new Date(resp['response'].createdAt +' '+'UTC') : null;
       this.carrierProfile.updatedAt = resp['response'].updatedAt ? new Date(resp['response'].updatedAt +' '+'UTC') : null;
-      localStorage.setItem('carrierName',this.carrierProfile.legalName);
-      localStorage.setItem('userId',this.carrierProfile.userId);
-      localStorage.setItem('carrierId',this.carrierProfile.id);
+      localStorage.setItem('carrierName',this.carrierProfile.legalName ? this.carrierProfile.legalName : '');
+      localStorage.setItem('userId',this.carrierProfile.userId ? this.carrierProfile.userId :'');
+      localStorage.setItem('carrierId',this.carrierProfile.id ?this.carrierProfile.id: '');
       this.carrierProfile.lane= resp['response'].lane;
       this.carrierProfile.laneId= resp['response'].laneId;
-      this.searchCtrl=this.carrierProfile.usSic1987Description;
+      this.searchCtrl=this.carrierProfile.usSic1987Description ? this.carrierProfile.usSic1987Description :'';
      
       if(this.carrierProfile.lane==0)
       {
@@ -228,9 +244,9 @@ getCarrierDetails(){
       {
         this.preferredLanes='all'
       }
-      this.getDocumentsList();
+      // this.getDocumentsList();
 
-      if(this.datePipe.transform(new Date(this.carrierProfile.insuranceCertificateExpireDate), "yyyy/MM/dd") > this.currentDate) {
+      if(this.carrierProfile.certificateOfInsurance && this.datePipe.transform(new Date(this.carrierProfile.insuranceCertificateExpireDate), "yyyy/MM/dd") > this.currentDate) {
         localStorage.setItem("certificateOfInsurance", this.carrierProfile.certificateOfInsurance);
         this.certiOfInsuraExpired=false;
     }else{
@@ -245,6 +261,8 @@ getCarrierDetails(){
          this.certiOfInExDatethire=false;
       }
     }
+
+
     this.openEditForm();
     let showLane;
     let laneSelect;
@@ -260,7 +278,7 @@ getCarrierDetails(){
       this.checkValueLane=true;
       this.checkSelectedLanes()
     } 
-
+    this.showLoader = false;
   }, (err) => {
     this.showLoader = false;
   });
@@ -287,32 +305,36 @@ checkSelectedLanes()
 }
 
 
+cancel(formName)
+{
+this.redirectToCarrierView();
+}  
 
+// not in use check and remove 
+// getDocumentsList(){
+//   const url = APIURL.envConfig.CARRIERENDPOINTS.getDocumentList + '?limit=10&userId='
+//   + this.carrierProfile.userId + '&mediaType=CERTIFICATE_OF_INSURANCE';
+//   this.httpService.get(url).subscribe(resp => {
+//     this.showLoader = false;
+//     if(resp['success'] && resp['response']['medias']){
+//       this.carrierDocumentList = resp['response']['medias'];
+//       this.carrierDocumentList.forEach(element => {
+//           let mediaUrl = element.mediaUrl.split('certificate_of_insurance/');
+//           element['docName'] = mediaUrl[1];
+//           element['isValid'] = moment(moment()).isBefore(element.detail.expiryDate);
+//       });
+//     }
+//     else{
+//       this.carrierDocumentList = [];
+//     }
+//     this.mediaTypeDoc=this.carrierDocumentList[0].mediaType;
+//     this.isDocument = resp['success'];
 
-getDocumentsList(){
-  const url = APIURL.envConfig.CARRIERENDPOINTS.getDocumentList + '?limit=10&userId='
-  + this.carrierProfile.userId + '&mediaType=CERTIFICATE_OF_INSURANCE';
-  this.httpService.get(url).subscribe(resp => {
-    this.showLoader = false;
-    this.showLoader = false;
-    if(resp['success'] && resp['response']['medias']){
-      this.carrierDocumentList = resp['response']['medias'];
-      this.carrierDocumentList.forEach(element => {
-          let mediaUrl = element.mediaUrl.split('certificate_of_insurance/');
-          element['docName'] = mediaUrl[1];
-          element['isValid'] = moment(moment()).isBefore(element.detail.expiryDate);
-      });
-    }
-    else{
-      this.carrierDocumentList = [];
-    }
-    this.mediaTypeDoc=this.carrierDocumentList[0].mediaType;
-    this.isDocument = resp['success'];
+//   }, (err) => {
+//     this.showLoader = false;
+//   });
+// }
 
-  }, (err) => {
-    this.showLoader = false;
-  });
-}
 
 
 
@@ -320,17 +342,17 @@ getDocumentsList(){
 openEditForm(){
 
   this.editCompanyInfo = this.fb.group({
-    legalName: [this.carrierProfile.legalName,Validators.compose([Validators.required, Validators.maxLength(25)]),],
-    dotNumber: [this.carrierProfile.dotNumber,Validators.compose([Validators.required, Validators.maxLength(7),Validators.pattern(/^([0-9]+\s?)*$/)]),],
-    telephone: [this.carrierProfile.telephone,Validators.compose([Validators.required,Validators.maxLength(10),Validators.minLength(10),Validators.pattern(/^([0-9]+\s?)*$/)]),],
-    emailAddress: [this.carrierProfile.emailAddress,Validators.compose([Validators.required])],
+    legalName: [this.carrierProfile.legalName ? this.carrierProfile.legalName : '',Validators.compose([Validators.required, Validators.maxLength(25)]),],
+    dotNumber: [this.carrierProfile.dotNumber ? this.carrierProfile.dotNumber: '',Validators.compose([Validators.required, Validators.maxLength(10),Validators.pattern(/^([0-9]+\s?)*$/)]),],
+    telephone: [this.carrierProfile.telephone ? this.carrierProfile.telephone:'',Validators.compose([Validators.required,Validators.maxLength(10),Validators.minLength(10),Validators.pattern(/^([0-9()-]+\s?)*$/)]),],
+    emailAddress: [this.carrierProfile.emailAddress ?this.carrierProfile.emailAddress:'',Validators.compose([Validators.required,Validators.pattern(this.emailPattern)])],
     hmFlag: [this.carrierProfile.hmFlag === "No" ? 0 : 1,],
     pcFlag: [this.carrierProfile.pcFlag === "No" ? 0 : 1,],
-    dbaName: [this.carrierProfile.dbaName,Validators.compose([]),],
-    fax: [this.carrierProfile.fax,Validators.compose([]),],
-    einTaxId: [this.carrierProfile.einId,Validators.compose([]),],
-    numberOfTrucks: [this.carrierProfile.truckTotal,Validators.compose([]),],
-    numberOfDrivers: [this.carrierProfile.driverTotal,Validators.compose([]),],
+    dbaName: [this.carrierProfile.dbaName ? this.carrierProfile.dbaName:'',Validators.compose([Validators.maxLength(64)]),],
+    fax: [this.carrierProfile.fax ? this.carrierProfile.fax :'',Validators.pattern(/^([0-9()-]+\s?)*$/),],
+    einTaxId: [this.carrierProfile.einId ? this.carrierProfile.einId :''],
+    numberOfTrucks: [this.carrierProfile.truckTotal ? this.carrierProfile.truckTotal: ''],
+    numberOfDrivers: [this.carrierProfile.driverTotal ? this.carrierProfile.driverTotal : '',],
     // registrationDate: [this.carrierProfile.registrationDate,Validators.compose([Validators.required]),],
     // firstLogin: [this.carrierProfile.firstLogin,Validators.compose([Validators.required]),],
     // lastLogin: [this.carrierProfile.lastLogin,Validators.compose([Validators.required]),],
@@ -342,27 +364,67 @@ openEditForm(){
     // phoneOtp: [this.carrierProfile.phoneOtp,Validators.compose([Validators.required]),],  
   });
 
+  // this.mailAutoNot=true;
+  // this.phyAutoNot=true;
   this.editPersonalInfo = this.fb.group({
-    firstName: [this.carrierProfile.firstName,Validators.compose([Validators.required, Validators.maxLength(25)]),],
-    lastName: [this.carrierProfile.lastName,Validators.compose([Validators.required, Validators.maxLength(15)]),],
+    firstName: [this.carrierProfile.firstName ? this.carrierProfile.firstName : '',Validators.compose([Validators.required, Validators.maxLength(64),Validators.pattern(/^([a-zA-Z0-9]+\s?)*$/)]),],
+    lastName: [this.carrierProfile.lastName ? this.carrierProfile.lastName : '',Validators.compose([Validators.required, Validators.maxLength(64),Validators.pattern(/^([a-zA-Z0-9]+\s?)*$/)]),],
   })
+
+  let stateShort;
+  let mailStateShort;
+
+
+  if(this.carrierProfile.phyState.length && this.carrierProfile.phyState.length > 2)
+  {
+    let i;
+    for(i=0;i<this.statesList.length;i++)
+    {
+      if(this.carrierProfile.phyState==this.statesList[i].value)
+     { stateShort=this.statesList[i].key;
+      break;}
+    }
+  }
+  else
+  {
+    stateShort=this.carrierProfile.phyState;
+  }
+
+
+  if(this.carrierProfile.mailingState.length > 2)
+  {
+    let i;
+    for(i=0;i<this.statesList.length;i++)
+    {
+      if(this.carrierProfile.mailingState==this.statesList[i].value)
+     { mailStateShort=this.statesList[i].key;
+      break;}
+    }
+  }
+  else
+  {
+    mailStateShort=this.carrierProfile.mailingState;
+  }
+
+
+
 
   this.editAddress =this.fb.group({
     // defaultAddress: [this.carrierProfile.defaultAddress,Validators.compose([Validators.required]),], 
-    addressLine1: [this.carrierProfile.phyStreet,Validators.compose([Validators.required]),], 
-    addressLine2: [this.carrierProfile.phyAddressLine2], 
-    zipShort: [this.carrierProfile.phyZipShort,Validators.compose([Validators.required,Validators.maxLength(10),Validators.pattern(/^([0-9]+\s?)*$/)]),], 
-    postalCode: [this.carrierProfile.phyZip,Validators.compose([Validators.required,Validators.maxLength(10),Validators.pattern(/^([0-9-]+\s?)*$/)]),],
-    city: [this.carrierProfile.phyCity,Validators.compose([Validators.required]),], 
-    state: [this.carrierProfile.phyState,Validators.compose([Validators.required]),], 
-    country: [this.carrierProfile.phyCountry,Validators.compose([Validators.required]),], 
-    mailAddLine1: [this.carrierProfile.mailingStreet,Validators.compose([Validators.required]),], 
-    mailAddLine2: [this.carrierProfile.mailingAddressLine2], 
-    mailZipshort: [this.carrierProfile.mailingZipShort,Validators.compose([Validators.required,Validators.maxLength(10),Validators.pattern(/^([0-9]+\s?)*$/)]),], 
-    mailPostalCode: [this.carrierProfile.mailingZip,Validators.compose([Validators.required,Validators.maxLength(10),Validators.pattern(/^([0-9-]+\s?)*$/)]),],
-    mailCity: [this.carrierProfile.mailingCity,Validators.compose([Validators.required]),], 
-    mailState: [this.carrierProfile.mailingState,Validators.compose([Validators.required]),], 
-    mailCountry: [this.carrierProfile.mailingCountry,Validators.compose([Validators.required]),],
+    addressLine1: [this.carrierProfile.phyStreet ? this.carrierProfile.phyStreet: '',Validators.compose([Validators.required]),], 
+    addressLine2: [this.carrierProfile.phyAddressLine2 ? this.carrierProfile.phyAddressLine2 : ''], 
+    zipShort: [this.carrierProfile.phyZipShort ? this.carrierProfile.phyZipShort : '',Validators.compose([Validators.required,Validators.maxLength(10),Validators.pattern(/^([0-9]+\s?)*$/)]),], 
+    // postalCode: [this.carrierProfile.phyZip,Validators.compose([Validators.required,Validators.maxLength(10),Validators.pattern(/^([0-9-]+\s?)*$/)]),],
+    city: [this.carrierProfile.phyCity ? this.carrierProfile.phyCity : '',Validators.compose([Validators.required]),], 
+    state: [stateShort ? stateShort: '',Validators.compose([Validators.required]),], 
+    country: ['US',Validators.compose([Validators.required]),], 
+    mailAddLine1: [this.carrierProfile.mailingStreet ? this.carrierProfile.mailingStreet :'',Validators.compose([Validators.required]),], 
+    mailAddLine2: [this.carrierProfile.mailingAddressLine2 ? this.carrierProfile.mailingAddressLine2 :''], 
+    mailZipshort: [this.carrierProfile.mailingZipShort ? this.carrierProfile.mailingZipShort :'',Validators.compose([Validators.required,Validators.maxLength(10),Validators.pattern(/^([0-9]+\s?)*$/)]),], 
+    // mailPostalCode: [this.carrierProfile.mailingZip,Validators.compose([Validators.required,Validators.maxLength(10),Validators.pattern(/^([0-9-]+\s?)*$/)]),],
+    mailCity: [this.carrierProfile.mailingCity ?this.carrierProfile.mailingCity:'',Validators.compose([Validators.required]),], 
+    mailState: [mailStateShort ? mailStateShort :'',Validators.compose([Validators.required]),], 
+    mailCountry: ['US',Validators.compose([Validators.required]),],
   })
 
   if(this.carrierProfile.phyAddressLine2 == this.carrierProfile.mailingAddressLine2 && this.carrierProfile.mailingStreet == this.carrierProfile.phyStreet && this.carrierProfile.mailingZip == this.carrierProfile.phyZip)
@@ -370,20 +432,20 @@ openEditForm(){
     this.sameAsPhysicalAdd=true;
   } 
   this.editMCS = this.fb.group({
-    mcsDate: [this.carrierProfile.mcs150Date,Validators.compose([Validators.required])],
-    mcsMileage: [this.carrierProfile.mcs150Mileage,Validators.compose([Validators.required])],
-    mcsMileageYear: [this.carrierProfile.mcs150MileageYear,Validators.compose([Validators.required])]
+    mcsDate: [this.carrierProfile.mcs150Date ? this.carrierProfile.mcs150Date :'',Validators.compose([Validators.required])],
+    mcsMileage: [this.carrierProfile.mcs150Mileage ? this.carrierProfile.mcs150Mileage :'',Validators.compose([Validators.required,Validators.pattern(/^([0-9-]+\s?)*$/),Validators.maxLength(10)])],
+    mcsMileageYear: [this.carrierProfile.mcs150MileageYear ? this.carrierProfile.mcs150MileageYear :'',Validators.compose([Validators.required,Validators.maxLength(4),Validators.minLength(4),Validators.pattern(/^([0-9-]+\s?)*$/)])]
   })
 
   // this.carrierProfile.carrierProfile.addDate = (this.carrierProfile.carrierProfile.addDate | date:'MMM d, y');
 
-  
+  this.operations=(this.carrierProfile.operationId ? this.carrierProfile.operationId :'').toString()
   this.equipmentLanesEdit =this.fb.group({
-    operations: [this.carrierProfile.operationId.toString(),Validators.compose([Validators.required])],
-    date: [this.carrierProfile.addDate,Validators.compose([Validators.required])],
-    oicState: [this.carrierProfile.oicState,Validators.compose([Validators.required])],
-    equipment: [this.carrierProfile.equipmentType,Validators.compose([Validators.required])],
-    IndustryType: [this.carrierProfile.industries.toString(),Validators.compose([Validators.required])],
+    operations: [(this.carrierProfile.operationId ? this.carrierProfile.operationId :'').toString(),Validators.compose([Validators.required])],
+    date: [this.carrierProfile.addDate ? this.carrierProfile.addDate: '',Validators.compose([Validators.required])],
+    oicState: [this.carrierProfile.oicState ? this.carrierProfile.oicState :'',Validators.compose([Validators.required])],
+    equipment: [this.carrierProfile.equipmentType ? this.carrierProfile.equipmentType : '',Validators.compose([Validators.required])],
+    // IndustryType: [this.carrierProfile.industries.toString(),Validators.compose([Validators.required])],
     // shipmentCredits: [this.carrierProfile.shipmentCredits,Validators.compose([Validators.required])],
   })
   // this.isEditEnabled=true;
@@ -395,11 +457,14 @@ openEditForm(){
 
 }
 
+
+
 openDocument(url) {
   window.open(url, '_blank');
 }
 
 onFileSelected(event) {
+  this.disableFormeEditCompanyInfo=false;
   if (event.target.files.length > 0) {
     const file = event.target.files[0];
     this.profileImage = file;
@@ -421,16 +486,22 @@ redirectToCarrierView(){
 }
 
 autoLocation($event: GermanAddress) { 
-    
+
+  console.log('event');
+  console.log($event);
   this.editAddress.get("addressLine1").setValue($event.displayAddress);
   this.editAddress.get("city").setValue($event.locality.long);
-  this.editAddress.get("postalCode").setValue($event.postalCode);
-  this.editAddress.get("state").setValue($event.state.long);
+  this.editAddress.get("zipShort").setValue($event.postalCode);
+  this.editAddress.get("state").setValue($event.state.short);
+  this.phyLatitude = $event.geoLocation.latitude;
+  this.phyLongitude = $event.geoLocation.longitude;
+
+  this.phyAddressChangeDetect=false;
+  this.phyAutoNot=false;
   // this.pickupFullLocation = $event.displayAddress;
   // this.pickupCity = $event.locality.long;
   // this.pickupState = $event.state.long;
-  // this.pickupLatitude = $event.geoLocation.latitude;
-  // this.pickupLongitude = $event.geoLocation.longitude;
+
   // this.sameLocation = false;
   // this.pickAutoNot=false;
   // this.pickupChangeDetected=false;
@@ -479,17 +550,49 @@ autoLocation($event: GermanAddress) {
   //      this.disabledAssign=false;
   //    }
   // }
+
+
+  
 }
 
 autoMailLocation($event: GermanAddress)
 {
   this.editAddress.get("mailAddLine1").setValue($event.displayAddress);
   this.editAddress.get("mailCity").setValue($event.locality.long);
-  this.editAddress.get("mailPostalCode").setValue($event.postalCode);
-  this.editAddress.get("mailState").setValue($event.state.long);
+  this.editAddress.get("mailZipshort").setValue($event.postalCode);
+  this.editAddress.get("mailState").setValue($event.state.short);
+  this.mailingLatitude = $event.geoLocation.latitude;
+  this.mailingLongitude = $event.geoLocation.longitude;
+  this.mailAddressChangeDetect=false;
+  this.mailAutoNot=false;
 }
 
+noFocusOut(phyDrop:any)
+{
+  if(phyDrop=='phy' && this.phyAddressChangeDetect)
+  {
+ this.phyAutoNot = true;
+  }
+ if(phyDrop=='mail' && this.mailAddressChangeDetect)
+ {
+ this.mailAutoNot= true;
+ }
+}
 
+noAutoselection(loc:any)
+  {
+    if(loc=='phy')
+    {
+   this.phyAddressChangeDetect=true;
+    }
+   if(loc=='mail')
+   {
+   this.mailAddressChangeDetect=true;
+   }
+
+  }
+
+  // not in use 
 onAutocompleteSelected(result: PlaceResult) {
   this.editAddress.get("addressLine1").setValue(result.formatted_address); 
   // for (let j = 0; j < result.address_components.length; j++) {
@@ -526,35 +629,75 @@ onAutocompleteSelected(result: PlaceResult) {
 
 setSameMailAddress(event)
 {
+  this.disableFormeditAddress=false;
   this.sameAsPhysicalAdd=event.checked;
   if(event.checked)
   {
     this.editAddress.get("mailAddLine1").setValue(this.editAddress.get("addressLine1").value);
     this.editAddress.get("mailCity").setValue(this.editAddress.get("city").value);
-    this.editAddress.get("mailPostalCode").setValue(this.editAddress.get("postalCode").value);
+    // this.editAddress.get("mailPostalCode").setValue(this.editAddress.get("postalCode").value);
     this.editAddress.get("mailState").setValue(this.editAddress.get("state").value);
+    this.mailingLatitude=this.phyLatitude;
+    this.mailingLongitude=this.phyLongitude;
   }
   else{
     this.editAddress.get("mailAddLine1").setValue('');
     this.editAddress.get("mailCity").setValue('');
-    this.editAddress.get("mailPostalCode").setValue('');
+    // this.editAddress.get("mailPostalCode").setValue('');
     this.editAddress.get("mailState").setValue('');
   }
 }
 
-clickedDocument(type:any)
-{
-  if (type=='insurance')
-  {
-    window.open(this.carrierDocumentList[0].mediaUrl);
-  }
-}
+// clickedDocument(type:any)
+// {
+//   if (type=='insurance')
+//   {
+//     window.open(this.carrierDocumentList[0].mediaUrl);
+//   }
+// }
 
 
 onSubmit(form1,formName)
   {
+    console.log('sameAsPhysicalAdd');
+    console.log(this.sameAsPhysicalAdd);
+    let lanesdata,i;
+    lanesdata=this.caBussiSerLaneSave();
 
-    if(form1.status=='VALID'){
+    let lanedatalength
+    lanedatalength = this.caBussiSerLaneSave();
+    this.valid2 = ((lanedatalength.length && this.preferredLanes=='preferred')|| this.preferredLanes=='all');
+ 
+   if(this.sameAsPhysicalAdd)
+   {
+    this.editAddress.get("mailAddLine1").setValue(this.editAddress.get("addressLine1").value);
+    this.editAddress.get("mailCity").setValue(this.editAddress.get("city").value);
+    this.editAddress.get("mailZipshort").setValue(this.editAddress.get("zipShort").value);
+    this.editAddress.get("mailState").setValue(this.editAddress.get("state").value);
+    this.mailingLatitude=this.phyLatitude;
+    this.mailingLongitude=this.phyLongitude;
+   }
+   if(this.mailAutoNot == undefined)
+   {
+     this.mailAutoNot=false;
+   }
+   if(this.phyAutoNot == undefined)
+   {
+     this.phyAutoNot=false;
+   }
+
+   console.log('this.valid2');
+   console.log(this.valid2);
+   console.log(this.mailAutoNot);
+   console.log(this.phyAutoNot);
+   console.log(form1)
+  
+
+    if(form1.status=='VALID' && this.valid2 && !this.mailAutoNot && !this.phyAutoNot){
+      console.log('form enter');
+     this.disableFormeEuipmentLanesEdit=true;
+     this.disableFormeditAddress=true;
+     this.disableFormeEditCompanyInfo=true;
     let formData = new FormData();
     this.showLoader = true;
     const url = APIURL.envConfig.USERENDPOINTS.updateCarrier;
@@ -592,7 +735,7 @@ onSubmit(form1,formName)
    formData.append('legalName', formVal.legalName);
    if(formVal.dotNumber != this.carrierProfile.dotNumber)
    formData.append('dotNumber', formVal.dotNumber);
-   if(this.carrierProfile.email != formVal.emailAddress){
+   if(this.carrierProfile.emailAddress != formVal.emailAddress){
       formData.append('emailAddress', formVal.emailAddress);
    }
    if(this.carrierProfile.telephone != formVal.telephone){
@@ -645,17 +788,23 @@ onSubmit(form1,formName)
       formData.append('phyAddressLine2', formVal.addressLine2);
      }
      if(this.carrierProfile.phyZipShort != formVal.zipShort){
-      formData.append('phyZipShort', formVal.postalCode.toString().split('-')[0]);
+      formData.append('phyZipShort', formVal.zipShort);
      }
 
-     if(this.carrierProfile.phyZip != formVal.postalCode){
-      formData.append('phyZip', formVal.postalCode);
-     }
+    //  if(this.carrierProfile.phyZip != formVal.postalCode){
+    //   formData.append('phyZip', formVal.postalCode);
+    //  }
      if(this.carrierProfile.phyCity != formVal.city){
       formData.append('phyCity', formVal.city);
      }
      if(this.carrierProfile.phyState != formVal.state){
       formData.append('phyState', formVal.state);
+     }
+     if(this.carrierProfile.phyLatitude != this.phyLatitude && this.carrierProfile.phyStreet != formVal.addressLine1){
+      formData.append('phyLatitude', this.phyLatitude);
+     }
+     if(this.carrierProfile.phyLongitude != this.phyLongitude && this.carrierProfile.phyStreet != formVal.addressLine1){
+      formData.append('phyLongitude', this.phyLongitude);
      }
 
      if(this.carrierProfile.mailingStreet != formVal.mailAddLine1){
@@ -665,27 +814,34 @@ onSubmit(form1,formName)
     formData.append('mailingAddressLine2', formVal.mailAddLine2);
    }
    if(this.carrierProfile.mailingZipShort != formVal.mailZipshort){
-    formData.append('mailingZipShort', formVal.mailPostalCode.toString().split('-')[0]);
+    formData.append('mailingZipShort', formVal.mailZipshort);
    }
 
-   if(this.carrierProfile.mailingZip != formVal.mailPostalCode){
-    formData.append('mailingZip', formVal.mailPostalCode);
-   }
+  //  if(this.carrierProfile.mailingZip != formVal.mailPostalCode){
+  //   formData.append('mailingZip', formVal.mailPostalCode);
+  //  }
    if(this.carrierProfile.mailingCity != formVal.mailCity){
     formData.append('mailingCity', formVal.mailCity);
    }
    if(this.carrierProfile.mailingState != formVal.mailState){
     formData.append('mailingState', formVal.mailState);
    }
+   if(this.carrierProfile.mailingLatitude != this.mailingLatitude && this.carrierProfile.mailingStreet != formVal.mailAddLine1){
+    formData.append('mailingLatitude', this.mailingLatitude);
+   }
+   if(this.carrierProfile.mailingLongitude != this.mailingLongitude && this.carrierProfile.mailingStreet != formVal.mailAddLine1){
+    formData.append('mailingLongitude', this.mailingLongitude);
+   }
     }
 
       //  form - editMCS
       if(formName=='editMCS'){
         const formVal = Object.assign({}, this.editMCS.value);
-        
         formVal.mcsDate = this.datePipe.transform(formVal.mcsDate, "MM/dd/yyyy");
+        let upcomingDate =this.datePipe.transform(this.carrierProfile.mcs150Date, "MM/dd/yyyy");
 
-       if(this.carrierProfile.mcs150Date != formVal.mcsDate){
+
+       if(upcomingDate != formVal.mcsDate){
           formData.append('mcs150Date', formVal.mcsDate);
        }
        if(this.carrierProfile.mcs150Mileage != formVal.mcsMileage){
@@ -699,19 +855,35 @@ onSubmit(form1,formName)
          //  form - equipmentLanesEdit
          if(formName=='equipmentLanesEdit'){
           const formVal = Object.assign({}, this.equipmentLanesEdit.value);
-          
           formVal.date = this.datePipe.transform(formVal.date, "MM/dd/yyyy");
   
-         if(this.carrierProfile.industries != formVal.IndustryType.id){
-            formData.append('industries', formVal.IndustryType.id);
-            formData.append('usSic1987Description', formVal.IndustryType.value);
+         if(this.searchCtrlValue && (this.carrierProfile.industries != this.searchCtrlValue.id) && (this.carrierProfile.usSic1987Description != this.searchCtrlValue.value) ){
+            formData.append('industries', this.searchCtrlValue.id);
+            formData.append('usSic1987Description', this.searchCtrlValue.value);
          }
 
-         if(this.carrierProfile.carrierOperation != formVal.operations){
+
+         let carrierOperationTitle;
+         if(this.carrierProfile.carrierOperation == 'Interstate')
+         {
+          carrierOperationTitle='1';
+         } else if(this.carrierProfile.carrierOperation == 'Intrastate Hazmat')
+         {
+          carrierOperationTitle='2';
+         }  else if(this.carrierProfile.carrierOperation =='Intrastate Non-Hazmat')
+         {
+          carrierOperationTitle='3';
+         }
+
+         if(carrierOperationTitle != formVal.operations){
           formData.append('carrierOperation', formVal.operations);
        }
-      
-         if(this.carrierProfile.addDate != formVal.date){
+       
+       let compareDate
+       if(this.carrierProfile.addDate){
+       compareDate = this.datePipe.transform(this.carrierProfile.addDate, "MM/dd/yyyy");}
+
+         if(compareDate != formVal.date){
           formData.append('addDate', formVal.date);
          }
          if(this.carrierProfile.oicState != formVal.oicState){
@@ -719,9 +891,9 @@ onSubmit(form1,formName)
          }
 
         //  selection on preferred lanes/all lanes
-         let lanesdata;
-        lanesdata=this.caBussiSerLaneSave();
-    let laneValue;
+      
+        let laneValue;
+        
     if(lanesdata.length > 0 && this.lanLocation==1){
       laneValue = JSON.stringify(lanesdata);
       formData.append('laneType', laneValue); 
@@ -729,15 +901,17 @@ onSubmit(form1,formName)
     }else{
       if(this.lanLocation==2){
         laneValue ="";
+        this.selectedLanes=[];
         formData.append('lane', "1");  
       }else{
         laneValue ="";
-        formData.append('lane', "");    
+        // formData.append('lane', "");    
       }
     }
+    
 
     // selection on equipment types 
-         if(this.selectedEquipmentType.length>0)
+         if(this.selectedEquipmentType.length>0 && this.newEquipmentTypeSelected)
          {
            let i;
            for (i=0;i<this.checkedEquipment.length;i++)
@@ -757,14 +931,25 @@ onSubmit(form1,formName)
         this.sharedService.openMessagePopup('Success - Profile Updated Successfully');
         this.getCarrierDetails();
         }
+        if(!resp['success'])
+        {
+          console.log('message');
+          if(resp['message'])
+          this.sharedService.openMessagePopup(resp['message']);
+          this.backEndError=true;
+        }
       }, (err) => {
         this.showLoader = false;
+    
+
       });
     }
+    this.newEquipmentTypeSelected=false;
 }
 
   lanesSelection(event)
   {
+    this.disableFormeEuipmentLanesEdit=false;
     this.preferredLanes=event;
 if(this.preferredLanes=='all')
     this.lanLocation=2;
@@ -776,6 +961,8 @@ if(this.preferredLanes=='all')
   
 
   checkOption(event,name,id){
+    this.valid2=true;
+    this.disableFormeEuipmentLanesEdit = false; // this is to enable update when user make any changes.
     if(this.carrierProfile.laneValues !=null){
      }else{
       this.carrierProfile.laneValues=[];
@@ -796,19 +983,6 @@ if(this.preferredLanes=='all')
     }
     this.selectedLanes.push(laneTypeData);
      
-    if(this.locations[event.source.id].pickUp == this.locations[event.source.id].dropOff){
-      this.laneError = event.source.id;
-      this.addOption = false; 
-      this.checkValueLane=true; 
-    }else if(this.locations[event.source.id].pickUp != null && this.locations[event.source.id].dropOff){
-      this.addOption = true; 
-      this.laneError = ""; 
-      this.checkValueLane=false; 
-    }else{     
-      this.addOption = false;
-      this.laneError = ""; 
-      this.checkValueLane=true; 
-    }
    
     for(let i=0;i<this.totalLanes;i++) {         //Same lane issue   
       if(this.locations[this.totalLanes].pickUp == this.locations[i].pickUp && this.locations[this.totalLanes].dropOff==this.locations[i].dropOff )
@@ -819,12 +993,9 @@ if(this.preferredLanes=='all')
           break;  
       }else {
         this.sameLaneError = ""; 
-        // this.addOption = false;
-        // this.checkValueLane=false;
+        this.addOption = true; 
       }
     }
- 
-
   }
 
   searchLane(searchStr:any){
@@ -940,7 +1111,27 @@ if(this.preferredLanes=='all')
 }
 
 removeLocation(i: number) {
-  this.locations.splice(i, 1);
+  this.locations.splice(i, 1);  // it will remove selected index from lanes
+  this.totalLanes=this.totalLanes-1; // if wil subtract total lanes by 1
+  this.sameLaneError=''  // it will hide two location error
+ 
+  // this is to verify if there still any common pair of lanes. 
+  for (let i = 0; i < this.locations.length; i++) {  
+    for (let j = 0; j < this.locations.length; j++) {
+      if (
+        i !== j &&
+        this.locations[i].pickUp === this.locations[j].pickUp &&
+        this.locations[i].dropOff === this.locations[j].dropOff
+      ) {
+        this.sameLaneError = i.toString();
+        this.addOption = false;
+        this.checkValueLane = true;
+        break;
+      }
+    }
+  }
+
+  // if there is when at least one pair of lanes avialble this will allow add lanes.
   for(let i=0;i< this.locations.length; i++) {
     if(this.locations[i].pickUp && this.locations[i].dropOff){
       this.addOption=true; 
@@ -974,14 +1165,27 @@ checkLaneShowHide(event){
 
 changeEquipment(event)
 {
+ this.newEquipmentTypeSelected=true; // this is to enable update button
+
+  let i,j;
 this.selectedEquipmentType=event.value;
-this.uncheckedEquipment=this.equipmentType;
-let i,j;
+
+let unSelectedArray=[];
+
+
+// this.uncheckedEquipment=this.equipmentType;
+for(i=0;i<this.equipmentType.length;i++)
+{
+  unSelectedArray[i]=this.equipmentType[i]['label'];
+}
+
+this.uncheckedEquipment=unSelectedArray;
+
 for(i=0;i<this.equipmentType.length;i++)
 {
   for(j=0;j<this.selectedEquipmentType.length;j++)
   {
-    if(this.selectedEquipmentType[j]==this.equipmentType[i])
+    if(this.selectedEquipmentType[j]==this.equipmentType[i]['label'])
    { 
      this.checkedEquipment=this.selectedEquipmentType;
      this.uncheckedEquipment=this.uncheckedEquipment.filter(e => e !== this.selectedEquipmentType[j]);
@@ -989,6 +1193,12 @@ for(i=0;i<this.equipmentType.length;i++)
   }
   }
 }
+
+}
+
+openDialogBox()
+{
+  alert('not defined yet')
 }
 
 
@@ -998,17 +1208,12 @@ for(i=0;i<this.equipmentType.length;i++)
     let laneType = [];
     for(let i = 0; i < this.locations.length; i++) {
       if(this.locations[i].pickUp !="" && this.locations[i].dropOff !=""){
-        if(this.locations[i].pickUp != this.locations[i].dropOff){        
+               
         let newLanType = {
             'pickUp':this.locations[i].pickUp,
             'dropOff':this.locations[i].dropOff
           }
          laneType.push(newLanType);
-        }else{
-        this.laneError = i.toString();
-        this.addOption=false; 
-        return false;
-        }
       }
     }
   
@@ -1025,7 +1230,8 @@ for(i=0;i<this.equipmentType.length;i++)
       dialogRef.afterClosed().subscribe(result => {
        if(result.event=="OK"){
            this.removeDocument(documentType,id);
-           this.getDocumentsList();
+          this.getCarrierDetails();
+          this.showLoader = false;
        }
       });
     }
@@ -1033,12 +1239,17 @@ for(i=0;i<this.equipmentType.length;i++)
 
     removeDocument(documentType:any, id:any){
       // Stoping event Propogation 
+      id=parseInt(id);
      this.showLoader = true;
      const formData = new FormData();
-     const url = APIURL.envConfig.USERENDPOINTS.updateCarrier;
+     const url = APIURL.envConfig.USERENDPOINTS.removeDocument;
      formData.append('id', id);
      formData.append('removeDoc', documentType);
-       this.httpService.post(url, formData).subscribe(resp => {
+     let APIparams = {
+      id: id,
+      removeDoc: documentType,
+    };
+       this.httpService.put(url,APIparams).subscribe(resp => {
         if (resp['success']) {
             if(documentType=="liabilityDoc"){
               this.carrierProfile.liabilityDocument ="";
@@ -1065,15 +1276,21 @@ for(i=0;i<this.equipmentType.length;i++)
       });
       dialogRef.afterClosed().subscribe(result => {
        if(result.event=="Ok"){
+        this.getCarrierDetails();
            }
       });
-      this.getCarrierDetails();
-      this.getDocumentsList();
+      // this.getDocumentsList();
+      // this.showLoader = false;
   }
 
     checkIndustOption(event){
       this.searchCtrl=event.value.value; 
       this.searchCtrlValue=event.value;
+      if(this.searchCtrlValue)
+      {
+        this.disableFormeEuipmentLanesEdit=false;
+      }
+
     }
 
     searchIndustry(searchStr:any){
@@ -1094,17 +1311,6 @@ for(i=0;i<this.equipmentType.length;i++)
       this.getIndustries(null);
     }
 
-    cancel(){
-
-    }
-    closePopup(){
-
-    }
-    donePopup(){
-
-    }
-    openDialogBox(){
-      
-    }
+  
     
 }
