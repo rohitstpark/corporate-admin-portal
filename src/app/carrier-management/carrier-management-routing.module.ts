@@ -6,9 +6,8 @@ import { CarrierDriversComponent } from './carrier-drivers/carrier-drivers.compo
 import { CarrierShipmentComponent } from './carrier-shipment/carrier-shipment.component';
 import { CarrierConnectionsComponent } from './carrier-connections/carrier-connections.component';
 import { AddDotNumberComponent } from './add-dot-number/add-dot-number.component';
-import { AuthGuard } from './../common/guard/auth.guard';
 import { CarrierEditComponent } from './carrier-edit/carrier-edit.component';
-
+import { AuthGuard } from './../common/guard/auth.guard';
 
 
 const routes: Routes = [

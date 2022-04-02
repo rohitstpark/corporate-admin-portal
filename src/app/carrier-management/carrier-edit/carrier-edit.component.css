@@ -14,7 +14,11 @@
 .expire_date:before { content: ""; position: absolute; width: 4px; height: 4px; background: #999999; top: 5px; left: 6px; border-radius: 50%; }
 .doc_expired { border: 1px solid #C44851; }
 .doc_expired .expire_date  { color: #C44851; }
+.error_mess { color: #C44851; font-size: 12px; font-weight: 500; }
 
+mat-error {
+  color: #C44851; font-size: 12px; font-weight: 500;
+}
 .filter_section .section_head { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
 .filter_section .mob-section-head { display: none; }
   
@@ -121,6 +125,18 @@
 .signatureCon { display: flex; align-items: center; padding: 20px 24px 0; }
 .sign_img { min-width: 160px; height: 75px; box-shadow: 0px 15px 25px 0px #00000026; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: x-large; padding: 0 12px; }
 .sign_text { margin: 0 0 0 30px; font-size: 1vw; }
+/* .Signcolor { color: #000;} */
 
+:root {
+  --clBlka: #000000 !important;
+  }
+
+/* signatures fonts */
+.Sacramento_txt { font-family: 'Sacramento'; color: var(--clBlka); font-weight: 400; }
+.GreatVibes_txt { font-family: 'Great Vibes'; color: var(--clBlka); font-weight: 400; }
+.Yellowtail_txt { font-family: 'Yellowtail'; color: var(--clBlka); font-weight: 400; }
+.Tangerine_txt { font-family: 'Tangerine'; color: var(--clBlka); font-weight: 400; }
+.Cedarville_txt { font-family: 'Cedarville'; color: var(--clBlka); font-weight: 400; }
+.DancingScript_txt { font-family: 'Dancing Script'; color: var(--clBlka); font-weight: 400; }
 
 

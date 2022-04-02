@@ -1,3 +1,7 @@
+<div class="site-loader" *ngIf="showLoader">
+  <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div>
+
 <!-- Upload General Liability Document -->
 <div *ngIf="data.openPop =='generalLiability'">
     <div class="header_popup">
@@ -12,8 +16,7 @@
           <div class="col-md-12">
             <p class="fs_14 fsn_4 txt_lb input_label">Upload Document <span class="txt_d"> *</span></p>
             <div class="upload_dock reg_upload_dock">
-              <!-- appearance="none" -->
-              <mat-form-field  class="custom_matSuffix_icon">
+              <mat-form-field appearance="none" class="custom_matSuffix_icon">
                 <input matInput type="text" formControlName="generalLiability" value="{{name}}" placeholder="Browse Document" class="form-control custom_input" readonly="readonly">
                 <mat-error *ngIf="imagmessage" class="error_mess">{{ imagmessage }}</mat-error>
               </mat-form-field>
@@ -50,8 +53,7 @@
         <div class="col-md-12">
           <p class="fs_14 fsn_4 txt_lb input_label">Upload Document <span class="txt_d"> *</span></p>
           <div class="upload_dock reg_upload_dock">
-            <!-- appearance="none" -->
-            <mat-form-field  class="custom_matSuffix_icon">
+            <mat-form-field appearance="none" class="custom_matSuffix_icon">
               <input matInput type="text" formControlName="workerCompensation" value="{{name}}" placeholder="Browse Document" class="form-control custom_input" readonly="readonly">
               <mat-error *ngIf="imagmessage" class="error_mess">{{ imagmessage }}</mat-error>
             </mat-form-field>
@@ -103,8 +105,7 @@
       <div class="">
         <p class="fs_14 fsn_4 txt_lb input_label">Upload Certificate Of Insurance <span class="txt_d"> *</span></p>
         <div class="upload_dock reg_upload_dock">
-          <!-- appearance="none" -->
-          <mat-form-field  appearance="none" class="custom_matSuffix_icon">
+          <mat-form-field appearance="none" class="custom_matSuffix_icon">
             <input matInput type="text" formControlName="certificate" value="{{name}}" placeholder="Browse certificate of insurance" class="form-control custom_input" readonly="readonly">
             <mat-error *ngIf="imagmessage" class="error_mess">{{ imagmessage }}</mat-error>
           </mat-form-field>
@@ -118,13 +119,13 @@
       </div>
       <div class="ic_calander">
         <p class="fs_14 fsn_4 txt_lb input_label">Expiry Date <span class="txt_d"> *</span></p>
-        <!-- appearance="none" -->
-        <mat-form-field appearance="none" >
+        <mat-form-field appearance="none">
           <input matInput formControlName="insurance_expiry_date" [matDatepicker]="dp1" placeholder="Select Date" [min]="minDateBefore" [readonly]="true" class="form-control custom_input">
           <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
           <mat-datepicker #dp1 disabled="false"></mat-datepicker>
-          <mat-error class="error_mess" *ngIf="certifcateVerify.get('insurance_expiry_date').errors?.['required']">Expiry date is required.</mat-error>
+          <mat-error *ngIf="certifcateVerify.get('insurance_expiry_date').errors?.required">Expiry date is required.</mat-error>
         </mat-form-field>
+      
       </div>
       <p class="fs_14 fsn_4 txt_d" style="margin: -1rem 0 2rem"></p>
     </div>

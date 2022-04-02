@@ -7,6 +7,7 @@ const USERENDPOINTS = {
     getAdminUserDetail: 'admin/user-me',
     updateProfile: 'admin/user-update',
     updateCarrier:'admin/carrier-edit',
+    removeDocument:'admin/carrier-remove-docs',
     addUser:'admin/user-add',
     logout: 'device/delete'
 };
