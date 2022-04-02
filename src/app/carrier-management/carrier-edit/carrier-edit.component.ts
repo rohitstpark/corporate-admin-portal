@@ -80,6 +80,8 @@ equipmentLanesEdit:FormGroup;
 equipmentType:string[]=[];
 checkedEquipment:string[]=[];
 uncheckedEquipment:string[]=[];
+check:string[]=[];
+unCheck:string[]=[];
 name:any;
 public searchCtrl:any;
 selectedEquipmentType:string[]=[];
@@ -487,8 +489,6 @@ redirectToCarrierView(){
 
 autoLocation($event: GermanAddress) { 
 
-  console.log('event');
-  console.log($event);
   this.editAddress.get("addressLine1").setValue($event.displayAddress);
   this.editAddress.get("city").setValue($event.locality.long);
   this.editAddress.get("zipShort").setValue($event.postalCode);
@@ -659,8 +659,8 @@ setSameMailAddress(event)
 
 onSubmit(form1,formName)
   {
-    console.log('sameAsPhysicalAdd');
-    console.log(this.sameAsPhysicalAdd);
+    // console.log('sameAsPhysicalAdd');
+    // console.log(this.sameAsPhysicalAdd);
     let lanesdata,i;
     lanesdata=this.caBussiSerLaneSave();
 
@@ -686,15 +686,14 @@ onSubmit(form1,formName)
      this.phyAutoNot=false;
    }
 
-   console.log('this.valid2');
-   console.log(this.valid2);
-   console.log(this.mailAutoNot);
-   console.log(this.phyAutoNot);
-   console.log(form1)
+  //  console.log('this.valid2');
+  //  console.log(this.valid2);
+  //  console.log(this.mailAutoNot);
+  //  console.log(this.phyAutoNot);
+  //  console.log(form1)
   
 
     if(form1.status=='VALID' && this.valid2 && !this.mailAutoNot && !this.phyAutoNot){
-      console.log('form enter');
      this.disableFormeEuipmentLanesEdit=true;
      this.disableFormeditAddress=true;
      this.disableFormeEditCompanyInfo=true;
@@ -913,14 +912,15 @@ onSubmit(form1,formName)
     // selection on equipment types 
          if(this.selectedEquipmentType.length>0 && this.newEquipmentTypeSelected)
          {
+           this.equipmentCovertiontoSlug();
            let i;
-           for (i=0;i<this.checkedEquipment.length;i++)
+           for (i=0;i<this.check.length;i++)
            {
-            formData.append(this.checkedEquipment[i], "1");
+            formData.append(this.check[i], "1");
            }
-           for (i=0;i<this.uncheckedEquipment.length;i++)
+           for (i=0;i<this.unCheck.length;i++)
            {
-            formData.append(this.uncheckedEquipment[i], "0");
+            formData.append(this.unCheck[i], "0");
            }
          }
         }
@@ -933,7 +933,6 @@ onSubmit(form1,formName)
         }
         if(!resp['success'])
         {
-          console.log('message');
           if(resp['message'])
           this.sharedService.openMessagePopup(resp['message']);
           this.backEndError=true;
@@ -983,7 +982,11 @@ if(this.preferredLanes=='all')
     }
     this.selectedLanes.push(laneTypeData);
      
-   
+    if(this.totalLanes==0 && this.selectedLanes.length>=2)
+    {
+      this.addOption = true;
+    }
+
     for(let i=0;i<this.totalLanes;i++) {         //Same lane issue   
       if(this.locations[this.totalLanes].pickUp == this.locations[i].pickUp && this.locations[this.totalLanes].dropOff==this.locations[i].dropOff )
         {
@@ -1193,7 +1196,34 @@ for(i=0;i<this.equipmentType.length;i++)
   }
   }
 }
+}
 
+equipmentCovertiontoSlug()
+{
+  let i , j;
+  for(i=0;i<this.equipmentType.length;i++)
+{
+  for(j=0;j<this.uncheckedEquipment.length;j++)
+  {
+    if(this.equipmentType[i]['label']==this.uncheckedEquipment[j])
+    {
+      this.unCheck.push(this.equipmentType[i]['slug'])
+      break;
+    }
+  }
+}
+
+for(i=0;i<this.equipmentType.length;i++)
+{
+  for(j=0;j<this.checkedEquipment.length;j++)
+  {
+    if(this.equipmentType[i]['label']==this.checkedEquipment[j])
+    {
+      this.check.push(this.equipmentType[i]['slug'])
+      break;
+    }
+  }
+}
 }
 
 openDialogBox()
