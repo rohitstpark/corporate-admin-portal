@@ -1341,6 +1341,5 @@ openDialogBox()
       this.getIndustries(null);
     }
 
-  
     
 }

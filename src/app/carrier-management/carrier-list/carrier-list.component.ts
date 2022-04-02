@@ -418,6 +418,7 @@ export class CarrierListComponent implements OnInit {
   }
 
   redirectToCarrierEdit(element){
+    console.log(element);
     console.log('running');
     this.router.navigate(['carrier/edit/',element.id]);
   }
