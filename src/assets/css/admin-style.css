@@ -115,7 +115,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; overflow: h
   }
 
 /*Input Field*/
-  .custom_input { font-size: 14px; line-height: 18px; font-weight: 500; color: #000; width: 100%; height: 40px; padding: 11px 16px; border: none; border-radius: 4px; background: #f6f6f6; }
+  .custom_input { font-size: 14px; line-height: 18px; font-weight: 500; color: #000; width: 100%; height: 40px; padding: 11px 16px; border: none; border-radius: 4px; background: #f6f6f6; box-sizing: border-box !important; }
   .custom_input:focus { outline: 0; box-shadow: none; background: #f6f6f6; }
   .custom_input::placeholder { font-size: 14px; font-weight: 500; color: #818181; line-height: 1rem !important; }
   .custom_input .mat-select-placeholder { font-size: 14px; font-weight: 500; color: #818181; }
