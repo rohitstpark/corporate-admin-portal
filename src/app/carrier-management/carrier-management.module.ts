@@ -1,6 +1,7 @@
 import { NgModule} from "@angular/core";
 import { CommonModule } from '@angular/common';  
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http'; 
 import { RouterModule } from '@angular/router';
 import { PopupComponent } from 'src/app/carrier-management/popup/popup.component'; 
 import { CarrierManagementRoutingModule } from './carrier-management-routing.module';
@@ -19,6 +20,7 @@ import { AgmCoreModule } from '@agm/core';
 import { AuthInterceptor } from './../common/services/auth-interceptor';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule, } from '@angular/material/form-field';
+import {MatDialogModule} from "@angular/material/dialog";
 import { CarrierListComponent } from './carrier-list/carrier-list.component';
 import { CarrierDetailComponent } from './carrier-detail/carrier-detail.component';
 import { CarrierShipmentComponent } from './carrier-shipment/carrier-shipment.component';
@@ -43,12 +45,14 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
       MatFormFieldModule,
       NgxSkeletonLoaderModule,
       MaterialModule,
+      HttpClientModule,
       CarrierManagementRoutingModule,
       CommonModuleModule,
       MatSelectModule,
       MatSlideToggleModule,
       NgxDaterangepickerMd,
       MatRadioModule,
+      MatDialogModule,
       MatDatepickerModule,
       AgmCoreModule.forRoot({
         apiKey: 'AIzaSyAMMBwZYg03hSwJEnODnIWf14YJKjWz_2A',
