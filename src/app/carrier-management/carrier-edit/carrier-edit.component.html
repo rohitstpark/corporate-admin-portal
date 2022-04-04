@@ -409,7 +409,7 @@
                   <p class="fs_14 fsn_4 txt_lb mb-1">Address Line 1</p>
           
                   <mat-form-field appearance="none">
-                    <input matInput matGoogleMapsAutocomplete (onGermanAddressMapped)="autoLocation($event)" formControlName="addressLine1"  (input)="noAutoselection('phy')" (focusout)="noFocusOut('phy')" placeholder="Enter Address" maxlength="257" class="form-control custom_input" [country]="searchRestriction" required>
+                    <input matInput matGoogleMapsAutocomplete (onGermanAddressMapped)="autoLocation($event)" formControlName="addressLine1" [value]="editAddress.get('addressLine1').value"  (input)="noAutoselection('phy')" (focusout)="noFocusOut('phy')" placeholder="Enter Address" maxlength="257" class="form-control custom_input" [country]="searchRestriction" required>
                     <mat-error *ngIf="!phyAutoNot && editAddress.get('addressLine1').errors?.required">Address Line 1 is required.</mat-error>
                      <!-- <span *ngIf="phyautoNot">Address Line 1 is required.</span> -->
                     <span class="error_mess" *ngIf="phyAutoNot" >Address Line 1 is required.</span>
@@ -486,7 +486,7 @@
                 <div *ngIf="!sameAsPhysicalAdd" class="col-md-4">
                   <p class="fs_14 fsn_4 txt_lb mb-1">Address Line 1</p>
                   <mat-form-field appearance="none" class="w-100">
-                    <input matInput matGoogleMapsAutocomplete (onGermanAddressMapped)="autoMailLocation($event)" formControlName="mailAddLine1"  (input)="noAutoselection('mail')"  (focusout)="noFocusOut('mail')"  placeholder="Enter Address" maxlength="257" class="form-control custom_input" [country]="searchRestriction" required>
+                    <input matInput matGoogleMapsAutocomplete (onGermanAddressMapped)="autoMailLocation($event)" formControlName="mailAddLine1" [value]="editAddress.get('mailAddLine1').value"  (input)="noAutoselection('mail')"  (focusout)="noFocusOut('mail')"  placeholder="Enter Address" maxlength="257" class="form-control custom_input" [country]="searchRestriction" required>
                     <mat-error *ngIf="!mailAutoNot && editAddress.get('mailAddLine1').errors?.required">Address Line 1 is required.</mat-error>
                     <span class="error_mess" *ngIf="mailAutoNot">Address Line 1 is required.</span>
 
