@@ -40,96 +40,97 @@
                 </div>
 
                 <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">Company Name</p>
-                  <!-- appearance="none" -->
+                  <p class="fs_14 fsn_4 txt_lb mb-1">Company Name<span class="txt_d"> *</span></p>
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" placeholder="Enter Company Name" formControlName="legalName"/>
-                    <mat-error>Company Name is required.</mat-error>
+                    <mat-error *ngIf="editCompanyInfo.get('legalName').errors?.required">Company Name is required.</mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">DOT Number</p>
-                  <!-- appearance="none" -->
-                  <mat-form-field appearance="none"  class="w-100">
-                    <input type="text" matInput class="form-control custom_input" placeholder="Enter DOT Number" formControlName="dotNumber"/>
-                    <mat-error *ngIf="editCompanyInfo.get('dotNumber').errors?.['required']">DOT number is required.</mat-error>
-                    <mat-error *ngIf="editCompanyInfo.get('dotNumber').errors?.['pattern']">DOT number must contains digits only.</mat-error>
+                  <p class="fs_14 fsn_4 txt_lb mb-1">DOT Number<span class="txt_d"> *</span></p>
+                  <mat-form-field appearance="none" class="w-100">
+                    <input type="text" matInput class="form-control custom_input" maxlength="10" placeholder="Enter DOT Number" formControlName="dotNumber"/>
+                    <mat-error *ngIf="editCompanyInfo.get('dotNumber').errors?.required">DOT number is required.</mat-error>
+                    <mat-error *ngIf="editCompanyInfo.get('dotNumber').errors?.pattern">DOT number must contains digits only.</mat-error>
+                    <mat-error *ngIf="editCompanyInfo.get('dotNumber').errors?.pattern">DOT number must contains digits only.</mat-error>
+                    <!-- <mat-error *ngIf="backEndError && !editCompanyInfo.get('dotNumber').errors?.pattern && !editCompanyInfo.get('dotNumber').errors?.required">DOT number must contains digits only.</mat-error> -->
 
                   </mat-form-field>
                 </div>
                 <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">Contact Number</p>
-                  <!-- appearance="none" -->
+                  <p class="fs_14 fsn_4 txt_lb mb-1">Contact Number<span class="txt_d"> *</span></p>
                   <mat-form-field appearance="none" class="w-100">
-                    <input type="text" matInput class="form-control custom_input" placeholder="Enter Contact Number" formControlName="telephone"/>
-                    <mat-error *ngIf="editCompanyInfo.get('telephone').errors?.['required']">Contact Number is required.</mat-error>
-                    <mat-error *ngIf="editCompanyInfo.get('telephone').errors?.['pattern']">Contact Number must contains digits only.</mat-error>
+                    <input type="text" matInput class="form-control custom_input" maxlength="10" placeholder="Enter Contact Number" formControlName="telephone"/>
+                    <mat-error *ngIf="editCompanyInfo.get('telephone').errors?.required">Contact Number is required.</mat-error>
+                    <mat-error *ngIf="editCompanyInfo.get('telephone').errors?.pattern">Contact Number must contains digits only.</mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">Email Address</p>
-                  <!-- appearance="none" -->
+                  <p class="fs_14 fsn_4 txt_lb mb-1">Email Address<span class="txt_d"> *</span></p>
                   <mat-form-field appearance="none" class="w-100">
-                    <input type="text" matInput class="form-control custom_input" placeholder="Enter Email ID"  formControlName="emailAddress"/>
-                    <mat-error>Email ID is required.</mat-error>
+                    <input type="text" matInput maxlength="128" class="form-control custom_input" placeholder="Enter Email ID"  formControlName="emailAddress"/>
+                    <mat-error *ngIf="editCompanyInfo.get('emailAddress').errors?.required">Email ID is required.</mat-error>
+                    <mat-error *ngIf="editCompanyInfo.get('emailAddress').errors?.pattern">Please enter correct email address.</mat-error>
+
+
                   </mat-form-field>
                 </div>
                 <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">HM Flag</p>
-                    <mat-slide-toggle formControlName="hmFlag" >Yes</mat-slide-toggle>
+                  <div class="custom_toggle">
+                    <p class="fs_14 fsn_4 txt_lb mb-1">HM Flag</p>
+                    <mat-slide-toggle formControlName="hmFlag">Yes</mat-slide-toggle>
+                  </div>
                 </div>
                 <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">PC Flag</p>
+                  <div class="custom_toggle">
+                    <p class="fs_14 fsn_4 txt_lb mb-1">PC Flag</p>
                     <mat-slide-toggle formControlName="pcFlag" >Yes</mat-slide-toggle>
                     <!-- <mat-error>PC Flag is required.</mat-error> -->
+                  </div>
                 </div>
                 <div class="col-md-4">
                   <p class="fs_14 fsn_4 txt_lb mb-1">DBA Name</p>
-                  <!-- appearance="none" -->
-                  <mat-form-field  appearance="none" class="w-100">
+                  <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" placeholder="DBA Name" formControlName="dbaName"/>
-                    <!-- <mat-error>DBA Name is required.</mat-error> -->
+                    <mat-error *ngIf="editCompanyInfo.get('dbaName').errors?.maxlength">DBA Name must not exceed 64 character.</mat-error>
                   </mat-form-field>
                   <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.dbaName ? carrierProfile.dbaName : '-'}}</p> -->
                 </div>
                 <div class="col-md-4">
                   <p class="fs_14 fsn_4 txt_lb mb-1">Fax Number</p>
-                  <!-- appearance="none" -->
                   <mat-form-field appearance="none" class="w-100">
-                    <input type="number" matInput class="form-control custom_input" placeholder="Fax Number" formControlName="fax"/>
+                    <input type="text" maxlength="15" matInput class="form-control custom_input" placeholder="Fax Number" formControlName="fax"/>
                     <!-- <mat-error>Fax Number is required.</mat-error> -->
                   </mat-form-field>
                
                 </div>
                 <div class="col-md-4">
                   <p class="fs_14 fsn_4 txt_lb mb-1">EIN (Federal Tax ID)</p>
-                  <!-- appearance="none" -->
                   <mat-form-field appearance="none" class="w-100">
-                    <input type="text" matInput class="form-control custom_input" placeholder="EIN (Federal Tax ID)" formControlName="einTaxId"/>
+                    <input type="text" maxlength="25" matInput class="form-control custom_input" placeholder="EIN (Federal Tax ID)" formControlName="einTaxId"/>
                     <!-- <mat-error>EIN (Federal Tax ID) is required.</mat-error> -->
-                  </mat-form-field>                 
+                  </mat-form-field>
+                 
                 </div>
                 <div class="col-md-4">
                   <p class="fs_14 fsn_4 txt_lb mb-1">Number of Trucks</p>
-                  <!-- appearance="none" -->
                   <mat-form-field appearance="none" class="w-100">
-                    <input type="number" matInput class="form-control custom_input" placeholder="Number of Trucks" formControlName="numberOfTrucks"/>
+                    <input type="number" maxlength="5" matInput class="form-control custom_input" placeholder="Number of Trucks" formControlName="numberOfTrucks"/>
                     <!-- <mat-error>Number of truck is required.</mat-error> -->
                   </mat-form-field>
                  
                 </div>
                 <div class="col-md-4">
                   <p class="fs_14 fsn_4 txt_lb mb-1">Number of Drivers</p>
-                  <!--  appearance="none" -->
                   <mat-form-field appearance="none" class="w-100">
-                    <input type="number" matInput class="form-control custom_input" placeholder="Number of Drivers" formControlName="numberOfDrivers"/>
+                    <input type="number" maxlength="5" matInput class="form-control custom_input" placeholder="Number of Drivers" formControlName="numberOfDrivers"/>
                     <!-- <mat-error>Number of Drivers is required.</mat-error> -->
                   </mat-form-field>
                 </div>
                 <div class="col-md-12">
                   <div class="float-right">
-                    <button class="btn custum_button button_primary bg_w txt_lb mr-4" (click)="cancel()">Cancel</button>
-                    <button class="btn custum_button button_primary" type="submit">Update</button>
+                    <button (click)="cancel('editCompanyInfo')" class="btn custum_button button_primary bg_w txt_lb mr-4">Cancel</button>
+                    <button class="btn custum_button button_primary" [disabled]="editCompanyInfo.pristine && disableFormeEditCompanyInfo" type="submit">Update</button>
                   </div>
                 </div>
               </div>
@@ -149,49 +150,46 @@
             <div class="update_profile_container">
               <div class="row">
                 <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">First Name</p>
-                  <!-- appearance="none" -->
+                  <p class="fs_14 fsn_4 txt_lb mb-1">First Name<span class="txt_d"> *</span></p>
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" placeholder="First name" formControlName="firstName"/>
-                    <mat-error *ngIf="editPersonalInfo.get('firstName').errors?.['required']">First name is required.</mat-error>
-                    <mat-error *ngIf="editPersonalInfo.get('firstName').errors?.['maxlength']">First name must not exceed 25 characters.</mat-error>
+                    <mat-error *ngIf="editPersonalInfo.get('firstName').errors?.required">First name is required.</mat-error>
+                    <mat-error *ngIf="editPersonalInfo.get('firstName').errors?.maxLength">First name must not exceed 25 characters.</mat-error>
+                    <mat-error *ngIf="editPersonalInfo.get('firstName').errors?.pattern">First name cannot contain special characters.</mat-error>
                   </mat-form-field>
                   <!-- <p class="fs_14 fsm_5 txt_b mb-0">{{carrierProfile.firstName ? carrierProfile.firstName : '-'}}</p> -->
                 </div>
                 <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">Last Name</p>
-                  <!-- appearance="none" -->
+                  <p class="fs_14 fsn_4 txt_lb mb-1">Last Name<span class="txt_d"> *</span></p>
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" placeholder="Last name" formControlName="lastName"/>
-                    <mat-error *ngIf="editPersonalInfo.get('lastName').errors?.['required']">Last name is required.</mat-error>
-                    <mat-error *ngIf="editPersonalInfo.get('lastName').errors?.['maxlength']">Last name must not exceed 25 characters.</mat-error>
+                    <mat-error *ngIf="editPersonalInfo.get('lastName').errors?.required">Last name is required.</mat-error>
+                    <mat-error *ngIf="editPersonalInfo.get('lastName').errors?.maxLength">Last name must not exceed 25 characters.</mat-error>
+                    <mat-error *ngIf="editPersonalInfo.get('lastName').errors?.pattern">Last name cannot contain special characters.</mat-error>
                   </mat-form-field>
                   <!-- <p class="fs_14 fsm_5 txt_b mb-0">{{carrierProfile.lastName ? carrierProfile.lastName : '-'}}</p> -->
                 </div>
 
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                   <div class="create_signatureCon" *ngIf="carrierProfile?.signatureFont">
                     <div class="signatureCon">
                        <div class="sign_img">
-                          <span class="{{carrierProfile?.signatureFont}}">{{carrierProfile?.firstName}} {{carrierProfile?.lastName}}</span>
+                          <span class="{{carrierProfile?.signatureFont}}">{{signatureFont?.firstName}} {{signatureFont?.lastName}}</span>
                        </div>
                        <div class="sign_text">
                           <p class="fs_14 fsn_4 txt_lb mb-0">This eSign will be used in all documents</p>
                        </div>
                     </div>
                  </div>
-                </div>
+                </div> -->
 
                 <div class="col-md-12">
                   <div class="float-right">
-                    <button class="btn custum_button button_primary bg_w txt_lb mr-4" (click)="cancel()">Cancel</button>
-                    <button type="submit" class="btn custum_button button_primary">Update</button>
+                    <button class="btn custum_button button_primary bg_w txt_lb mr-4" (click)="cancel('editPersonalInfo')">Cancel</button>
+                    <button type="submit" [disabled]="editPersonalInfo.pristine" class="btn custum_button button_primary">Update</button>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="edit_profile_con" style="display: none;">
-              <p class="fs_16 fsb_7 txt_b" style="margin: 0 0 32px;">Edit Details</p>
             </div>
           </div>
         </mat-expansion-panel>
@@ -220,9 +218,9 @@
               <div class="doc_uploadEmptytr">
                  <div class="uploadEmptyTxt">
                     <p class="mb-2 fs_28 fsb_7 txt_b">Documents </p>
-                    <p class="mb-0 fs_14 fsn_4 txt_lb">Upload your Certificate of Insurance <br>
-                       Once you update your COI all shippers wil get a notification to accept the COI again. <br>
-                       They can only start businness once they accept
+                    <p class="mb-0 fs_14 fsn_4 txt_lb">Upload carrier's Certificate of Insurance <br>
+                       Once you update carrier's COI all shippers will get a notification to accept the COI again. <br>
+                       They can only start business once they accept.
                     </p>
                     <div class="upload_doc_icon mt-2">
                        <p class="upload_actiontxt pointer" (click)="userPopup('certificate',carrierProfile)">
@@ -261,15 +259,14 @@
         <!--  -->
         <div class="document_uploadCon" *ngIf="!showLoader && (carrierProfile?.compensationDocument || carrierProfile?.liabilityDocument || carrierProfile?.certificateOfInsurance)">
            <div class="document_uploadview">
-              <div class="doc_upload_conT">
+              <!-- <div class="doc_upload_conT">
                  <p class="fs_24 fsb_7 txt_b line_before">
                     <span class="data_card_title">
                     <img src="{{serverPathForUrl}}/portal/images/after-login/cl-icons/ic-documents-tc.svg" class="img-fluid">
                     </span>
                     <span>Documents </span>
                  </p>
-                 <!-- <p class="fs_14 fsm_5 txt_p" *ngIf="!userId"><span class="pointer" (click)="userPopup('certificate')">Edit</span></p> -->
-              </div>
+              </div> -->
               <div class="doc_upload_conBone" *ngIf="!carrierProfile?.certificateOfInsurance">
                  <div class="upload_conBonel">
                     <!-- <span class="">
@@ -308,9 +305,8 @@
                              </div>
                           </div>
                         </a>
-                          <p class="fs_12 fsn_4 txt_d mb-0" *ngIf="(certiOfInsuraExpired || certiOfInExDatethire)" class="button_actiontxt pointer" (click)="userPopup('certificate',carrierProfile)">Update</p>
+                          <p class="fs_12 fsn_4 txt_d mb-0"  class="button_actiontxt pointer" (click)="userPopup('certificate',carrierProfile)">Update</p>
                        </div>
-                      
                     </div>
                     <div class="col-md-6" *ngIf="carrierProfile?.compensationDocument">
                        <div class="coi_doc">
@@ -374,7 +370,7 @@
      </div>
   </div>
   <!-- Document Upload skelaton -->
-  <div class="profile_skelaton pt-0" style="padding: 24px;" *ngIf="skeletonLoader">
+  <div class="profile_skelaton pt-0" style="padding: 24px;" *ngIf="false">
      <div class="bussSer_conT">
         <p class="fs_24 fsb_7 txt_b line_before">
            <span class="data_card_title">
@@ -393,8 +389,6 @@
      </div>
   </div>
 </div>
-
-
 </mat-expansion-panel>
         <!-- document ends  -->
 
@@ -412,93 +406,90 @@
                   <p class="fs_14 fsb_7 txt_b mb-4">Physical Address</p>
                 </div>
                 <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">Address Line 1</p>
-                  <!-- <mat-form-field appearance="none" class="w-100">
-                    <input type="text" matInput class="form-control custom_input" placeholder="Address Line 1" formControlName="addressLine1"/>
-                    <mat-error>Address line 1 is required.</mat-error>
-                  </mat-form-field> -->
-                  <!-- appearance="none" -->
-                  <mat-form-field >
-                    <input matInput matGoogleMapsAutocomplete (onGermanAddressMapped)="autoLocation($event)" formControlName="addressLine1"  placeholder="Enter Address" maxlength="257" class="form-control custom_input" [country]="searchRestriction" required>
-                    <mat-error *ngIf="editAddress.get('addressLine1').errors?.['required']">Address Line 1 is required.</mat-error>
-                    <!-- <mat-error *ngIf="!pickAutoNot && submitted && shipmentForm.get('pickupLocation').errors?.['required']" class="error_mess">Pickup Location is required.</mat-error> -->
+                  <p class="fs_14 fsn_4 txt_lb mb-1">Address Line 1<span class="txt_d"> *</span></p>
+          
+                  <mat-form-field appearance="none">
+                    <input matInput matGoogleMapsAutocomplete (onGermanAddressMapped)="autoLocation($event)" formControlName="addressLine1" [value]="editAddress.get('addressLine1').value"  (input)="noAutoselection('phy')" (focusout)="noFocusOut('phy')" placeholder="Enter Address" maxlength="257" class="form-control custom_input" [country]="searchRestriction" required>
+                    <mat-error *ngIf="!phyAutoNot && editAddress.get('addressLine1').errors?.required">Address Line 1 is required.</mat-error>
+                     <!-- <span *ngIf="phyautoNot">Address Line 1 is required.</span> -->
+                    <span class="error_mess" *ngIf="phyAutoNot" >Address Line 1 is required.</span>
+
+                    <!-- <mat-error *ngIf="!pickAutoNot && submitted && shipmentForm.get('pickupLocation').errors?.required" class="error_mess">Pickup Location is required.</mat-error> -->
                     <!-- <span *ngIf="pickAutoNot" class="error_mess">Address line 1 is required..</span> -->
-                    <!-- <mat-error *ngIf="!pickAutoNot && shipmentForm.get('pickupLocation').errors?.['pattern']" class="error_mess">First letter should not be space.</mat-error>
+                    <!-- <mat-error *ngIf="!pickAutoNot && shipmentForm.get('pickupLocation').errors?.pattern" class="error_mess">First letter should not be space.</mat-error>
                     <small class="city_labl_address error_mess" *ngIf="sameLocation && !disabledAssign && shipmentForm.value.pickupLocation"> Pickup & dropoff location should not be same.</small>
                     <small class="city_labl_address error_mess" *ngIf="pickupCityError && shipmentForm.value.pickupLocation"> {{pickupCityError}}</small>
-                    <mat-error *ngIf="!pickAutoNot && shipmentForm.get('pickupLocation').errors?.['maxlength']" class="error_mess">Only 256 characters are allowed.</mat-error> -->
+                    <mat-error *ngIf="!pickAutoNot && shipmentForm.get('pickupLocation').errors?.maxlength" class="error_mess">Only 256 characters are allowed.</mat-error> -->
                   </mat-form-field>
                   <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phyStreet ? carrierProfile.phyStreet : '-'}}</p> -->
                 </div>
                 <div class="col-md-4">
                   <p class="fs_14 fsn_4 txt_lb mb-1">Address Line 2</p>
-                  <!-- appearance="none" -->
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" placeholder="Address Line 2" formControlName="addressLine2"/>
                   </mat-form-field>
                   <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phyAddressLine2 ? carrierProfile.phyAddressLine2 : '-'}}</p> -->
                 </div>
                 <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">Zip Short</p>
-                  <!-- appearance="none" -->
+                  <p class="fs_14 fsn_4 txt_lb mb-1">Zip Short<span class="txt_d"> *</span></p>
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" placeholder="Enter Zip Short" formControlName="zipShort"/>
-                    <mat-error *ngIf="editAddress.get('zipShort').errors?.['maxlength']">Zip code must be 6 digit long</mat-error>
-                    <mat-error *ngIf="editAddress.get('zipShort').errors?.['required']">Zip is required</mat-error>
-                    <mat-error *ngIf="editAddress.get('zipShort').errors?.['pattern']">Zip code must be a number</mat-error>
-
+                    <mat-error *ngIf="editAddress.get('zipShort').errors?.maxlength">Zip code must be 6 digit long</mat-error>
+                    <mat-error *ngIf="editAddress.get('zipShort').errors?.required">Zip is required</mat-error>
+                    <mat-error *ngIf="editAddress.get('zipShort').errors?.pattern">Zip code must be a number</mat-error>
                   </mat-form-field>
-                  <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phyZipShort ? carrierProfile.phyZipShort : '-'}}</p> -->
                 </div>
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                   <p class="fs_14 fsn_4 txt_lb mb-1">Postal Code</p>
-                  <!-- appearance="none"  -->
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" placeholder="Enter Postal Code" formControlName="postalCode"/>
-                    <mat-error *ngIf="editAddress.get('postalCode').errors?.['maxlength']">Postal code must be 6 digit long</mat-error>
-                    <mat-error *ngIf="editAddress.get('postalCode').errors?.['required']">Postal code is required</mat-error>
-                    <mat-error *ngIf="editAddress.get('postalCode').errors?.['pattern']">Postal code must be a number</mat-error>
+                    <mat-error *ngIf="editAddress.get('postalCode').errors?.maxlength">Postal code must be 6 digit long</mat-error>
+                    <mat-error *ngIf="editAddress.get('postalCode').errors?.required">Postal code is required</mat-error>
+                    <mat-error *ngIf="editAddress.get('postalCode').errors?.pattern">Postal code must be a number</mat-error>
                   </mat-form-field>
-                  <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phyZip ? carrierProfile.phyZip : '-'}}</p> -->
-                </div>
+                  </div> -->
                 <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">City</p>
-                  <!-- appearance="none" -->
+                  <p class="fs_14 fsn_4 txt_lb mb-1">City<span class="txt_d"> *</span></p>
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" placeholder="Enter city name" formControlName="city"/>
-                    <mat-error *ngIf="editAddress.get('city').errors?.['required']">City is required.</mat-error>
+                    <mat-error *ngIf="editAddress.get('city').errors?.required">City is required.</mat-error>
                   </mat-form-field>
                   <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phyCity ? carrierProfile.phyCity : '-'}}</p> -->
                 </div>
                 <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">State</p>
-                  <!-- appearance="none" -->
-                  <mat-form-field appearance="none" class="w-100">
-                    <input type="text" matInput class="form-control custom_input" placeholder="Enter State" formControlName="state"/>
-                    <mat-error *ngIf="editAddress.get('state').errors?.['required']">State is required.</mat-error>
-                  </mat-form-field>
-                  <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phyState ? carrierProfile.phyState : '-'}}</p> -->
+                  <div class="ic_dropdown">
+                    <p class="fs_14 fsn_4 txt_lb mb-1">State<span class="txt_d"> *</span></p>
+                    <mat-form-field appearance="none" class="w-100">
+                      <mat-select formControlName="state" class="form-control custom_input">
+                        <mat-option *ngFor="let eValue of statesList" value="{{eValue.key}}">{{eValue.value}}</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="editAddress.get('state').errors?.required">State is required.</mat-error>
+                    </mat-form-field>
+                    <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phyState ? carrierProfile.phyState : '-'}}</p> -->
+                  </div>
                 </div>
                 <div class="col-md-4">
                   <p class="fs_14 fsn_4 txt_lb mb-1">Country</p>
-                  <!-- appearance="none" -->
-                  <mat-form-field  appearance="none" class="w-100">
+                  <mat-form-field appearance="none" class="w-100">
                     <input type="text" readonly matInput class="form-control custom_input" placeholder="Enter Country" formControlName="country"/>
-                    <mat-error>Country is required.</mat-error>
+                    <!-- <mat-error>Country is required.</mat-error> -->
                   </mat-form-field>
                   <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phyCountry ? carrierProfile.phyCountry : '-'}}</p> -->
                 </div>
                 <div class="col-md-4"></div>
                 <div class="col-md-12">
-                  <p class="fs_14 fsb_7 txt_b mb-4">Mailing Address</p>
-                  <mat-checkbox class="example-margin" value="checked" [checked]="sameAsPhysicalAdd" (change)="setSameMailAddress($event);"> Same as physical address</mat-checkbox>
+                  <div class="custom_checkbox">
+                    <p class="fs_14 fsb_7 txt_b mb-4">Mailing Address</p>
+                    <mat-checkbox class="example-margin" value="checked" [checked]="sameAsPhysicalAdd" (change)="setSameMailAddress($event);"> Same as physical address</mat-checkbox>
+                  </div>
                 </div>
                 <div *ngIf="!sameAsPhysicalAdd" class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">Address Line 1</p>
-                  <!-- appearance="none" -->
+                  <p class="fs_14 fsn_4 txt_lb mb-1">Address Line 1<span class="txt_d"> *</span></p>
                   <mat-form-field appearance="none" class="w-100">
-                    <input matInput matGoogleMapsAutocomplete (onGermanAddressMapped)="autoMailLocation($event)" formControlName="mailAddLine1"  placeholder="Enter Address" maxlength="257" class="form-control custom_input" [country]="searchRestriction" required>
-                    <mat-error *ngIf="editAddress.get('mailAddLine1').errors?.['required']">Address Line 1 is required.</mat-error>
+                    <input matInput matGoogleMapsAutocomplete (onGermanAddressMapped)="autoMailLocation($event)" formControlName="mailAddLine1" [value]="editAddress.get('mailAddLine1').value"  (input)="noAutoselection('mail')"  (focusout)="noFocusOut('mail')"  placeholder="Enter Address" maxlength="257" class="form-control custom_input" [country]="searchRestriction" required>
+                    <mat-error *ngIf="!mailAutoNot && editAddress.get('mailAddLine1').errors?.required">Address Line 1 is required.</mat-error>
+                    <span class="error_mess" *ngIf="mailAutoNot">Address Line 1 is required.</span>
+
                     <!-- <input type="text" matInput class="form-control custom_input" placeholder="Enter Address line 1" formControlName="mailAddLine1"/>
                     <mat-error>Address Line 1 is required.</mat-error> -->
                   </mat-form-field>
@@ -506,64 +497,58 @@
                 </div>
                 <div *ngIf="!sameAsPhysicalAdd" class="col-md-4">
                   <p class="fs_14 fsn_4 txt_lb mb-1">Address Line 2</p>
-                  <!-- appearance="none" -->
-                  <mat-form-field  appearance="none" class="w-100">
+                  <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" placeholder="Enter Address line 2" formControlName="mailAddLine2"/>
                     <!-- <mat-error>Address Line 2 is required.</mat-error> -->
                   </mat-form-field>
                   <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.mailingAddressLine2 ? carrierProfile.mailingAddressLine2 : '-'}}</p> -->
                 </div>
                 <div *ngIf="!sameAsPhysicalAdd" class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">Zip Short</p>
-                  <!-- appearance="none" -->
-                  <mat-form-field  appearance="none" class="w-100">
+                  <p class="fs_14 fsn_4 txt_lb mb-1">Zip Short<span class="txt_d"> *</span></p>
+                  <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" placeholder="Enter zip short" formControlName="mailZipshort"/>
-                    <mat-error *ngIf="editAddress.get('mailZipshort').errors?.['maxlength']">Zip code must be 6 digit long</mat-error>
-                    <mat-error *ngIf="editAddress.get('mailZipshort').errors?.['required']">Zip is required</mat-error>
-                    <mat-error *ngIf="editAddress.get('mailZipshort').errors?.['pattern']">Zip code must be a number</mat-error>
+                    <mat-error *ngIf="editAddress.get('mailZipshort').errors?.maxlength">Zip code must be 6 digit long</mat-error>
+                    <mat-error *ngIf="editAddress.get('mailZipshort').errors?.required">Zip is required</mat-error>
+                    <mat-error *ngIf="editAddress.get('mailZipshort').errors?.pattern">Zip code must be a number</mat-error>
                   </mat-form-field>
-                  <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.mailingZipShort ? carrierProfile.mailingZipShort : '-'}}</p> -->
                 </div>
-                <div *ngIf="!sameAsPhysicalAdd" class="col-md-4">
+                <!-- <div *ngIf="!sameAsPhysicalAdd" class="col-md-4">
                   <p class="fs_14 fsn_4 txt_lb mb-1">Postal Code</p>
-                  <!-- appearance="none"  -->
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" placeholder="Enter Postal Code" formControlName="mailPostalCode"/>
                     <mat-error>Postal Code is required.</mat-error>
                   </mat-form-field>
-                  <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.mailingZip ? carrierProfile.mailingZip : '-'}}</p> -->
-                </div>
+                </div> -->
                 <div *ngIf="!sameAsPhysicalAdd" class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">City</p>
-                  <!-- appearance="none" -->
-                  <mat-form-field  appearance="none" class="w-100">
+                  <p class="fs_14 fsn_4 txt_lb mb-1">City<span class="txt_d"> *</span></p>
+                  <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" placeholder="Enter City" formControlName="mailCity"/>
-                    <mat-error *ngIf="editAddress.get('mailCity').errors?.['required']">City is required.</mat-error>
+                    <mat-error *ngIf="editAddress.get('mailCity').errors?.required">City is required.</mat-error>
                   </mat-form-field>
                   <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.mailingCity ? carrierProfile.mailingCity : '-'}}</p> -->
                 </div>
                 <div  *ngIf="!sameAsPhysicalAdd" class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">State</p>
-                  <!-- appearance="none" -->
+                  <p class="fs_14 fsn_4 txt_lb mb-1">State<span class="txt_d"> *</span></p>
                   <mat-form-field appearance="none" class="w-100">
-                    <input type="text" matInput class="form-control custom_input" placeholder="Enter State" formControlName="mailState"/>
-                    <mat-error *ngIf="editAddress.get('mailState').errors?.['required']">State is required.</mat-error>
+                    <mat-select formControlName="mailState">
+                      <mat-option *ngFor="let eValue of statesList" value="{{eValue.key}}">{{eValue.value}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="editAddress.get('mailState').errors?.required">State is required.</mat-error>
                   </mat-form-field>
                   <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.mailingState ? carrierProfile.mailingState : '-'}}</p> -->
                 </div>
                 <div  *ngIf="!sameAsPhysicalAdd" class="col-md-4">
                   <p class="fs_14 fsn_4 txt_lb mb-1">Country</p>
-                  <!-- appearance="none" -->
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" readonly matInput class="form-control custom_input" placeholder="Enter Country" formControlName="mailCountry"/>
-                    <mat-error>Country is required.</mat-error>
+                    <!-- <mat-error>Country is required.</mat-error> -->
                   </mat-form-field>
                   <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.mailingCountry ? carrierProfile.mailingCountry : '-'}}</p> -->
                 </div>
                 <div class="col-md-12">
                   <div class="float-right">
-                    <button class="btn custum_button button_primary bg_w txt_lb mr-4" (click)="cancel()">Cancel</button>
-                    <button class="btn custum_button button_primary" type="submit">Update</button>
+                    <button type="reset" class="btn custum_button button_primary bg_w txt_lb mr-4" (click)="cancel('editAddress')">Cancel</button>
+                    <button class="btn custum_button button_primary" [disabled]="editAddress.pristine && disableFormeditAddress" type="submit">Update</button>
                   </div>
                 </div>
               </div>
@@ -582,38 +567,41 @@
             <div class="update_profile_container">
               <div class="row">
                 <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">MCS 150 Date</p>
-                  <!-- appearance="none" -->
-                  <mat-form-field appearance="none" class="w-100">
-                    <input matInput [matDatepicker]="picker2" class="form-control custom_input" placeholder="MCS 150 Date" formControlName="mcsDate"/>
-                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                    <mat-datepicker #picker2></mat-datepicker>
-                    <mat-error *ngIf="editMCS.get('mcsDate').errors?.['required']">MCS 150 Date is required.</mat-error>
-                  </mat-form-field>
-                  <!-- <p class="fs_14 fsm_5 txt_b mb-0">{{carrierProfile.mcs150Date ? carrierProfile.mcs150Date : '-'}}</p> -->
+                  <div class="ic_calander">
+                    <p class="fs_14 fsn_4 txt_lb mb-1">MCS 150 Date</p>
+                    <mat-form-field appearance="none" class="w-100">
+                      <input matInput [matDatepicker]="picker2" class="form-control custom_input" placeholder="MCS 150 Date" formControlName="mcsDate"/>
+                      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                      <mat-datepicker #picker2></mat-datepicker>
+                      <mat-error *ngIf="editMCS.get('mcsDate').errors?.required">MCS 150 Date is required.</mat-error>
+                    </mat-form-field>
+                    <!-- <p class="fs_14 fsm_5 txt_b mb-0">{{carrierProfile.mcs150Date ? carrierProfile.mcs150Date : '-'}}</p> -->
+                  </div>
                 </div>
                 <div class="col-md-4">
                   <p class="fs_14 fsn_4 txt_lb mb-1">MCS 150 Mileage</p>
-                  <!-- appearance="none" -->
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" placeholder="MCS 150 Mileage" formControlName="mcsMileage"/>
-                    <mat-error *ngIf="editMCS.get('mcsMileage').errors?.['required']">MCS 150 Mileage is required.</mat-error>
+                    <!-- <mat-error *ngIf="editMCS.get('mcsMileage').errors?.required">MCS 150 Mileage is required.</mat-error> -->
                   </mat-form-field>
+                  <mat-error *ngIf="editMCS.get('mcsMileage').errors?.maxlength">MCS 150 Mileage must not exceed 10 digits.</mat-error>
+                    <mat-error *ngIf="editMCS.get('mcsMileage').errors?.pattern && !editMCS.get('mcsMileage').errors?.maxlength" >MCS 150 Mileage must be an number.</mat-error>
                   <!-- <p class="fs_14 fsm_5 txt_b mb-0">{{carrierProfile.mcs150Mileage ? carrierProfile.mcs150Mileage : '-'}}</p> -->
                 </div>
                 <div class="col-md-4">
                   <p class="fs_14 fsn_4 txt_lb mb-1">MCS 150 Mileage Year</p>
-                  <!-- appearance="none" -->
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" placeholder="MCS 150 Mileage Year" formControlName="mcsMileageYear"/>
-                    <mat-error *ngIf="editMCS.get('mcsMileageYear').errors?.['required']">MCS 150 Mileage Year is required.</mat-error>
+                    <mat-error *ngIf="editMCS.get('mcsMileageYear').errors?.required">MCS 150 Mileage Year is required.</mat-error>
+                    <mat-error *ngIf="(editMCS.get('mcsMileageYear').errors?.maxlength || editMCS.get('mcsMileageYear').errors?.minlength) && !editMCS.get('mcsMileageYear').errors?.pattern">MCS 150 Mileage Year must be of 4 digits.</mat-error>
+                    <mat-error *ngIf="editMCS.get('mcsMileageYear').errors?.pattern" >MCS 150 Mileage Year must be an number.</mat-error>
                   </mat-form-field>
                   <!-- <p class="fs_14 fsm_5 txt_b mb-0">{{carrierProfile.mcs150MileageYear ? carrierProfile.mcs150MileageYear : '-'}}</p> -->
                 </div>
                 <div class="col-md-12">
                   <div class="float-right">
-                    <button class="btn custum_button button_primary bg_w txt_lb mr-4" (click)="cancel()">Cancel</button>
-                    <button class="btn custum_button button_primary" type="submit">Update</button>
+                    <button class="btn custum_button button_primary bg_w txt_lb mr-4" (click)="cancel('editMCS')">Cancel</button>
+                    <button [disabled]="editMCS.pristine" class="btn custum_button button_primary" type="submit">Update</button>
                   </div>
                 </div>
               </div>
@@ -635,69 +623,74 @@
             <div class="update_profile_container">
               <div class="row">
                 <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">Equipment type</p>
-                  <!--  appearance="none" -->
-                  <mat-form-field appearance="none" class="w-100">
-                    <mat-label for="equipment">Equipment type</mat-label>
-                    <mat-select formControlName="equipment"  multiple (selectionChange)="changeEquipment($event)">
-                      <mat-option *ngFor="let equipments of equipmentType" [value]="equipments">{{equipments}}</mat-option>
+                  <div class="ic_dropdown">
+                    <p class="fs_14 fsn_4 txt_lb mb-1">Equipment type<span class="txt_d"> *</span></p>
+                    <mat-form-field  appearance="none" class="w-100">
+                      <mat-label for="equipment">Equipment type</mat-label>
+                      <mat-select formControlName="equipment"  multiple (selectionChange)="changeEquipment($event)" class="form-control custom_input">
+                        <mat-option *ngFor="let equipments of equipmentType" [value]="equipments['label']">{{equipments['label']}}</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="equipmentLanesEdit.get('equipment').errors?.required">Equipment type is required.</mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="ic_dropdown">
+                    <p class="fs_14 fsn_4 txt_lb mb-1">Operations</p>
+                    <mat-form-field  appearance="none" class="w-100">
+                      <mat-label class="w-100">Select Operations</mat-label>
+                      <mat-select formControlName="operations" aria-label="Select an option" [(value)]="operations" class="form-control custom_input">
+                        <mat-option value="1" >Interstate</mat-option> 
+                        <mat-option value="2" >Intrastate Hazmat</mat-option> 
+                        <mat-option value="3" >Intrastate Non-Hazmat</mat-option> 
+                      </mat-select>
+                    </mat-form-field>
+                    <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.carrierOperation ? carrierProfile.carrierOperation : '-'}}</p> -->
+                  </div>
+                </div>
+       
+                <div class="col-md-4">
+                  <div class="ic_dropdown">
+                    <p class="fs_14 fsn_4 txt_lb mb-1">Industries</p>
+                    <mat-form-field appearance="none">
+                      <mat-select (selectionChange)="checkIndustOption($event)" [(ngModel)]="searchCtrl" [ngModelOptions]="{standalone: true}" name="industries" class="form-control custom_input" placeholder="Select Industry" autocomplete="off">
+                        <mat-option>
+                        <ngx-mat-select-search [(ngModel)]="searchBlank" [ngModelOptions]="{standalone: true}" noEntriesFoundLabel="'no matching industry found'" (keyup)="searchIndustry($event.target.value)" [placeholderLabel]="'Search...'" name="search"></ngx-mat-select-search></mat-option>
+                        <mat-icon *ngIf="searchBlank" (click)="clearIndurties()" matSuffix class="clear_src">close</mat-icon>
+                        <mat-option *ngIf="searchCtrl" [value]="searchCtrl">{{searchCtrl}}</mat-option> 
+                        <mat-optgroup *ngFor="let currentGroup of industries | keyvalue" label="{{currentGroup.key}}">
+                          <mat-option *ngFor="let induList of currentGroup.value" [value]="induList">
+                            {{induList.value}}
+                          </mat-option>
+                        </mat-optgroup>
+                      </mat-select>
+                    </mat-form-field> 
+                    <!-- <p class="fs_14 fsm_5 txt_b mb-0">{{carrierProfile.industries ? carrierProfile.industries + ' | ' : ''}}{{carrierProfile.usSic1987Description ? carrierProfile.usSic1987Description : '-'}}</p> -->
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="ic_calander">
+                    <p class="fs_14 fsn_4 txt_lb mb-1">Add Date</p>
+                    <mat-form-field appearance="none" class="w-100">
+                      <input matInput [matDatepicker]="picker1" placeholder="Select Date" formControlName="date" class="form-control custom_input" />
+                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                      <mat-datepicker #picker1></mat-datepicker>
+                      <mat-error>Date Year is required.</mat-error>
+                    </mat-form-field>
+                    <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.addDate ? (carrierProfile.addDate | date:'MMM d, y') : '-'}}</p> -->
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="ic_dropdown">
+                    <p class="fs_14 fsn_4 txt_lb mb-1">OIC State</p>
+                    <mat-form-field appearance="none" class="w-100">
+                    <mat-select formControlName="oicState" class="form-control custom_input">
+                      <mat-option *ngFor="let eValue of statesList" value="{{eValue.key}}">{{eValue.value}}</mat-option>
                     </mat-select>
-                    <mat-error *ngIf="equipmentLanesEdit.get('equipment').errors?.['required']">Equipment type is required.</mat-error>
-                  </mat-form-field>
-                </div>
-                <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">Operations</p>
-                  <!-- appearance="none" -->
-                  <mat-form-field appearance="none"  class="w-100">
-                    <mat-label class="w-100">Select Operations</mat-label>
-                    <!-- [(value)]="operations" -->
-                    <mat-select formControlName="operations" aria-label="Select an option" >
-                      <mat-option value="1" >Interstate</mat-option> 
-                      <mat-option value="2" >Intrastate Hazmat</mat-option> 
-                      <mat-option value="3" >Intrastate Non-Hazmat</mat-option> 
-                    </mat-select>
-                  </mat-form-field>
-                  <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.carrierOperation ? carrierProfile.carrierOperation : '-'}}</p> -->
-                </div>
-                <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">Industries</p>
-                  <!--  appearance="none" -->
-                  <mat-form-field appearance="none">
-                    <mat-select (selectionChange)="checkIndustOption($event)" [(ngModel)]="searchCtrl" [ngModelOptions]="{standalone: true}" name="industries" class="form-control custom_input" placeholder="Select Industry"  autocomplete="off" >
-                      <mat-option>
-                      <ngx-mat-select-search [(ngModel)]="searchBlank" [ngModelOptions]="{standalone: true}" noEntriesFoundLabel="'no matching industry found'" (keyup)="searchIndustry($event)" [placeholderLabel]="'Search...'" name="search"></ngx-mat-select-search></mat-option>
-                      <mat-icon *ngIf="searchBlank" (click)="clearIndurties()" matSuffix class="clear_src">close</mat-icon>
-                      <mat-option *ngIf="searchCtrl" [value]="searchCtrl">{{searchCtrl}}</mat-option> 
-                      <mat-optgroup *ngFor="let currentGroup of industries | keyvalue" label="{{currentGroup.key}}">
-                        <mat-option *ngFor="let induList of $any(currentGroup).value" [value]="induList">
-                          {{induList.value}}
-                        </mat-option>
-                      </mat-optgroup>
-                    </mat-select>
-                  </mat-form-field> 
-                  <!-- <p class="fs_14 fsm_5 txt_b mb-0">{{carrierProfile.industries ? carrierProfile.industries + ' | ' : ''}}{{carrierProfile.usSic1987Description ? carrierProfile.usSic1987Description : '-'}}</p> -->
-                </div>
-                <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">Add Date</p>
-                  <!-- appearance="none" -->
-                  <mat-form-field appearance="none" class="w-100">
-                    <input matInput [matDatepicker]="picker1" placeholder="Select Date" formControlName="date"/>
-                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1></mat-datepicker>
-                    <mat-error>Date Year is required.</mat-error>
-                  </mat-form-field>
-                  <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.addDate ? (carrierProfile.addDate | date:'MMM d, y') : '-'}}</p> -->
-                </div>
-                <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">OIC State</p>
-                  <!-- appearance="none" -->
-                  <mat-form-field  appearance="none" class="w-100">
-                  <mat-select formControlName="oicState">
-                    <mat-option *ngFor="let eValue of statesList" value="{{eValue.key}}">{{eValue.value}}</mat-option>
-                  </mat-select>
-                    <!-- <input type="text" matInput class="form-control custom_input" placeholder="Enter OIC" formControlName="oicState"/> -->
-                    <mat-error  *ngIf="equipmentLanesEdit.get('oicState').errors?.['required']">OIC State is required.</mat-error>
-                  </mat-form-field>
+                      <!-- <input type="text" matInput class="form-control custom_input" placeholder="Enter OIC" formControlName="oicState"/> -->
+                      <mat-error  *ngIf="equipmentLanesEdit.get('oicState').errors?.required">OIC State is required.</mat-error>
+                    </mat-form-field>
+                  </div>
                 </div>
                 <div class="col-md-4">
                   <p class="fs_14 fsn_4 txt_lb mb-1">Preferred Lanes</p>
@@ -723,28 +716,29 @@
               <div class="row">
                 <div class="col-md-6 ic_dropdown mat_dropdown">
                   <p class="fs_14 fsn_4 txt_lb mb-0">Pickup Location</p>
-                  <mat-form-field>
-                    <mat-select  [disabled]="laneDisabled" (selectionChange)="checkOption($event,'Pick',i)" [(ngModel)]="location.pickUp" name="pickup_{{i}}"  class="form-control custom_input" placeholder="Select Pickup Location" id="{{i}}" >
+                  <mat-form-field appearance="none">
+                    <mat-select  [disabled]="laneDisabled" (selectionChange)="checkOption($event,'Pick',i)" [(ngModel)]="location.pickUp" name="pickup_{{i}}"  class="form-control custom_input" placeholder="Select Pickup Location" id="{{i}}" [ngModelOptions]="{standalone: true}">
                       <mat-option>
-                      <ngx-mat-select-search noEntriesFoundLabel="'No Matching Lane found'" [placeholderLabel]="'Search...'" name="search" (keyup)="searchLane($event)"></ngx-mat-select-search></mat-option>
-                      <mat-option *ngFor="let lane of laneList" [value]="lane.id">{{lane.laneCity}}</mat-option>
+                      <ngx-mat-select-search noEntriesFoundLabel="'No Matching Lane found'" [placeholderLabel]="'Search...'" name="search" (keyup)="searchLane($event.target.value)"></ngx-mat-select-search></mat-option>
+                      <mat-option *ngFor="let lane of laneList" [value]="lane.id">{{lane.state}}</mat-option>
                     </mat-select>
                   </mat-form-field> 
-                  <!-- <p class="fs_12 txt_d fsm_5 txt_d" style="margin: -0.7rem 0 0;" *ngIf="laneError == [i]"> Pickup and dropoff location should not be same</p>
-                 <p class="fs_12 txt_d fsm_5 txt_d" style="margin: -0.7rem 0 0;" *ngIf="sameLaneError == [i]"> Two lanes should not be same.</p> -->
+                  <!-- <p class="fs_12 txt_d fsm_5 txt_d" style="margin: -0.7rem 0 0;" *ngIf="laneError == [i]"> Pickup and dropoff location should not be same</p> -->
+                 <p class="fs_12 txt_d fsm_5 txt_d" style="margin: -0.7rem 0 0;" *ngIf="sameLaneError == [i]"> Two lanes should not be same.</p>
                 </div>
                 <div class="col-md-6 ic_dropdown mat_dropdown">
                   <p class="fs_14 fsn_4 txt_lb mb-0">Dropoff Location</p>
-                  <mat-form-field >
-                    <mat-select  [disabled]="laneDisabled" (selectionChange)="checkOption($event,'Drop',i)" [(ngModel)]="location.dropOff" name="dropoff_{{i}}" id="{{i}}"  class="form-control custom_input" placeholder="Select Dropoff Location" id="{{i}}" >
+                  <mat-form-field appearance="none">
+                    <mat-select  [disabled]="laneDisabled" (selectionChange)="checkOption($event,'Drop',i)" [(ngModel)]="location.dropOff" name="dropoff_{{i}}" id="{{i}}"  class="form-control custom_input" placeholder="Select Dropoff Location" id="{{i}}" [ngModelOptions]="{standalone: true}">
                       <mat-option>
-                      <ngx-mat-select-search noEntriesFoundLabel="'No Matching Lane found'" [placeholderLabel]="'Search...'" name="search" (keyup)="searchLane($event)"></ngx-mat-select-search></mat-option>
-                      <mat-option  *ngFor="let lane of laneList" [value]="lane.id">{{lane.laneCity}}</mat-option>
+                      <ngx-mat-select-search noEntriesFoundLabel="'No Matching Lane found'" [placeholderLabel]="'Search...'" name="search" (keyup)="searchLane($event.target.value)"></ngx-mat-select-search></mat-option>
+                      <mat-option  *ngFor="let lane of laneList" [value]="lane.id">{{lane.state}}</mat-option>
                     </mat-select>
                   </mat-form-field> 
                 </div>
               </div>
             </div>
+            <p class="fs_12 txt_d fsm_5 txt_d" style="margin: -0.7rem 0 0;" *ngIf="!valid2">Select at least one preferred lane </p>
           </div>
           <div class="add_more_lane" *ngIf="addOption && lanLocation  == 1" >
             <span type="button" class="fs_14 fsm_5 txt_p pointer lanes" (click)="addLocation()">
@@ -763,8 +757,8 @@
                   <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.lane ? carrierProfile.lane : '-'}}</p> -->
                 <div class="col-md-12">
                   <div class="float-right">
-                    <button class="btn custum_button button_primary bg_w txt_lb mr-4" (click)="cancel()">Cancel</button>
-                    <button class="btn custum_button button_primary" type="submit">Update</button>
+                    <button class="btn custum_button button_primary bg_w txt_lb mr-4" (click)="cancel('equipmentLanesEdit')">Cancel</button>
+                    <button [disabled]="equipmentLanesEdit.pristine && disableFormeEuipmentLanesEdit" class="btn custum_button button_primary" type="submit">Update</button>
                   </div>
                 </div>
               </div>
@@ -782,23 +776,6 @@
         <div class="bounce3"></div>
       </div> -->
 
-      <div class="" *ngIf="data.openPop =='remove_document'">
-        <div class="header_popup">
-          <p class="fs_20 fsm_5 txt_b line_before">{{data.title}}</p>
-          <span class="close_popup_Icon" (click)="closePopup()">
-            <span class="icon-ic-cross close_Icon"></span>
-          </span>
-        </div>
-        <div class="v_scrollBar pop_vh">
-          <p class="fs_16 fsn_4 mb-3">{{data.contain}}</p>
-        </div>
-        <div class="form_action">
-          <span class="fs_16 fsn_4 txt_lb pointer px-4 py-3 mr-4" (click)="closePopup()">Cancel</span>
-          <button type="button" class="btn custum_button button_success fs_16 fsn_4" (click)="donePopup()">OK</button>
-        </div>
-      </div>
   </div>
   
-
-<!-- new certificate of insurance  -->
 

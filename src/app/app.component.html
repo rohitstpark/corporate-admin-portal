@@ -1,10 +1,10 @@
-<div id="main-wrapper">
+<div [ngClass]="isLoggedIn ? 'admin_after_login' : 'admin_before_login'" id="main-wrapper">
 	<div class="bg_container responsive_menu">
 		<div id="left-sidebar" *ngIf="isLoggedIn">
 			<app-left-menu></app-left-menu>
 		</div>
 
-		<div class="page_container Container_scroll">
+		<div  class="page_container Container_scroll">
 			<router-outlet>    
 			</router-outlet>
 		</div>
