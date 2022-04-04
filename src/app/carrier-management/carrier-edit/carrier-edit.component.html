@@ -16,7 +16,7 @@
     </div>
     <div class="customExpansion_panel" *ngIf="carrierProfile">
       <mat-accordion class="example-headers-align" multi>
-      <form [formGroup]="editCompanyInfo"  (ngSubmit)="onSubmit(editCompanyInfo,'companyInfo')">
+      <form [formGroup]="editCompanyInfo" (ngSubmit)="onSubmit(editCompanyInfo,'companyInfo')" class="mb-0 custum_input_css">
         <mat-expansion-panel [expanded]="true">
           <mat-expansion-panel-header>
             <mat-panel-title class="fs_16 fsm_5 txt_b">Company Information</mat-panel-title>
@@ -54,7 +54,6 @@
                     <mat-error *ngIf="editCompanyInfo.get('dotNumber').errors?.pattern">DOT number must contains digits only.</mat-error>
                     <mat-error *ngIf="editCompanyInfo.get('dotNumber').errors?.pattern">DOT number must contains digits only.</mat-error>
                     <!-- <mat-error *ngIf="backEndError && !editCompanyInfo.get('dotNumber').errors?.pattern && !editCompanyInfo.get('dotNumber').errors?.required">DOT number must contains digits only.</mat-error> -->
-
                   </mat-form-field>
                 </div>
                 <div class="col-md-4">
@@ -71,22 +70,7 @@
                     <input type="text" matInput maxlength="128" class="form-control custom_input" placeholder="Enter Email ID"  formControlName="emailAddress"/>
                     <mat-error *ngIf="editCompanyInfo.get('emailAddress').errors?.required">Email ID is required.</mat-error>
                     <mat-error *ngIf="editCompanyInfo.get('emailAddress').errors?.pattern">Please enter correct email address.</mat-error>
-
-
                   </mat-form-field>
-                </div>
-                <div class="col-md-4">
-                  <div class="custom_toggle">
-                    <p class="fs_14 fsn_4 txt_lb mb-1">HM Flag</p>
-                    <mat-slide-toggle formControlName="hmFlag">Yes</mat-slide-toggle>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="custom_toggle">
-                    <p class="fs_14 fsn_4 txt_lb mb-1">PC Flag</p>
-                    <mat-slide-toggle formControlName="pcFlag" >Yes</mat-slide-toggle>
-                    <!-- <mat-error>PC Flag is required.</mat-error> -->
-                  </div>
                 </div>
                 <div class="col-md-4">
                   <p class="fs_14 fsn_4 txt_lb mb-1">DBA Name</p>
@@ -110,7 +94,6 @@
                     <input type="text" maxlength="25" matInput class="form-control custom_input" placeholder="EIN (Federal Tax ID)" formControlName="einTaxId"/>
                     <!-- <mat-error>EIN (Federal Tax ID) is required.</mat-error> -->
                   </mat-form-field>
-                 
                 </div>
                 <div class="col-md-4">
                   <p class="fs_14 fsn_4 txt_lb mb-1">Number of Trucks</p>
@@ -118,7 +101,6 @@
                     <input type="number" maxlength="5" matInput class="form-control custom_input" placeholder="Number of Trucks" formControlName="numberOfTrucks"/>
                     <!-- <mat-error>Number of truck is required.</mat-error> -->
                   </mat-form-field>
-                 
                 </div>
                 <div class="col-md-4">
                   <p class="fs_14 fsn_4 txt_lb mb-1">Number of Drivers</p>
@@ -127,9 +109,26 @@
                     <!-- <mat-error>Number of Drivers is required.</mat-error> -->
                   </mat-form-field>
                 </div>
+                <div class="col-md-4">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <p class="fs_14 fsn_4 txt_lb mb-1">HM Flag</p>
+                      <div class="custom_toggle">
+                        <mat-slide-toggle formControlName="hmFlag">Yes</mat-slide-toggle>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <p class="fs_14 fsn_4 txt_lb mb-1">PC Flag</p>
+                      <div class="custom_toggle">
+                        <mat-slide-toggle formControlName="pcFlag" >Yes</mat-slide-toggle>
+                        <!-- <mat-error>PC Flag is required.</mat-error> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div class="col-md-12">
-                  <div class="float-right">
-                    <button (click)="cancel('editCompanyInfo')" class="btn custum_button button_primary bg_w txt_lb mr-4">Cancel</button>
+                  <div class="float-end">
+                    <button (click)="cancel('editCompanyInfo')" class="btn custum_button button_primary bg_w txt_lb me-4">Cancel</button>
                     <button class="btn custum_button button_primary" [disabled]="editCompanyInfo.pristine && disableFormeEditCompanyInfo" type="submit">Update</button>
                   </div>
                 </div>
@@ -140,7 +139,7 @@
         </form>
   
        
-        <form [formGroup]="editPersonalInfo"  (ngSubmit)="onSubmit(editPersonalInfo,'editPersonalInfo')">
+        <form [formGroup]="editPersonalInfo"  (ngSubmit)="onSubmit(editPersonalInfo,'editPersonalInfo')" class="mb-0 custum_input_css">
         <mat-expansion-panel [expanded]="true"> 
           <mat-expansion-panel-header>
             <mat-panel-title class="fs_16 fsm_5 txt_b">Personal Information</mat-panel-title>
@@ -184,8 +183,8 @@
                 </div> -->
 
                 <div class="col-md-12">
-                  <div class="float-right">
-                    <button class="btn custum_button button_primary bg_w txt_lb mr-4" (click)="cancel('editPersonalInfo')">Cancel</button>
+                  <div class="float-end">
+                    <button class="btn custum_button button_primary bg_w txt_lb me-4" (click)="cancel('editPersonalInfo')">Cancel</button>
                     <button type="submit" [disabled]="editPersonalInfo.pristine" class="btn custum_button button_primary">Update</button>
                   </div>
                 </div>
@@ -199,201 +198,217 @@
     
         <!-- </form> -->
   
-        <!-- documet start -->
-   
+  <!-- documet start -->
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title class="fs_16 fsm_5 txt_b">Document</mat-panel-title>
+      <mat-panel-description></mat-panel-description>
+    </mat-expansion-panel-header>
 
- <mat-expansion-panel [expanded]="true">
-  <mat-expansion-panel-header>
-    <mat-panel-title class="fs_16 fsm_5 txt_b">Document</mat-panel-title>
-    <mat-panel-description></mat-panel-description>
-  </mat-expansion-panel-header>
- 
-       <!-- Document Upload -->
-       <div class="Coverview_doc_upload">
-        <div *ngIf="!showLoader  && !carrierProfile?.compensationDocument && !carrierProfile?.liabilityDocument && !carrierProfile?.certificateOfInsurance" class="Cdoc_uploadEmpty">
-           <div class="Cdoc_uploadEmptyt mb-4">
-              <span class="Cdoc_uploadEmptyimg">
-              <img src="{{serverPathForUrl}}/portal/images/after-login/cl-icons/gr-no-documents.svg" class="img-fluid">
-              </span>
-              <div class="doc_uploadEmptytr">
-                 <div class="uploadEmptyTxt">
-                    <p class="mb-2 fs_28 fsb_7 txt_b">Documents </p>
-                    <p class="mb-0 fs_14 fsn_4 txt_lb">Upload carrier's Certificate of Insurance <br>
-                       Once you update carrier's COI all shippers will get a notification to accept the COI again. <br>
-                       They can only start business once they accept.
-                    </p>
-                    <div class="upload_doc_icon mt-2">
-                       <p class="upload_actiontxt pointer" (click)="userPopup('certificate',carrierProfile)">
-                          <span class="icon-ic-upload mr-2"></span>
-                          <span>Upload Certificate of Insurance</span>
-                       </p>
-                    </div>
-                 </div>
+    <!-- Document Upload -->
+    <div class="Coverview_doc_upload">
+      <div *ngIf="!showLoader  && !carrierProfile?.compensationDocument && !carrierProfile?.liabilityDocument && !carrierProfile?.certificateOfInsurance" class="Cdoc_uploadEmpty">
+        <div class="Cdoc_uploadEmptyt mb-4">
+          <span class="Cdoc_uploadEmptyimg">
+            <img src="{{serverPathForUrl}}/portal/images/after-login/cl-icons/gr-no-documents.svg" class="img-fluid">
+          </span>
+          <div class="doc_uploadEmptytr">
+            <div class="uploadEmptyTxt">
+              <p class="mb-2 fs_28 fsb_7 txt_b">Documents </p>
+              <p class="mb-0 fs_14 fsn_4 txt_lb">Upload carrier's Certificate of Insurance <br>
+                Once you update carrier's COI all shippers will get a notification to accept the COI again. <br>
+                They can only start business once they accept.
+              </p>
+              <div class="upload_doc_icon mt-2">
+                <p class="upload_actiontxt pointer" (click)="userPopup('certificate',carrierProfile)">
+                  <span class="icon-ic-upload me-2"></span>
+                  <span>Upload Certificate of Insurance</span>
+                </p>
               </div>
-           </div>
-           <div class="Cdoc_uploadEmptyb p-0" >
-              <div class="row">
-                 <div class="col-md-6">
-                    <div class="Cdoc_uploadEmptybl">
-                       <div class="upload_doc_icon">
-                          <p class="upload_actiontxt pointer" (click)="userPopup('workerCompensation',carrierProfile)">
-                             <span class="icon-ic-upload mr-2"></span>
-                             <span>Upload Workers' Compensation document</span>
-                          </p>
-                       </div>
-                    </div>
-                 </div>
-                 <div class="col-md-6">
-                    <div class="Cdoc_uploadEmptybl">
-                       <div class="upload_doc_icon">
-                          <p class="upload_actiontxt pointer" (click)="userPopup('generalLiability',carrierProfile)">
-                             <span class="icon-ic-upload mr-2"></span>
-                             <span>Upload General Liability document</span>
-                          </p>
-                       </div>
-                    </div>
-                 </div>
-              </div>
-           </div>
+            </div>
+          </div>
         </div>
-        <!--  -->
-        <div class="document_uploadCon" *ngIf="!showLoader && (carrierProfile?.compensationDocument || carrierProfile?.liabilityDocument || carrierProfile?.certificateOfInsurance)">
-           <div class="document_uploadview">
-              <!-- <div class="doc_upload_conT">
-                 <p class="fs_24 fsb_7 txt_b line_before">
-                    <span class="data_card_title">
-                    <img src="{{serverPathForUrl}}/portal/images/after-login/cl-icons/ic-documents-tc.svg" class="img-fluid">
-                    </span>
-                    <span>Documents </span>
-                 </p>
-              </div> -->
-              <div class="doc_upload_conBone" *ngIf="!carrierProfile?.certificateOfInsurance">
-                 <div class="upload_conBonel">
-                    <!-- <span class="">
-                    <img src="{{serverPathForUrl}}/portal/images/after-login/cl-icons/ic-documents-tc.svg" class="img-fluid">
-                    </span> -->
-                    <div class="upload_conBoneltxt">
-                       <p class="fs_14 fsm_5 txt_b mb-0">Upload Certificate of Insurance</p>
-                       <p class="fs_14 fsn_4 txt_lb mb-0">One of your connection has sent a request to upload your Certificate of Insurance</p>
+        <div class="Cdoc_uploadEmptyb p-0" >
+          <div class="row">
+            <div class="col-md-6">
+              <div class="Cdoc_uploadEmptybl">
+                <div class="upload_doc_icon">
+                  <p class="upload_actiontxt pointer" (click)="userPopup('workerCompensation',carrierProfile)">
+                    <span class="icon-ic-upload me-2"></span>
+                    <span>Upload Workers' Compensation document</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="Cdoc_uploadEmptybl">
+                <div class="upload_doc_icon">
+                  <p class="upload_actiontxt pointer" (click)="userPopup('generalLiability',carrierProfile)">
+                    <span class="icon-ic-upload me-2"></span>
+                    <span>Upload General Liability document</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--  -->
+      <div class="document_uploadCon" *ngIf="!showLoader && (carrierProfile?.compensationDocument || carrierProfile?.liabilityDocument || carrierProfile?.certificateOfInsurance)">
+        <div class="document_uploadview">
+          <!-- <div class="doc_upload_conT">
+             <p class="fs_24 fsb_7 txt_b line_before">
+                <span class="data_card_title">
+                <img src="{{serverPathForUrl}}/portal/images/after-login/cl-icons/ic-documents-tc.svg" class="img-fluid">
+                </span>
+                <span>Documents </span>
+             </p>
+          </div> -->
+          <div class="doc_upload_conBone" *ngIf="!carrierProfile?.certificateOfInsurance">
+            <div class="upload_conBonel">
+              <!-- <span class="">
+                <img src="{{serverPathForUrl}}/portal/images/after-login/cl-icons/ic-documents-tc.svg" class="img-fluid">
+              </span> -->
+              <div class="upload_conBoneltxt">
+                <p class="fs_14 fsm_5 txt_b mb-0">Upload Certificate of Insurance</p>
+                <p class="fs_14 fsn_4 txt_lb mb-0">One of your connection has sent a request to upload your Certificate of Insurance</p>
+              </div>
+            </div>
+            <div class="upload_doc_icon pointer" (click)="userPopup('certificate',carrierProfile)">
+              <p class="upload_actiontxt">
+                <span>Upload Now</span>
+              </p>
+            </div>
+          </div>
+          <div class="Cdoc_uploadEmptyb pt-3 pb-4">
+            <div class="row">
+              <div class="col-md-6" *ngIf="carrierProfile?.certificateOfInsurance">
+                <div class="coi_doc">
+                  <div class="open_sideBar">
+                    <a href="{{carrierProfile?.certificateOfInsurance}}" target="_blank" class="fs_14 fsn_4 txt_p">
+                      <img src="https://s3.amazonaws.com/staticprod.laneaxis.com/portal/images/after-login/cl-icons/ic-New-Window-tc.svg" class="img-fluid">
+                    </a>
+                  </div>
+                  <a href="{{carrierProfile?.certificateOfInsurance}}" target="_blank"> 
+                    <div class="coi_docl">
+                      <span class="">
+                        <img src="{{serverPathForUrl}}/portal/images/after-login/cl-icons/gr-pdf-r.svg" class="img-fluid">
+                      </span>
+                      <div class="coi_docTxt">
+                        <p class="fs_16 fsm_5 txt_b mb-0">Certificates of Insurance</p>
+                        <p class="fs_14 fsn_4 txt_lb mb-0" *ngIf="!certiOfInsuraExpired">
+                          <span>Expires</span>
+                          <span> at {{carrierProfile?.insuranceCertificateExpireDate | date:  'MMM dd, yyyy' }}</span>
+                        </p>
+                        <p class="fs_14 fsn_4 txt_d mb-0" *ngIf="certiOfInsuraExpired">
+                          <span>Expired</span>
+                          <span> at {{carrierProfile?.insuranceCertificateExpireDate | date:  'MMM dd, yyyy' }}</span>
+                        </p>
+                      </div>
                     </div>
-                 </div>
-                 <div class="upload_doc_icon pointer" (click)="userPopup('certificate',carrierProfile)">
+                  </a>
+                  <div class="coi_docr">
+                    <p class="fs_12 fsn_4 txt_d mb-0"  class="button_actiontxt pointer" (click)="userPopup('certificate',carrierProfile)">Update</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6" *ngIf="carrierProfile?.compensationDocument">
+                <div class="coi_doc">
+                  <div class="open_sideBar">
+                    <a href="{{carrierProfile?.certificateOfInsurance}}" target="_blank" class="fs_14 fsn_4 txt_p">
+                      <img src="https://s3.amazonaws.com/staticprod.laneaxis.com/portal/images/after-login/cl-icons/ic-New-Window-tc.svg" class="img-fluid">
+                    </a>
+                  </div>
+                  <a href="{{carrierProfile?.compensationDocument}}" target="_blank">
+                    <div class="coi_docl">
+                      <span class="">
+                        <img src="{{serverPathForUrl}}/portal/images/after-login/cl-icons/gr-pdf-r.svg" class="img-fluid">
+                      </span>
+                      <div class="coi_docTxt">
+                        <p class="fs_16 fsm_5 txt_b mb-0">Workers' Compensation</p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="coi_docr">
+                    <p class="button_actiontxt pointer mb-0 txt_d me-3" (click)="userPopupConfirm('remove_document','Work Compensation','Do you want to remove workers\' compensation document','compensationDoc',carrierProfile.id)">Remove</p>
+                    <p class="fs_12 fsn_4 txt_d mb-0" class="button_actiontxt pointer" (click)="userPopup('workerCompensation',carrierProfile)">Update</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6" *ngIf="carrierProfile?.liabilityDocument">
+                <div class="coi_doc">
+                  <div class="open_sideBar">
+                    <a href="{{carrierProfile?.certificateOfInsurance}}" target="_blank" class="fs_14 fsn_4 txt_p">
+                      <img src="https://s3.amazonaws.com/staticprod.laneaxis.com/portal/images/after-login/cl-icons/ic-New-Window-tc.svg" class="img-fluid">
+                    </a>
+                  </div>
+                  <a href="{{carrierProfile?.liabilityDocument}}" target="_blank">
+                    <div class="coi_docl">
+                      <span class="">
+                        <img src="{{serverPathForUrl}}/portal/images/after-login/cl-icons/gr-pdf-r.svg" class="img-fluid">
+                      </span>
+                      <div class="coi_docTxt">
+                        <p class="fs_16 fsm_5 txt_b mb-0">General Liability</p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="coi_docr">
+                    <span class="button_actiontxt pointer txt_d mb-0 me-3" (click)="userPopupConfirm('remove_document','General Liability','Do you want to remove general liability document','liabilityDoc',carrierProfile.id)">Remove</span>
+                    <span class="fs_12 fsn_4 txt_d mb-0" class="button_actiontxt pointer" (click)="userPopup('generalLiability',carrierProfile)">Update</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6" *ngIf="(!carrierProfile?.compensationDocument)">
+                <div class="Cdoc_uploadEmptybl pointer" (click)="userPopup('workerCompensation',carrierProfile)">
+                  <div class="upload_doc_icon">
                     <p class="upload_actiontxt">
-                       <span>Upload Now</span>
+                      <span class="icon-ic-upload me-2"></span>
+                      <span>Upload Workers' Compensation document</span>
                     </p>
-                 </div>
+                  </div>
+                </div>
               </div>
-              <div class="Cdoc_uploadEmptyb pt-3 pb-4">
-                 <div class="row">
-                    <div class="col-md-6" *ngIf="carrierProfile?.certificateOfInsurance">
-                       <div class="coi_doc">
-                        <a href="{{carrierProfile?.certificateOfInsurance}}" target="_blank"> 
-                          <div class="coi_docl">
-                             <span class="">
-                             <img src="{{serverPathForUrl}}/portal/images/after-login/cl-icons/gr-pdf-r.svg" class="img-fluid">
-                             </span>
-                             <div class="coi_docTxt">
-                                <p class="fs_16 fsm_5 txt_b mb-0">Certificates of Insurance</p>
-                                <p class="fs_14 fsn_4 txt_lb mb-0" *ngIf="!certiOfInsuraExpired">
-                                   <span>Expires</span>
-                                   <span> at {{carrierProfile?.insuranceCertificateExpireDate | date:  'MMM dd, yyyy' }}</span>
-                                </p>
-                                <p class="fs_14 fsn_4 txt_d mb-0" *ngIf="certiOfInsuraExpired">
-                                   <span>Expired</span>
-                                   <span> at {{carrierProfile?.insuranceCertificateExpireDate | date:  'MMM dd, yyyy' }}</span>
-                                </p>
-                             </div>
-                          </div>
-                        </a>
-                          <p class="fs_12 fsn_4 txt_d mb-0"  class="button_actiontxt pointer" (click)="userPopup('certificate',carrierProfile)">Update</p>
-                       </div>
-                    </div>
-                    <div class="col-md-6" *ngIf="carrierProfile?.compensationDocument">
-                       <div class="coi_doc">
-                      <a href="{{carrierProfile?.compensationDocument}}" target="_blank">
-                          <div class="coi_docl">
-                             <span class="">
-                             <img src="{{serverPathForUrl}}/portal/images/after-login/cl-icons/gr-pdf-r.svg" class="img-fluid">
-                             </span>
-                             <div class="coi_docTxt">
-                                <p class="fs_16 fsm_5 txt_b mb-0">Workers' Compensation</p>
-                             </div>
-                          </div>
-                        </a>
-                          <div class="coi_docr">
-                             <p class="button_actiontxt pointer mb-0 txt_d mr-3" (click)="userPopupConfirm('remove_document','Work Compensation','Do you want to remove workers\' compensation document','compensationDoc',carrierProfile.id)">Remove</p>
-                             <p class="fs_12 fsn_4 txt_d mb-0" class="button_actiontxt pointer" (click)="userPopup('workerCompensation',carrierProfile)">Update</p>
-                          </div>
-                       </div>
-                      
-                    </div>
-                    <div class="col-md-6" *ngIf="carrierProfile?.liabilityDocument">
-                       <div class="coi_doc">
-                     <a href="{{carrierProfile?.liabilityDocument}}" target="_blank">
-                          <div class="coi_docl">
-                             <span class="">
-                             <img src="{{serverPathForUrl}}/portal/images/after-login/cl-icons/gr-pdf-r.svg" class="img-fluid">
-                             </span>
-                             <div class="coi_docTxt">
-                                <p class="fs_16 fsm_5 txt_b mb-0">General Liability</p>
-                             </div>
-                          </div></a>
-                          <div class="coi_docr">
-                             <span class="button_actiontxt pointer txt_d mb-0 mr-3" (click)="userPopupConfirm('remove_document','General Liability','Do you want to remove general liability document','liabilityDoc',carrierProfile.id)">Remove</span>
-                             <span class="fs_12 fsn_4 txt_d mb-0" class="button_actiontxt pointer" (click)="userPopup('generalLiability',carrierProfile)">Update</span>
-                          </div>
-                       </div>
-                     
-                    </div>
-                    <div class="col-md-6" *ngIf="(!carrierProfile?.compensationDocument)">
-                       <div class="Cdoc_uploadEmptybl pointer" (click)="userPopup('workerCompensation',carrierProfile)">
-                          <div class="upload_doc_icon">
-                             <p class="upload_actiontxt">
-                                <span class="icon-ic-upload mr-2"></span>
-                                <span>Upload Workers' Compensation document</span>
-                             </p>
-                          </div>
-                       </div>
-                    </div>
-                    <div class="col-md-6" *ngIf="(!carrierProfile?.liabilityDocument)" >
-                       <div class="Cdoc_uploadEmptybl pointer" (click)="userPopup('generalLiability',carrierProfile)">
-                          <div class="upload_doc_icon">
-                             <p class="upload_actiontxt">
-                                <span class="icon-ic-upload mr-2"></span>
-                                <span>Upload General Liability document</span>
-                             </p>
-                          </div>
-                       </div>
-                    </div>
-                 </div>
+              <div class="col-md-6" *ngIf="(!carrierProfile?.liabilityDocument)" >
+                <div class="Cdoc_uploadEmptybl pointer" (click)="userPopup('generalLiability',carrierProfile)">
+                  <div class="upload_doc_icon">
+                    <p class="upload_actiontxt">
+                      <span class="icon-ic-upload me-2"></span>
+                      <span>Upload General Liability document</span>
+                    </p>
+                  </div>
+                </div>
               </div>
-     </div>
-  </div>
-  <!-- Document Upload skelaton -->
-  <div class="profile_skelaton pt-0" style="padding: 24px;" *ngIf="false">
-     <div class="bussSer_conT">
-        <p class="fs_24 fsb_7 txt_b line_before">
-           <span class="data_card_title">
-           <img src="{{serverPathForUrl}}/portal/images/after-login/cl-icons/ic-documents-tc.svg" class="img-fluid">
-           </span>
-           <span>Documents </span>
-        </p>
-     </div>
-     <div class="">
-        <div class="skelaton_part" style="border: 1px solid var(--clBlkd); margin: 14px 12px 0px; border-radius: 4px; width: 47%;">
-           <ngx-skeleton-loader count="1" [theme]="{ width: '90%', height: '37x' }" class="loader_m_0"></ngx-skeleton-loader>
+            </div>
+          </div>
         </div>
-        <div class="skelaton_part" style="border: 1px solid var(--clBlkd); margin: 14px 12px 0px; border-radius: 4px; width: 47%;">
-           <ngx-skeleton-loader count="1" [theme]="{ width: '90%', height: '37x' }" class="loader_m_0"></ngx-skeleton-loader>
+      </div>
+
+      <!-- Document Upload skelaton -->
+      <div class="profile_skelaton pt-0" style="padding: 24px;" *ngIf="false">
+        <div class="bussSer_conT">
+          <p class="fs_24 fsb_7 txt_b line_before">
+            <span class="data_card_title">
+              <img src="{{serverPathForUrl}}/portal/images/after-login/cl-icons/ic-documents-tc.svg" class="img-fluid">
+            </span>
+            <span>Documents </span>
+          </p>
         </div>
-     </div>
-  </div>
-</div>
-</mat-expansion-panel>
-        <!-- document ends  -->
+        <div class="">
+          <div class="skelaton_part" style="border: 1px solid var(--clBlkd); margin: 14px 12px 0px; border-radius: 4px; width: 47%;">
+            <ngx-skeleton-loader count="1" [theme]="{ width: '90%', height: '37x' }" class="loader_m_0"></ngx-skeleton-loader>
+          </div>
+          <div class="skelaton_part" style="border: 1px solid var(--clBlkd); margin: 14px 12px 0px; border-radius: 4px; width: 47%;">
+            <ngx-skeleton-loader count="1" [theme]="{ width: '90%', height: '37x' }" class="loader_m_0"></ngx-skeleton-loader>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-expansion-panel>
+  <!-- document ends  -->
 
 
-      <form [formGroup]="editAddress"  (ngSubmit)="onSubmit(editAddress,'editAddress')">
+      <form [formGroup]="editAddress"  (ngSubmit)="onSubmit(editAddress,'editAddress')" class="mb-0 custum_input_css">
         <mat-expansion-panel [expanded]="true">
           <mat-expansion-panel-header>
             <mat-panel-title class="fs_16 fsm_5 txt_b">Addresses</mat-panel-title>
@@ -476,11 +491,11 @@
                   </mat-form-field>
                   <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phyCountry ? carrierProfile.phyCountry : '-'}}</p> -->
                 </div>
-                <div class="col-md-4"></div>
+
                 <div class="col-md-12">
                   <div class="custom_checkbox">
-                    <p class="fs_14 fsb_7 txt_b mb-4">Mailing Address</p>
-                    <mat-checkbox class="example-margin" value="checked" [checked]="sameAsPhysicalAdd" (change)="setSameMailAddress($event);"> Same as physical address</mat-checkbox>
+                    <p class="fs_14 fsb_7 txt_b mb-3">Mailing Address</p>
+                    <mat-checkbox class="example-margin mb-3" value="checked" [checked]="sameAsPhysicalAdd" (change)="setSameMailAddress($event);"> Same as physical address</mat-checkbox>
                   </div>
                 </div>
                 <div *ngIf="!sameAsPhysicalAdd" class="col-md-4">
@@ -528,14 +543,16 @@
                   <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.mailingCity ? carrierProfile.mailingCity : '-'}}</p> -->
                 </div>
                 <div  *ngIf="!sameAsPhysicalAdd" class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">State<span class="txt_d"> *</span></p>
-                  <mat-form-field appearance="none" class="w-100">
-                    <mat-select formControlName="mailState">
-                      <mat-option *ngFor="let eValue of statesList" value="{{eValue.key}}">{{eValue.value}}</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="editAddress.get('mailState').errors?.required">State is required.</mat-error>
-                  </mat-form-field>
-                  <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.mailingState ? carrierProfile.mailingState : '-'}}</p> -->
+                  <div class="ic_dropdown">
+                    <p class="fs_14 fsn_4 txt_lb mb-1">State<span class="txt_d"> *</span></p>
+                    <mat-form-field appearance="none" class="w-100">
+                      <mat-select formControlName="mailState" class="form-control custom_input">
+                        <mat-option *ngFor="let eValue of statesList" value="{{eValue.key}}">{{eValue.value}}</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="editAddress.get('mailState').errors?.required">State is required.</mat-error>
+                    </mat-form-field>
+                    <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.mailingState ? carrierProfile.mailingState : '-'}}</p> -->
+                  </div>
                 </div>
                 <div  *ngIf="!sameAsPhysicalAdd" class="col-md-4">
                   <p class="fs_14 fsn_4 txt_lb mb-1">Country</p>
@@ -546,8 +563,8 @@
                   <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.mailingCountry ? carrierProfile.mailingCountry : '-'}}</p> -->
                 </div>
                 <div class="col-md-12">
-                  <div class="float-right">
-                    <button type="reset" class="btn custum_button button_primary bg_w txt_lb mr-4" (click)="cancel('editAddress')">Cancel</button>
+                  <div class="float-end">
+                    <button type="reset" class="btn custum_button button_primary bg_w txt_lb me-4" (click)="cancel('editAddress')">Cancel</button>
                     <button class="btn custum_button button_primary" [disabled]="editAddress.pristine && disableFormeditAddress" type="submit">Update</button>
                   </div>
                 </div>
@@ -557,7 +574,7 @@
         </mat-expansion-panel>
         </form>
   
-      <form [formGroup]="editMCS"  (ngSubmit)="onSubmit(editMCS,'editMCS')">
+      <form [formGroup]="editMCS"  (ngSubmit)="onSubmit(editMCS,'editMCS')" class="mb-0 custum_input_css">
         <mat-expansion-panel [expanded]="true">
           <mat-expansion-panel-header>
             <mat-panel-title class="fs_16 fsm_5 txt_b">MCS Details</mat-panel-title>
@@ -599,8 +616,8 @@
                   <!-- <p class="fs_14 fsm_5 txt_b mb-0">{{carrierProfile.mcs150MileageYear ? carrierProfile.mcs150MileageYear : '-'}}</p> -->
                 </div>
                 <div class="col-md-12">
-                  <div class="float-right">
-                    <button class="btn custum_button button_primary bg_w txt_lb mr-4" (click)="cancel('editMCS')">Cancel</button>
+                  <div class="float-end">
+                    <button class="btn custum_button button_primary bg_w txt_lb me-4" (click)="cancel('editMCS')">Cancel</button>
                     <button [disabled]="editMCS.pristine" class="btn custum_button button_primary" type="submit">Update</button>
                   </div>
                 </div>
@@ -613,7 +630,7 @@
         </mat-expansion-panel>
         </form>
   
-      <form [formGroup]="equipmentLanesEdit"  (ngSubmit)="onSubmit(equipmentLanesEdit,'equipmentLanesEdit')">
+      <form [formGroup]="equipmentLanesEdit"  (ngSubmit)="onSubmit(equipmentLanesEdit,'equipmentLanesEdit')" class="mb-0 custum_input_css">
         <mat-expansion-panel [expanded]="true">
           <mat-expansion-panel-header>
             <mat-panel-title class="fs_16 fsm_5 txt_b">Equipment & Lanes</mat-panel-title>
@@ -625,8 +642,7 @@
                 <div class="col-md-4">
                   <div class="ic_dropdown">
                     <p class="fs_14 fsn_4 txt_lb mb-1">Equipment type<span class="txt_d"> *</span></p>
-                    <mat-form-field  appearance="none" class="w-100">
-                      <mat-label for="equipment">Equipment type</mat-label>
+                    <mat-form-field appearance="none" class="w-100">
                       <mat-select formControlName="equipment"  multiple (selectionChange)="changeEquipment($event)" class="form-control custom_input">
                         <mat-option *ngFor="let equipments of equipmentType" [value]="equipments['label']">{{equipments['label']}}</mat-option>
                       </mat-select>
@@ -638,7 +654,6 @@
                   <div class="ic_dropdown">
                     <p class="fs_14 fsn_4 txt_lb mb-1">Operations</p>
                     <mat-form-field  appearance="none" class="w-100">
-                      <mat-label class="w-100">Select Operations</mat-label>
                       <mat-select formControlName="operations" aria-label="Select an option" [(value)]="operations" class="form-control custom_input">
                         <mat-option value="1" >Interstate</mat-option> 
                         <mat-option value="2" >Intrastate Hazmat</mat-option> 
@@ -692,72 +707,86 @@
                     </mat-form-field>
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-8">
                   <p class="fs_14 fsn_4 txt_lb mb-1">Preferred Lanes</p>
-                  <mat-radio-group aria-label="Select an option" >
-                    <mat-radio-button [checked]="preferredLanes=='all'" (click)="lanesSelection('all')" value="all">I'm open for all lanes</mat-radio-button>
-                    <mat-radio-button [checked]="preferredLanes=='preferred'" (click)="lanesSelection('preferred')" value="preferred">I have my preferred lanes</mat-radio-button>
+                  <mat-radio-group aria-label="Select an option" class="form-control checked_radio radio_color">
+                    <mat-radio-button [checked]="preferredLanes=='all'" (click)="lanesSelection('all')" value="all" class="mx-3 ms-0">
+                      <span class="material-icons">check_circle</span> 
+                      <span>I'm open for all lanes</span>
+                    </mat-radio-button>
+                    <mat-radio-button [checked]="preferredLanes=='preferred'" (click)="lanesSelection('preferred')" value="preferred" class="mx-3">
+                      <span class="material-icons">check_circle</span> 
+                      <span>I have my preferred lanes</span>
+                    </mat-radio-button>
                   </mat-radio-group>
+                </div>
+
+
+                <!-- if preferred lanes selected  -->
+                <div class="col-md-12" *ngIf="preferredLanes=='preferred'">
+                  <div class="add_more_container">
+                    <div class="row">
+                      <div class="col-md-6" *ngFor="let location of locations; let i = index;">
+                        <div class="lane_container">
+                          <div class="add_remove_lanes mb-3">
+                            <p class="fs_16 fsb_7 txt_b mb-0">Lane {{i + 1}}</p>
+                          </div>
+                          <span *ngIf="i > 0" class="remove_laneIcon" (click)="removeLocation(i)">
+                            <span class="icon-ic-cross removeIcon"></span>
+                          </span>
+
+                          <div class="row">
+                            <div class="col-md-6 ic_dropdown mat_dropdown">
+                              <p class="fs_14 fsn_4 txt_lb mb-0">Pickup Location</p>
+                              <mat-form-field appearance="none">
+                                <mat-select  [disabled]="laneDisabled" (selectionChange)="checkOption($event,'Pick',i)" [(ngModel)]="location.pickUp" name="pickup_{{i}}"  class="form-control custom_input" placeholder="Select Pickup Location" id="{{i}}" [ngModelOptions]="{standalone: true}">
+                                  <mat-option>
+                                  <ngx-mat-select-search noEntriesFoundLabel="'No Matching Lane found'" [placeholderLabel]="'Search...'" name="search" (keyup)="searchLane($event.target.value)"></ngx-mat-select-search></mat-option>
+                                  <mat-option *ngFor="let lane of laneList" [value]="lane.id">{{lane.state}}</mat-option>
+                                </mat-select>
+                              </mat-form-field> 
+                              <!-- <p class="fs_12 txt_d fsm_5 txt_d" style="margin: -0.7rem 0 0;" *ngIf="laneError == [i]"> Pickup and dropoff location should not be same</p> -->
+                             <p class="fs_12 txt_d fsm_5 txt_d" style="margin: -0.7rem 0 0;" *ngIf="sameLaneError == [i]"> Two lanes should not be same.</p>
+                            </div>
+                            <div class="col-md-6 ic_dropdown mat_dropdown">
+                              <p class="fs_14 fsn_4 txt_lb mb-0">Dropoff Location</p>
+                              <mat-form-field appearance="none">
+                                <mat-select  [disabled]="laneDisabled" (selectionChange)="checkOption($event,'Drop',i)" [(ngModel)]="location.dropOff" name="dropoff_{{i}}" id="{{i}}"  class="form-control custom_input" placeholder="Select Dropoff Location" id="{{i}}" [ngModelOptions]="{standalone: true}">
+                                  <mat-option>
+                                  <ngx-mat-select-search noEntriesFoundLabel="'No Matching Lane found'" [placeholderLabel]="'Search...'" name="search" (keyup)="searchLane($event.target.value)"></ngx-mat-select-search></mat-option>
+                                  <mat-option  *ngFor="let lane of laneList" [value]="lane.id">{{lane.state}}</mat-option>
+                                </mat-select>
+                              </mat-form-field> 
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <p class="fs_12 txt_d fsm_5 txt_d" style="margin: -0.7rem 0 0;" *ngIf="!valid2">Select at least one preferred lane </p>
+                      </div>
+                      <div class="col-md-6" *ngIf="addOption && lanLocation  == 1">
+                        <div class="add_more_lane">
+                          <span type="button" class="fs_14 fsm_5 txt_p pointer lanes" (click)="addLocation()">
+                            <span class="material-icons txt_p fs_18">control_point</span>
+                            <span class="ms-1">Add more Lanes</span>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="col-md-6" *ngIf="!addOption && lanLocation  == 1">
+                        <div class="add_more_lane">
+                          <span type="button" class="fs_14 fsm_5 txt_lb lanes ms-1">
+                            <span class="material-icons fs_18">control_point</span>
+                            <span class="ms-1">Add more Lanes</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-
-
-     <!-- if preferred lanes selected  -->
-     <div class="col-md-16" *ngIf="preferredLanes=='preferred'">
-        <div class="v_scrollBar popup_vh">
-          <div class="">
-            <div class="lane_container" *ngFor="let location of locations; let i = index;">
-              <div class="add_remove_lanes mb-3">
-                <p class="fs_16 fsb_7 txt_b mb-0">Lane {{i + 1}}</p>
-              </div>
-              <span  *ngIf="i > 0" class="remove_laneIcon" (click)="removeLocation(i)">
-                <span class="icon-ic-cross removeIcon"></span>
-              </span>
-
-              <div class="row">
-                <div class="col-md-6 ic_dropdown mat_dropdown">
-                  <p class="fs_14 fsn_4 txt_lb mb-0">Pickup Location</p>
-                  <mat-form-field appearance="none">
-                    <mat-select  [disabled]="laneDisabled" (selectionChange)="checkOption($event,'Pick',i)" [(ngModel)]="location.pickUp" name="pickup_{{i}}"  class="form-control custom_input" placeholder="Select Pickup Location" id="{{i}}" [ngModelOptions]="{standalone: true}">
-                      <mat-option>
-                      <ngx-mat-select-search noEntriesFoundLabel="'No Matching Lane found'" [placeholderLabel]="'Search...'" name="search" (keyup)="searchLane($event.target.value)"></ngx-mat-select-search></mat-option>
-                      <mat-option *ngFor="let lane of laneList" [value]="lane.id">{{lane.state}}</mat-option>
-                    </mat-select>
-                  </mat-form-field> 
-                  <!-- <p class="fs_12 txt_d fsm_5 txt_d" style="margin: -0.7rem 0 0;" *ngIf="laneError == [i]"> Pickup and dropoff location should not be same</p> -->
-                 <p class="fs_12 txt_d fsm_5 txt_d" style="margin: -0.7rem 0 0;" *ngIf="sameLaneError == [i]"> Two lanes should not be same.</p>
                 </div>
-                <div class="col-md-6 ic_dropdown mat_dropdown">
-                  <p class="fs_14 fsn_4 txt_lb mb-0">Dropoff Location</p>
-                  <mat-form-field appearance="none">
-                    <mat-select  [disabled]="laneDisabled" (selectionChange)="checkOption($event,'Drop',i)" [(ngModel)]="location.dropOff" name="dropoff_{{i}}" id="{{i}}"  class="form-control custom_input" placeholder="Select Dropoff Location" id="{{i}}" [ngModelOptions]="{standalone: true}">
-                      <mat-option>
-                      <ngx-mat-select-search noEntriesFoundLabel="'No Matching Lane found'" [placeholderLabel]="'Search...'" name="search" (keyup)="searchLane($event.target.value)"></ngx-mat-select-search></mat-option>
-                      <mat-option  *ngFor="let lane of laneList" [value]="lane.id">{{lane.state}}</mat-option>
-                    </mat-select>
-                  </mat-form-field> 
-                </div>
-              </div>
-            </div>
-            <p class="fs_12 txt_d fsm_5 txt_d" style="margin: -0.7rem 0 0;" *ngIf="!valid2">Select at least one preferred lane </p>
-          </div>
-          <div class="add_more_lane" *ngIf="addOption && lanLocation  == 1" >
-            <span type="button" class="fs_14 fsm_5 txt_p pointer lanes" (click)="addLocation()">
-              <span class="material-icons txt_p fs_18">control_point</span>
-              <span class="ml-1">Add more Lanes</span>
-            </span>
-          </div>
-          <div class="add_more_lane" *ngIf="!addOption && lanLocation  == 1">
-            <span type="button" class="fs_14 fsm_5 txt_lb lanes">
-              <span class="material-icons fs_18">control_point</span>
-              <span class="ml-1">Add more Lanes</span>
-            </span>
-          </div>
-        </div>
-      </div>
-                  <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.lane ? carrierProfile.lane : '-'}}</p> -->
+                <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.lane ? carrierProfile.lane : '-'}}</p> -->
                 <div class="col-md-12">
-                  <div class="float-right">
-                    <button class="btn custum_button button_primary bg_w txt_lb mr-4" (click)="cancel('equipmentLanesEdit')">Cancel</button>
+                  <div class="float-end">
+                    <button class="btn custum_button button_primary bg_w txt_lb me-4" (click)="cancel('equipmentLanesEdit')">Cancel</button>
                     <button [disabled]="equipmentLanesEdit.pristine && disableFormeEuipmentLanesEdit" class="btn custum_button button_primary" type="submit">Update</button>
                   </div>
                 </div>
