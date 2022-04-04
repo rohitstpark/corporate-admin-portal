@@ -237,7 +237,8 @@ getCarrierDetails(){
       this.carrierProfile.lane= resp['response'].lane;
       this.carrierProfile.laneId= resp['response'].laneId;
       this.searchCtrl=this.carrierProfile.usSic1987Description ? this.carrierProfile.usSic1987Description :'';
-     
+      this.phyLatitude=this.carrierProfile.phyLatitude;
+      this.phyLongitude=this.carrierProfile.phyLongitude;
       if(this.carrierProfile.lane==0)
       {
         this.preferredLanes='preferred';
@@ -634,6 +635,7 @@ setSameMailAddress(event)
   if(event.checked)
   {
     this.editAddress.get("mailAddLine1").setValue(this.editAddress.get("addressLine1").value);
+    this.editAddress.get("mailAddLine2").setValue(this.editAddress.get("addressLine2").value);
     this.editAddress.get("mailCity").setValue(this.editAddress.get("city").value);
     // this.editAddress.get("mailPostalCode").setValue(this.editAddress.get("postalCode").value);
     this.editAddress.get("mailState").setValue(this.editAddress.get("state").value);
@@ -642,9 +644,12 @@ setSameMailAddress(event)
   }
   else{
     this.editAddress.get("mailAddLine1").setValue('');
+    this.editAddress.get("mailAddLine2").setValue('');
     this.editAddress.get("mailCity").setValue('');
     // this.editAddress.get("mailPostalCode").setValue('');
     this.editAddress.get("mailState").setValue('');
+    this.mailingLatitude='';
+    this.mailingLongitude='';
   }
 }
 
@@ -690,8 +695,8 @@ onSubmit(form1,formName)
   //  console.log(this.valid2);
   //  console.log(this.mailAutoNot);
   //  console.log(this.phyAutoNot);
-   console.log('form1')
-   console.log(form1)
+  //  console.log('form1')
+  //  console.log(form1)
   
 // actual form submittion 
     if(form1.status=='VALID' && this.valid2 && !this.mailAutoNot && !this.phyAutoNot){
