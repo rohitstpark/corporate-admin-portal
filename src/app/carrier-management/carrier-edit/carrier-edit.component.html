@@ -43,7 +43,7 @@
                   <p class="fs_14 fsn_4 txt_lb mb-1">Company Name</p>
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" placeholder="Enter Company Name" formControlName="legalName"/>
-                    <mat-error>Company Name is required.</mat-error>
+                    <mat-error *ngIf="editCompanyInfo.get('legalName').errors?.required">Company Name is required.</mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col-md-4">
@@ -472,7 +472,7 @@
                   <p class="fs_14 fsn_4 txt_lb mb-1">Country</p>
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" readonly matInput class="form-control custom_input" placeholder="Enter Country" formControlName="country"/>
-                    <mat-error>Country is required.</mat-error>
+                    <!-- <mat-error>Country is required.</mat-error> -->
                   </mat-form-field>
                   <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phyCountry ? carrierProfile.phyCountry : '-'}}</p> -->
                 </div>
@@ -541,7 +541,7 @@
                   <p class="fs_14 fsn_4 txt_lb mb-1">Country</p>
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" readonly matInput class="form-control custom_input" placeholder="Enter Country" formControlName="mailCountry"/>
-                    <mat-error>Country is required.</mat-error>
+                    <!-- <mat-error>Country is required.</mat-error> -->
                   </mat-form-field>
                   <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.mailingCountry ? carrierProfile.mailingCountry : '-'}}</p> -->
                 </div>

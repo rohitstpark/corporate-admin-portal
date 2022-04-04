@@ -344,7 +344,7 @@ this.redirectToCarrierView();
 openEditForm(){
 
   this.editCompanyInfo = this.fb.group({
-    legalName: [this.carrierProfile.legalName ? this.carrierProfile.legalName : '',Validators.compose([Validators.required, Validators.maxLength(25)]),],
+    legalName: [this.carrierProfile.legalName ? this.carrierProfile.legalName : '',Validators.compose([Validators.required, Validators.maxLength(64)]),],
     dotNumber: [this.carrierProfile.dotNumber ? this.carrierProfile.dotNumber: '',Validators.compose([Validators.required, Validators.maxLength(10),Validators.pattern(/^([0-9]+\s?)*$/)]),],
     telephone: [this.carrierProfile.telephone ? this.carrierProfile.telephone:'',Validators.compose([Validators.required,Validators.maxLength(10),Validators.minLength(10),Validators.pattern(/^([0-9()-]+\s?)*$/)]),],
     emailAddress: [this.carrierProfile.emailAddress ?this.carrierProfile.emailAddress:'',Validators.compose([Validators.required,Validators.pattern(this.emailPattern)])],
@@ -354,7 +354,7 @@ openEditForm(){
     fax: [this.carrierProfile.fax ? this.carrierProfile.fax :'',Validators.pattern(/^([0-9()-]+\s?)*$/),],
     einTaxId: [this.carrierProfile.einId ? this.carrierProfile.einId :''],
     numberOfTrucks: [this.carrierProfile.truckTotal ? this.carrierProfile.truckTotal: ''],
-    numberOfDrivers: [this.carrierProfile.driverTotal ? this.carrierProfile.driverTotal : '',],
+    numberOfDrivers: [this.carrierProfile.driverTotal=='Owner Operator' ? 1 : this.carrierProfile.driverTotal ? this.carrierProfile.driverTotal : '',],
     // registrationDate: [this.carrierProfile.registrationDate,Validators.compose([Validators.required]),],
     // firstLogin: [this.carrierProfile.firstLogin,Validators.compose([Validators.required]),],
     // lastLogin: [this.carrierProfile.lastLogin,Validators.compose([Validators.required]),],
@@ -690,9 +690,10 @@ onSubmit(form1,formName)
   //  console.log(this.valid2);
   //  console.log(this.mailAutoNot);
   //  console.log(this.phyAutoNot);
-  //  console.log(form1)
+   console.log('form1')
+   console.log(form1)
   
-
+// actual form submittion 
     if(form1.status=='VALID' && this.valid2 && !this.mailAutoNot && !this.phyAutoNot){
      this.disableFormeEuipmentLanesEdit=true;
      this.disableFormeditAddress=true;
