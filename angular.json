@@ -34,7 +34,7 @@
             "scripts": []
           },
           "configurations": {
-            "development": {
+            "uat": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -98,11 +98,11 @@
             "production": {
               "browserTarget": "corporative-admin:build:production"
             },
-            "development": {
-              "browserTarget": "corporative-admin:build:development"
+            "uat": {
+              "browserTarget": "corporative-admin:build:uat"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "uat"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
