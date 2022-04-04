@@ -40,14 +40,14 @@
                 </div>
 
                 <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">Company Name</p>
+                  <p class="fs_14 fsn_4 txt_lb mb-1">Company Name<span class="txt_d"> *</span></p>
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" placeholder="Enter Company Name" formControlName="legalName"/>
                     <mat-error *ngIf="editCompanyInfo.get('legalName').errors?.required">Company Name is required.</mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">DOT Number</p>
+                  <p class="fs_14 fsn_4 txt_lb mb-1">DOT Number<span class="txt_d"> *</span></p>
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" maxlength="10" placeholder="Enter DOT Number" formControlName="dotNumber"/>
                     <mat-error *ngIf="editCompanyInfo.get('dotNumber').errors?.required">DOT number is required.</mat-error>
@@ -58,7 +58,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">Contact Number</p>
+                  <p class="fs_14 fsn_4 txt_lb mb-1">Contact Number<span class="txt_d"> *</span></p>
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" maxlength="10" placeholder="Enter Contact Number" formControlName="telephone"/>
                     <mat-error *ngIf="editCompanyInfo.get('telephone').errors?.required">Contact Number is required.</mat-error>
@@ -66,7 +66,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">Email Address</p>
+                  <p class="fs_14 fsn_4 txt_lb mb-1">Email Address<span class="txt_d"> *</span></p>
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput maxlength="128" class="form-control custom_input" placeholder="Enter Email ID"  formControlName="emailAddress"/>
                     <mat-error *ngIf="editCompanyInfo.get('emailAddress').errors?.required">Email ID is required.</mat-error>
@@ -150,7 +150,7 @@
             <div class="update_profile_container">
               <div class="row">
                 <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">First Name</p>
+                  <p class="fs_14 fsn_4 txt_lb mb-1">First Name<span class="txt_d"> *</span></p>
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" placeholder="First name" formControlName="firstName"/>
                     <mat-error *ngIf="editPersonalInfo.get('firstName').errors?.required">First name is required.</mat-error>
@@ -160,7 +160,7 @@
                   <!-- <p class="fs_14 fsm_5 txt_b mb-0">{{carrierProfile.firstName ? carrierProfile.firstName : '-'}}</p> -->
                 </div>
                 <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">Last Name</p>
+                  <p class="fs_14 fsn_4 txt_lb mb-1">Last Name<span class="txt_d"> *</span></p>
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" placeholder="Last name" formControlName="lastName"/>
                     <mat-error *ngIf="editPersonalInfo.get('lastName').errors?.required">Last name is required.</mat-error>
@@ -406,7 +406,7 @@
                   <p class="fs_14 fsb_7 txt_b mb-4">Physical Address</p>
                 </div>
                 <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">Address Line 1</p>
+                  <p class="fs_14 fsn_4 txt_lb mb-1">Address Line 1<span class="txt_d"> *</span></p>
           
                   <mat-form-field appearance="none">
                     <input matInput matGoogleMapsAutocomplete (onGermanAddressMapped)="autoLocation($event)" formControlName="addressLine1" [value]="editAddress.get('addressLine1').value"  (input)="noAutoselection('phy')" (focusout)="noFocusOut('phy')" placeholder="Enter Address" maxlength="257" class="form-control custom_input" [country]="searchRestriction" required>
@@ -431,7 +431,7 @@
                   <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.phyAddressLine2 ? carrierProfile.phyAddressLine2 : '-'}}</p> -->
                 </div>
                 <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">Zip Short</p>
+                  <p class="fs_14 fsn_4 txt_lb mb-1">Zip Short<span class="txt_d"> *</span></p>
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" placeholder="Enter Zip Short" formControlName="zipShort"/>
                     <mat-error *ngIf="editAddress.get('zipShort').errors?.maxlength">Zip code must be 6 digit long</mat-error>
@@ -449,7 +449,7 @@
                   </mat-form-field>
                   </div> -->
                 <div class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">City</p>
+                  <p class="fs_14 fsn_4 txt_lb mb-1">City<span class="txt_d"> *</span></p>
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" placeholder="Enter city name" formControlName="city"/>
                     <mat-error *ngIf="editAddress.get('city').errors?.required">City is required.</mat-error>
@@ -458,7 +458,7 @@
                 </div>
                 <div class="col-md-4">
                   <div class="ic_dropdown">
-                    <p class="fs_14 fsn_4 txt_lb mb-1">State</p>
+                    <p class="fs_14 fsn_4 txt_lb mb-1">State<span class="txt_d"> *</span></p>
                     <mat-form-field appearance="none" class="w-100">
                       <mat-select formControlName="state" class="form-control custom_input">
                         <mat-option *ngFor="let eValue of statesList" value="{{eValue.key}}">{{eValue.value}}</mat-option>
@@ -484,7 +484,7 @@
                   </div>
                 </div>
                 <div *ngIf="!sameAsPhysicalAdd" class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">Address Line 1</p>
+                  <p class="fs_14 fsn_4 txt_lb mb-1">Address Line 1<span class="txt_d"> *</span></p>
                   <mat-form-field appearance="none" class="w-100">
                     <input matInput matGoogleMapsAutocomplete (onGermanAddressMapped)="autoMailLocation($event)" formControlName="mailAddLine1" [value]="editAddress.get('mailAddLine1').value"  (input)="noAutoselection('mail')"  (focusout)="noFocusOut('mail')"  placeholder="Enter Address" maxlength="257" class="form-control custom_input" [country]="searchRestriction" required>
                     <mat-error *ngIf="!mailAutoNot && editAddress.get('mailAddLine1').errors?.required">Address Line 1 is required.</mat-error>
@@ -504,7 +504,7 @@
                   <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.mailingAddressLine2 ? carrierProfile.mailingAddressLine2 : '-'}}</p> -->
                 </div>
                 <div *ngIf="!sameAsPhysicalAdd" class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">Zip Short</p>
+                  <p class="fs_14 fsn_4 txt_lb mb-1">Zip Short<span class="txt_d"> *</span></p>
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" placeholder="Enter zip short" formControlName="mailZipshort"/>
                     <mat-error *ngIf="editAddress.get('mailZipshort').errors?.maxlength">Zip code must be 6 digit long</mat-error>
@@ -520,7 +520,7 @@
                   </mat-form-field>
                 </div> -->
                 <div *ngIf="!sameAsPhysicalAdd" class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">City</p>
+                  <p class="fs_14 fsn_4 txt_lb mb-1">City<span class="txt_d"> *</span></p>
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" placeholder="Enter City" formControlName="mailCity"/>
                     <mat-error *ngIf="editAddress.get('mailCity').errors?.required">City is required.</mat-error>
@@ -528,7 +528,7 @@
                   <!-- <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.mailingCity ? carrierProfile.mailingCity : '-'}}</p> -->
                 </div>
                 <div  *ngIf="!sameAsPhysicalAdd" class="col-md-4">
-                  <p class="fs_14 fsn_4 txt_lb mb-1">State</p>
+                  <p class="fs_14 fsn_4 txt_lb mb-1">State<span class="txt_d"> *</span></p>
                   <mat-form-field appearance="none" class="w-100">
                     <mat-select formControlName="mailState">
                       <mat-option *ngFor="let eValue of statesList" value="{{eValue.key}}">{{eValue.value}}</mat-option>
@@ -582,7 +582,7 @@
                   <p class="fs_14 fsn_4 txt_lb mb-1">MCS 150 Mileage</p>
                   <mat-form-field appearance="none" class="w-100">
                     <input type="text" matInput class="form-control custom_input" placeholder="MCS 150 Mileage" formControlName="mcsMileage"/>
-                    <mat-error *ngIf="editMCS.get('mcsMileage').errors?.required">MCS 150 Mileage is required.</mat-error>
+                    <!-- <mat-error *ngIf="editMCS.get('mcsMileage').errors?.required">MCS 150 Mileage is required.</mat-error> -->
                   </mat-form-field>
                   <mat-error *ngIf="editMCS.get('mcsMileage').errors?.maxlength">MCS 150 Mileage must not exceed 10 digits.</mat-error>
                     <mat-error *ngIf="editMCS.get('mcsMileage').errors?.pattern && !editMCS.get('mcsMileage').errors?.maxlength" >MCS 150 Mileage must be an number.</mat-error>
@@ -624,7 +624,7 @@
               <div class="row">
                 <div class="col-md-4">
                   <div class="ic_dropdown">
-                    <p class="fs_14 fsn_4 txt_lb mb-1">Equipment type</p>
+                    <p class="fs_14 fsn_4 txt_lb mb-1">Equipment type<span class="txt_d"> *</span></p>
                     <mat-form-field  appearance="none" class="w-100">
                       <mat-label for="equipment">Equipment type</mat-label>
                       <mat-select formControlName="equipment"  multiple (selectionChange)="changeEquipment($event)" class="form-control custom_input">

@@ -434,9 +434,9 @@ openEditForm(){
     this.sameAsPhysicalAdd=true;
   } 
   this.editMCS = this.fb.group({
-    mcsDate: [this.carrierProfile.mcs150Date ? this.carrierProfile.mcs150Date :'',Validators.compose([Validators.required])],
-    mcsMileage: [this.carrierProfile.mcs150Mileage ? this.carrierProfile.mcs150Mileage :'',Validators.compose([Validators.required,Validators.pattern(/^([0-9-]+\s?)*$/),Validators.maxLength(10)])],
-    mcsMileageYear: [this.carrierProfile.mcs150MileageYear ? this.carrierProfile.mcs150MileageYear :'',Validators.compose([Validators.required,Validators.maxLength(4),Validators.minLength(4),Validators.pattern(/^([0-9-]+\s?)*$/)])]
+    mcsDate: [this.carrierProfile.mcs150Date ? this.carrierProfile.mcs150Date :''],
+    mcsMileage: [this.carrierProfile.mcs150Mileage ? this.carrierProfile.mcs150Mileage :'',Validators.compose([Validators.pattern(/^([0-9-]+\s?)*$/),Validators.maxLength(10)])],
+    mcsMileageYear: [this.carrierProfile.mcs150MileageYear ? this.carrierProfile.mcs150MileageYear :'',Validators.compose([Validators.maxLength(4),Validators.minLength(4),Validators.pattern(/^([0-9-]+\s?)*$/)])]
   })
 
   // this.carrierProfile.carrierProfile.addDate = (this.carrierProfile.carrierProfile.addDate | date:'MMM d, y');
