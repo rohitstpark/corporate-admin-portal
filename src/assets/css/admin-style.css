@@ -455,3 +455,11 @@ table tbody tr:hover { background: #f5f5f5; }
   .custom_matSuffix_icon .mat-button-focus-overlay, .custom_matSuffix_icon .mat-button-ripple.mat-ripple { display: none; }
 
 .custom_matSuffix_iconN .mat-form-field-suffix { top: 1.5rem; }
+
+
+
+/* on hover open new page */
+.doc_view_con { position: relative; }
+.doc_view_con .doc_view_icon { display: none; }
+.doc_view_con:hover .doc_view_icon { display: block; }
+.doc_view_con .doc_view_icon { position: absolute; right: 4px; top: 1px; max-width: 16px; cursor: pointer; }

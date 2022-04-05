@@ -55,12 +55,13 @@
 /*.subs_details { padding: 18px; }*/
 
 
-.document_card { border: 1px solid #D8D8D8; border-radius: 4px; margin: 0 0 1rem; }
+.document_card { border: 1px solid #D8D8D8; margin: 0 0 16px; border-radius: 4px; display: flex; align-items: center; justify-content: space-between; padding: 4px 16px 4px 4px; min-height: 58px; }
 .ins_certificate { display: flex; align-items: center; margin: 1.5rem 0 0; }
-.ins_certificate_icon { width: 85px; height: 70px; background: #F6F6F6; display: flex; align-items: center; justify-content: center; border-radius: 4px 0px 0px 4px; }
+.ins_certificate_icon { background: #F6F6F6; display: flex; align-items: center; justify-content: center; border-radius: 4px 0px 0px 4px; }
 .ins_certificate_info { margin: 0 0 0 1rem; }
 .create_date { margin: 0 .6rem 0 0; }
 .expire_date { padding: 0 1rem; position: relative; }
 .expire_date::before { position: absolute; width: 4px; height: 4px; content: ""; background: #CBCBCB; top: 5px; left: 2px; border-radius: 50%; }
 
 .certificate_doc_uploaded { max-width: 500px; }
+

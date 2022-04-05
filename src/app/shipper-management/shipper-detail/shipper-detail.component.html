@@ -131,13 +131,16 @@
             <!-- <div class="col-md-6 col-lg-6 col-xl-4"> -->
             <div class="col-md-6">
               <div class="certificate_doc_uploaded" *ngIf="shipperProfile.docName">
-                <div class="list-lable-wrapper document_card">
+                <div class="list-lable-wrapper document_card doc_view_con">
                   <a target="_blank" class="w-100" (click)="openDocument(shipperProfile.contractDocument)">
                     <!-- <span class="icon-ic-cross fs_16 txt_lb" style=" position: absolute; right: 22px; top: 3px; cursor: pointer;"></span> -->
+                    <div class="doc_view_icon">
+                      <img src="https://s3.amazonaws.com/staticprod.laneaxis.com/portal/images/after-login/cl-icons/ic-New-Window-tc.svg" class="img-fluid" (click)="openDocument(shipperProfile.contractDocument)">
+                    </div>
                     <div class="ins_certificate m-0">
                       <div class="ins_certificate_icon">
-                        <span class="icon icon-ic-documents txt_lb" style="font-size: 36px"></span>
-                        <!-- <img src="" class="img-fluid"> -->
+                        <!-- <span class="icon icon-ic-documents txt_lb" style="font-size: 36px"></span> -->
+                        <img src="https://staticprod.laneaxis.com/portal/images/after-login/cl-icons/gr-pdf-r.svg" class="img-fluid">
                       </div>
                       <div class="ins_certificate_info" class="w-100 ms-3">
                         <p class="fs_14 fsm_5 txt_b mb-1 text_truncate">{{shipperProfile.docName ? shipperProfile.docName :'-'}}</p>

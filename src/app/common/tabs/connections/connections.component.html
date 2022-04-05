@@ -103,7 +103,7 @@
 					</div>
 					<div class="col-md-12 text-end">
 						<a class="pointer me-3" style="border-radius: 30px; padding: 2px 20px;" (click)="reset()">Reset</a>
-						<button color="primary" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary pointer bg_s" (click)="updateFilterList()">
+						<button color="primary" class="btn custum_button button_primary bg_s" (click)="updateFilterList()">
 							<span class="mat-button-wrapper">Update Results</span>
 						</button>
 					</div>
@@ -112,7 +112,7 @@
 		</div>
 	</div>
 
-	<div class="connection_tableScroll" (scroll)="onTableScroll($event)"> <!-- *ngIf="dataSource.length" -->
+	<div class="connection_tableScroll defult_scroll" (scroll)="onTableScroll($event)"> <!-- *ngIf="dataSource.length" -->
 		<table mat-table class="all-carriers"  [dataSource]="connectionList" style="width: 100%;">
 			<ng-container matColumnDef="shipperName">
 				<th mat-header-cell *matHeaderCellDef>
