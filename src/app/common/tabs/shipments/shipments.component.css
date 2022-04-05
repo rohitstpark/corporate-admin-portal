@@ -54,3 +54,6 @@
 .shipment_tab li { display: inline-block; font-size: 14px; font-weight: 500; color: #000000; border-bottom: 2px solid #3787e600; margin: 0 20px -2px 0; padding: 15px 2px; cursor: pointer; }
 .shipment_tab li:focus { outline: none; }
 .shipment_tab li.active_tab { border-bottom: 2px solid #3787e6; }
+
+
+.shipment_management_con .tbl_list_ship { height: calc(100vh - 132px); }

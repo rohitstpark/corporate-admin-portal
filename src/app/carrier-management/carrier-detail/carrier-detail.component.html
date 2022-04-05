@@ -308,10 +308,14 @@
         <div class="row">
           <div class="col-md-6 pointer" style="padding-bottom: 5px;" *ngFor="let doc of carrierDocumentList">
             <div class="dri_docs" (click)="openDocument(doc.mediaUrl)" [ngClass]="{'doc_expired':!doc.isValid}">
+              <div class="open_dri_doc">
+                <img src="https://s3.amazonaws.com/staticprod.laneaxis.com/portal/images/after-login/cl-icons/ic-New-Window-tc.svg" class="img-fluid">
+              </div>
               <div class="dri_docsl">
                 <!-- <img src="" class="img-fluid"> -->
                 <span class="driDocIcon">
-                  <span class="icon icon-ic-documents txt_lb"></span>
+                  <img src="https://staticprod.laneaxis.com/portal/images/after-login/cl-icons/gr-pdf-r.svg" class="img-fluid">
+                  <!-- <span class="icon icon-ic-documents txt_lb"></span> -->
                 </span>
               </div>
               <div class="dri_docsr">

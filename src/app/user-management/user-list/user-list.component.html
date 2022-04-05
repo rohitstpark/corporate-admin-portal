@@ -9,7 +9,7 @@
 			<p>A place to manage all of the users and roles within the admin panel</p>
 		</div>
 		<div class="float-end">
-			<button _ngcontent-pqc-c142="" mat-flat-button="" color="primary" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" (click)="redirectToCreateView()">
+			<button class="btn custum_button button_primary" (click)="redirectToCreateView()">
         <span class="mat-button-wrapper">Create New</span>
         <span matripple="" class="mat-ripple mat-button-ripple"></span>
         <span class="mat-button-focus-overlay"></span>
@@ -106,7 +106,7 @@
     </div>
   </div>
   
-  <div class="user_table" (scroll)="onTableScroll($event)">
+  <div class="user_table defult_scroll" (scroll)="onTableScroll($event)">
     <table mat-table [dataSource]="dataSource" style="width: 100%;">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>

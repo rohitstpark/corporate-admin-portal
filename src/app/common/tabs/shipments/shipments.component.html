@@ -1,277 +1,276 @@
 
 <div class="site-loader" *ngIf="showLoader">
 	<div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-  </div>
+</div>
  
-	<div>
-		<div class="filter_section" [ngClass]="status ? 'filter_show' : 'filter_hide'">
-			<div class="section_head">
-				<!-- <div class="connection_count" *ngIf="moduleName != 'shipment'">
-					<ul>
-						<li class="fs_16 fsm_5 txt_b " *ngFor="let tab of shipmentTabTypes">{{tab.value}} <span class=" ms-1 {{tab.class}}">{{tab.count}}</span></li>	
-					</ul>
-				</div> -->
+<div class="shipment_management_con">
+	<div class="filter_section" [ngClass]="status ? 'filter_show' : 'filter_hide'">
+		<div class="section_head">
+			<!-- <div class="connection_count" *ngIf="moduleName != 'shipment'">
+				<ul>
+					<li class="fs_16 fsm_5 txt_b " *ngFor="let tab of shipmentTabTypes">{{tab.value}} <span class=" ms-1 {{tab.class}}">{{tab.count}}</span></li>	
+				</ul>
+			</div> -->
 
-				<!-- Only for shipment list tab -->
-				<div class="shipment_tab connection_tableScroll">
-				  <ul>
-				    <li class="fs_16 fsm_5 txt_b" *ngFor="let tab of shipmentTabTypes" [ngClass]="selectedTab == tab.key ? 'active_tab' : ''" (click)="tabClicked(tab)">
-				      <span>{{tab.value}}</span>
-				      <span class="{{tab.class}} ms-1">{{tab.count}}</span>
-				    </li>
-				  </ul>
-				</div>
-
-				<div style="display: flex;"> 
-					<button [ngClass]="filterActivated ? 'dot_circle' : ''" class="btn custum_button button_primary bg_w txt_lb fsm_5  h_40" (click)="filterToggleEvent()">
-						<span class="mat-button-wrapper">Filter</span>
-					</button>
-					<!-- <div class="custom_search float-end">
-						<form [formGroup]="searchForm">
-							<mat-form-field appearance="fill">
-								<input matInput #first placeholder="Search" formControlName="searchInput">
-								<mat-icon matSuffix style="height: auto !important;" (click)="applyFilter()">
-									<span class="icon icon-ic-search fs_18"></span>
-								</mat-icon>
-							</mat-form-field>
-						</form>
-					</div> -->
-				</div>
+			<!-- Only for shipment list tab -->
+			<div class="shipment_tab connection_tableScroll">
+			  <ul>
+			    <li class="fs_16 fsm_5 txt_b" *ngFor="let tab of shipmentTabTypes" [ngClass]="selectedTab == tab.key ? 'active_tab' : ''" (click)="tabClicked(tab)">
+			      <span>{{tab.value}}</span>
+			      <span class="{{tab.class}} ms-1">{{tab.count}}</span>
+			    </li>
+			  </ul>
 			</div>
-			<div class="mob-section-head">
-				<div class="filter_btn active_filter">
-					<div class="custom_search m-0">
+
+			<div style="display: flex;"> 
+				<button [ngClass]="filterActivated ? 'dot_circle' : ''" class="btn custum_button button_primary bg_w txt_lb fsm_5  h_40" (click)="filterToggleEvent()">
+					<span class="mat-button-wrapper">Filter</span>
+				</button>
+				<!-- <div class="custom_search float-end">
+					<form [formGroup]="searchForm">
 						<mat-form-field appearance="fill">
-							<mat-icon matPrefix class="pe-2">
+							<input matInput #first placeholder="Search" formControlName="searchInput">
+							<mat-icon matSuffix style="height: auto !important;" (click)="applyFilter()">
 								<span class="icon icon-ic-search fs_18"></span>
 							</mat-icon>
-							<input matInput #first placeholder="Search by Company" class="ms-2">
+						</mat-form-field>
+					</form>
+				</div> -->
+			</div>
+		</div>
+		<div class="mob-section-head">
+			<div class="filter_btn active_filter">
+				<div class="custom_search m-0">
+					<mat-form-field appearance="fill">
+						<mat-icon matPrefix class="pe-2">
+							<span class="icon icon-ic-search fs_18"></span>
+						</mat-icon>
+						<input matInput #first placeholder="Search by Company" class="ms-2">
+					</mat-form-field>
+				</div>
+				<div class="active_filter" style="position: relative;">
+					<span class="icon-ic-filter fs_24 txt_lb px-2 py-1 dot_circle" (click)="filterToggleEvent()"></span>
+				</div>
+			</div>
+			<div>
+				<h3 class="fs_16 txt_b fsm_5" style="padding: 0 15px; margin: 30px 0 0;">All Carriers</h3>
+			</div>
+		</div>
+
+		<div class="show-filter">
+			<form class="example-form filter_selection" [formGroup]="filterForm">
+				<div class="row">
+					<div class="col-md-3 mb-2">
+						<mat-form-field class="w-100">
+							<mat-label>Title</mat-label>
+							<input matInput placeholder="Enter Title" type="text" formControlName="title">
 						</mat-form-field>
 					</div>
-					<div class="active_filter" style="position: relative;">
-						<span class="icon-ic-filter fs_24 txt_lb px-2 py-1 dot_circle" (click)="filterToggleEvent()"></span>
+					<div class="col-md-3 mb-2">
+						<mat-form-field class="w-100">
+							<mat-label>Pickup City</mat-label>
+							<input matInput placeholder="Enter Pickup City" type="text" formControlName="pickupCity">
+						</mat-form-field>
 					</div>
-				</div>
-				<div>
-					<h3 class="fs_16 txt_b fsm_5" style="padding: 0 15px; margin: 30px 0 0;">All Carriers</h3>
-				</div>
-			</div>
+					<div class="col-md-3 mb-2">
+						<mat-form-field class="w-100">
+							<mat-label>DropOff City</mat-label>
+							<input matInput placeholder="Enter DropOff City" type="text" formControlName="dropCity">
+						</mat-form-field>
+					</div>
+					<div class="col-md-3 mb-2">
+						<mat-form-field class="w-100">
+							<mat-label>Equipment Height</mat-label>
+							<input matInput placeholder="Enter Equipment Height" type="text" formControlName="equipmentHeight">
+						</mat-form-field>
+					</div>
+					<div class="col-md-3 mb-2">
+						<mat-form-field class="w-100">
+							<mat-label>Equipment Width</mat-label>
+							<input matInput placeholder="Enter Equipment Width" type="text" formControlName="equipmentWidth">
+						</mat-form-field>
+					</div>
+					<div class="col-md-3 mb-2">
+						<mat-form-field class="w-100">
+							<mat-label>Equipment Weight</mat-label>
+							<input matInput placeholder="Enter Equipment Weight" type="text" formControlName="equipmentWeight">
+						</mat-form-field>
+					</div>
+					<div class="col-md-3 mb-2">
+						<mat-form-field class="w-100">
+							<mat-label>Pickup Zip Code</mat-label>
+							<input matInput placeholder="Enter Pickup Zip Code" type="text" formControlName="pickupZipCode">
+						</mat-form-field>
+					</div>
+					<div class="col-md-3 mb-2">
+						<mat-form-field class="w-100">
+							<mat-label>DropOff Zip Code</mat-label>
+							<input matInput placeholder="Enter DropOff Zip Code" type="text" formControlName="dropZipcode">
+						</mat-form-field>
+					</div>
+					<div class="col-md-3 mb-2" *ngIf="moduleName != 'driver'">
+						<mat-form-field class="w-100">
+							<mat-label>Batch Id</mat-label>
+							<input matInput placeholder="Enter Batch Id" type="text" formControlName="batchId">
+						</mat-form-field>
+					</div>
+					<div class="col-md-3 mb-2">
+						<mat-form-field class="w-100">
+							<mat-label>Pickup Location</mat-label>
+							<input matInput placeholder="By Location" matGoogleMapsAutocomplete (onGermanAddressMapped)="pickUpAutocomplete($event)" (keyup)="clearPickupLocation($event)" formControlName="pickUpLocation" >
+							<!-- <input matInput placeholder="Enter Pickup Location" type="text" formControlName="pickUpLocation"> -->
+						</mat-form-field>
+					</div>
+					<div class="col-md-3 mb-2">
+						<mat-form-field class="w-100">
+							<mat-label>DropOff Location</mat-label>
+							<input matInput placeholder="By Location" matGoogleMapsAutocomplete (onGermanAddressMapped)="dropOffAutocomplete($event)" (keyup)="clearDropLocation($event)" formControlName="dropOffLocation" >
+							<!-- <input matInput placeholder="Enter DropOff Location" type="text" formControlName="dropOffLocation"> -->
+						</mat-form-field>
+					</div>						
 
-			<div class="show-filter">
-				<form class="example-form filter_selection" [formGroup]="filterForm">
-					<div class="row">
-						<div class="col-md-3 mb-2">
+					<div class="col-md-3 mb-2" *ngIf="moduleName != 'driver'">
+						<mat-form-field class="w-100">
+							<mat-label>Driver Id</mat-label>
+							<mat-select formControlName="driverId">
+								<mat-option *ngFor="let driver of driverList" value="{{driver.userId}}">{{driver.name}}</mat-option>
+							</mat-select>	
+						</mat-form-field>
+					</div>
+					<div class="col-md-3 mb-2">
+						<mat-form-field class="w-100">
+							<mat-label>Status</mat-label>
+							<mat-select formControlName="status">									
+								<mat-option *ngFor="let status of shipmentStatus" value="{{status.key}}">{{status.name}}</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+					<div class="col-md-3 mb-2">
+						<mat-form-field class="w-100">
+							<mat-label>Equipment Type</mat-label>
+							<mat-select formControlName="equipmentType">
+								<mat-option *ngFor="let eValue of equipmentTypes" value="{{eValue.id}}">{{eValue.value}}</mat-option>
+							  </mat-select>
+						</mat-form-field>
+					</div>
+					<div class="col-md-3 mb-2" *ngIf="moduleName != 'shipment'">
+						<mat-form-field class="w-100">
+							<mat-label>Tab Type</mat-label>
+							<mat-select formControlName="tabType">
+								<mat-option *ngFor="let data of shipmentTabTypes" value="{{data.key}}">{{data.value}}</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+					<div class="col-md-3 mb-2">
+						<div class="date-picker-with-icon">
 							<mat-form-field class="w-100">
-								<mat-label>Title</mat-label>
-								<input matInput placeholder="Enter Title" type="text" formControlName="title">
+								<mat-label>Pickup Date</mat-label>
+								<input matInput type="text" ngxDaterangepickerMd startKey="start" endKey="end" [ranges]="ranges" [readonly]="true" [alwaysShowCalendars]="true" [closeOnAutoApply]="true" [locale]="{ cancelLabel: 'Cancel', applyLabel: 'ok', format: 'DD-MM-YYYY'}"  [showClearButton]="true"  formControlName="pickUpDate" drops="down" opens="left" autocomplete="off" [maxDate]="todayDate">
 							</mat-form-field>
-						</div>
-						<div class="col-md-3 mb-2">
-							<mat-form-field class="w-100">
-								<mat-label>Pickup City</mat-label>
-								<input matInput placeholder="Enter Pickup City" type="text" formControlName="pickupCity">
-							</mat-form-field>
-						</div>
-						<div class="col-md-3 mb-2">
-							<mat-form-field class="w-100">
-								<mat-label>DropOff City</mat-label>
-								<input matInput placeholder="Enter DropOff City" type="text" formControlName="dropCity">
-							</mat-form-field>
-						</div>
-						<div class="col-md-3 mb-2">
-							<mat-form-field class="w-100">
-								<mat-label>Equipment Height</mat-label>
-								<input matInput placeholder="Enter Equipment Height" type="text" formControlName="equipmentHeight">
-							</mat-form-field>
-						</div>
-						<div class="col-md-3 mb-2">
-							<mat-form-field class="w-100">
-								<mat-label>Equipment Width</mat-label>
-								<input matInput placeholder="Enter Equipment Width" type="text" formControlName="equipmentWidth">
-							</mat-form-field>
-						</div>
-						<div class="col-md-3 mb-2">
-							<mat-form-field class="w-100">
-								<mat-label>Equipment Weight</mat-label>
-								<input matInput placeholder="Enter Equipment Weight" type="text" formControlName="equipmentWeight">
-							</mat-form-field>
-						</div>
-						<div class="col-md-3 mb-2">
-							<mat-form-field class="w-100">
-								<mat-label>Pickup Zip Code</mat-label>
-								<input matInput placeholder="Enter Pickup Zip Code" type="text" formControlName="pickupZipCode">
-							</mat-form-field>
-						</div>
-						<div class="col-md-3 mb-2">
-							<mat-form-field class="w-100">
-								<mat-label>DropOff Zip Code</mat-label>
-								<input matInput placeholder="Enter DropOff Zip Code" type="text" formControlName="dropZipcode">
-							</mat-form-field>
-						</div>
-						<div class="col-md-3 mb-2" *ngIf="moduleName != 'driver'">
-							<mat-form-field class="w-100">
-								<mat-label>Batch Id</mat-label>
-								<input matInput placeholder="Enter Batch Id" type="text" formControlName="batchId">
-							</mat-form-field>
-						</div>
-						<div class="col-md-3 mb-2">
-							<mat-form-field class="w-100">
-								<mat-label>Pickup Location</mat-label>
-								<input matInput placeholder="By Location" matGoogleMapsAutocomplete (onGermanAddressMapped)="pickUpAutocomplete($event)" (keyup)="clearPickupLocation($event)" formControlName="pickUpLocation" >
-								<!-- <input matInput placeholder="Enter Pickup Location" type="text" formControlName="pickUpLocation"> -->
-							</mat-form-field>
-						</div>
-						<div class="col-md-3 mb-2">
-							<mat-form-field class="w-100">
-								<mat-label>DropOff Location</mat-label>
-								<input matInput placeholder="By Location" matGoogleMapsAutocomplete (onGermanAddressMapped)="dropOffAutocomplete($event)" (keyup)="clearDropLocation($event)" formControlName="dropOffLocation" >
-								<!-- <input matInput placeholder="Enter DropOff Location" type="text" formControlName="dropOffLocation"> -->
-							</mat-form-field>
-						</div>						
-
-						<div class="col-md-3 mb-2" *ngIf="moduleName != 'driver'">
-							<mat-form-field class="w-100">
-								<mat-label>Driver Id</mat-label>
-								<mat-select formControlName="driverId">
-									<mat-option *ngFor="let driver of driverList" value="{{driver.userId}}">{{driver.name}}</mat-option>
-								</mat-select>	
-							</mat-form-field>
-						</div>
-						<div class="col-md-3 mb-2">
-							<mat-form-field class="w-100">
-								<mat-label>Status</mat-label>
-								<mat-select formControlName="status">									
-									<mat-option *ngFor="let status of shipmentStatus" value="{{status.key}}">{{status.name}}</mat-option>
-								</mat-select>
-							</mat-form-field>
-						</div>
-						<div class="col-md-3 mb-2">
-							<mat-form-field class="w-100">
-								<mat-label>Equipment Type</mat-label>
-								<mat-select formControlName="equipmentType">
-									<mat-option *ngFor="let eValue of equipmentTypes" value="{{eValue.id}}">{{eValue.value}}</mat-option>
-								  </mat-select>
-							</mat-form-field>
-						</div>
-						<div class="col-md-3 mb-2" *ngIf="moduleName != 'shipment'">
-							<mat-form-field class="w-100">
-								<mat-label>Tab Type</mat-label>
-								<mat-select formControlName="tabType">
-									<mat-option *ngFor="let data of shipmentTabTypes" value="{{data.key}}">{{data.value}}</mat-option>
-								</mat-select>
-							</mat-form-field>
-						</div>
-						<div class="col-md-3 mb-2">
-							<div class="date-picker-with-icon">
-								<mat-form-field class="w-100">
-									<mat-label>Pickup Date</mat-label>
-									<input matInput type="text" ngxDaterangepickerMd startKey="start" endKey="end" [ranges]="ranges" [readonly]="true" [alwaysShowCalendars]="true" [closeOnAutoApply]="true" [locale]="{ cancelLabel: 'Cancel', applyLabel: 'ok', format: 'DD-MM-YYYY'}"  [showClearButton]="true"  formControlName="pickUpDate" drops="down" opens="left" autocomplete="off" [maxDate]="todayDate">
-								</mat-form-field>
-							</div>
-						</div>
-						<div class="col-md-3 mb-2">
-							<div class="date-picker-with-icon">
-								<mat-form-field class="w-100">
-									<mat-label>DropOff Date</mat-label>
-									<input matInput type="text" ngxDaterangepickerMd startKey="start" endKey="end" [ranges]="ranges" [readonly]="true" [alwaysShowCalendars]="true" [closeOnAutoApply]="true" [locale]="{ cancelLabel: 'Cancel', applyLabel: 'ok', format: 'DD-MM-YYYY'}"  [showClearButton]="true"  formControlName="dropOffDate" drops="down" opens="right" autocomplete="off" [maxDate]="todayDate">
-								</mat-form-field>
-							</div>
-						</div>
-
-						<div class="col-md-12 text-end">
-							<a class="pointer me-3" style="border-radius: 30px; padding: 2px 20px;" (click)="reset()">Reset</a>
-							<button color="primary" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary pointer bg_s" (click)="updateFilterList()">
-								<span class="mat-button-wrapper">Update Results</span>
-							</button>
 						</div>
 					</div>
-				</form>
-			</div>
-		</div>
-
-		<div class="connection_tableScroll" (scroll)="onTableScroll($event)" > <!--  -->
-			<table mat-table class="all-carriers" [dataSource]="shipmentList" style="width: 100%;">
-				<ng-container matColumnDef="name">
-					<th mat-header-cell *matHeaderCellDef>
-						<span>Name</span>
-						<span class="icon icon-Down fs_12 px-1 arrow_filter"></span>
-					</th>
-					<td mat-cell *matCellDef="let element" class="fs_14 fsm_5 txt_b list_tag_con" style="height: 64px;"  (click)="redirectToShipmentView(element)">
-						<div class="tag_list" *ngIf="element.shipperId"> 
-								<span class="icon-ic-building fs_12 txt_w" matTooltip="Created by {{element.shipperName}}"></span>
+					<div class="col-md-3 mb-2">
+						<div class="date-picker-with-icon">
+							<mat-form-field class="w-100">
+								<mat-label>DropOff Date</mat-label>
+								<input matInput type="text" ngxDaterangepickerMd startKey="start" endKey="end" [ranges]="ranges" [readonly]="true" [alwaysShowCalendars]="true" [closeOnAutoApply]="true" [locale]="{ cancelLabel: 'Cancel', applyLabel: 'ok', format: 'DD-MM-YYYY'}"  [showClearButton]="true"  formControlName="dropOffDate" drops="down" opens="right" autocomplete="off" [maxDate]="todayDate">
+							</mat-form-field>
 						</div>
-						<div class="name_id">
-							<span class="text_truncate d-block" style="max-width: 180px;" matTooltip="{{element.title}}">{{element.title ? element.title : '-'}}</span>
-							<span class="ms-3"> #{{element.uniqueId}}</span>
-						</div>
-					</td>
-				</ng-container>
+					</div>
 
-				<ng-container matColumnDef="shipperName">
-					<th mat-header-cell *matHeaderCellDef class="px-2">Shipper Name</th>
-					<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2 text_truncate" style="max-width: 180px;" matTooltip="{{element.shipperName}}">{{element.shipperName ? element.shipperName : '-'}}</td>
-				</ng-container>
-
-				<ng-container matColumnDef="carrierName">
-					<th mat-header-cell *matHeaderCellDef class="px-2">Carrier Name</th>
-					<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2 text_truncate" style="max-width: 180px;" matTooltip="{{element.carrierName}}">{{element.carrierName ? element.carrierName : '-'}}</td>
-				</ng-container>
-
-				<ng-container matColumnDef="pickupDate">
-					<th mat-header-cell *matHeaderCellDef class="px-2">Date of Pickup</th>
-					<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2 text_truncate" style="max-width: 180px;" matTooltip="{{element.pickupDate}}">{{element.pickupDate ? (element.pickupDate | date:'MMM d, y') : '-'}}</td>
-				</ng-container>
-
-				<ng-container matColumnDef="driverName">
-					<th mat-header-cell *matHeaderCellDef class="px-2">Driver Name</th>
-					<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2 text_truncate" style="max-width: 180px;" matTooltip="{{element.driverName ? element.driverName : '-'}}">
-					{{element.driverName ? element.driverName : '-'}}</td>
-				</ng-container>
-
-				<ng-container matColumnDef="equipmentType">
-					<th mat-header-cell *matHeaderCellDef class="px-2">Equipment Type</th>
-					<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2 text_truncate" style="max-width: 180px;" matTooltip="{{element.equipmentName ? element.equipmentName : '-'}}">
-					{{element.equipmentName ? element.equipmentName : '-' }}</td>
-				</ng-container>
-
-				<ng-container matColumnDef="pickupLocation">
-					<th mat-header-cell *matHeaderCellDef class="px-2">Pickup <br> Location & Date</th>
-					<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2 text_truncate" style="max-width: 180px;">
-						<span matTooltip="{{element.pickupLocationLongName}}">{{element.pickupCity ? element.pickupCity +',' : ''}} {{element.pickupState ? element.pickupState : '-'}}</span><br/>
-						<span class="fs_12 fsm_5"> {{element.pickupDate | date:'MMM d, y,'}} {{element.pickupTimeslot}} {{element.pickupTimeZone}}</span>
-					</td>
-				</ng-container>
-
-				<ng-container matColumnDef="dropoffLocation">
-					<th mat-header-cell *matHeaderCellDef class="px-2">Dropoff <br> Location & Date</th>
-					<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2 text_truncate" style="max-width: 180px;">
-						<span matTooltip="{{element.dropLocationLongName}}">{{element.dropCity ? element.dropCity +',' : ''}} {{element.dropState ? element.dropState : '-' }}</span><br/>
-						<span class="fs_12 fsm_5"> {{element.dropDate | date:'MMM d, y,'}}  {{element.dropTimeslot}} {{element.dropTimeZone}}</span>
-					</td>
-				</ng-container>
-
-				<ng-container matColumnDef="status">
-					<th mat-header-cell *matHeaderCellDef class="px-2"> Status </th>
-					<td mat-cell *matCellDef="let element" class="px-2">
-						<div class="status_Detail {{statusClass}}">
-							<shipment-progress [bgClass]="bgStatusClass" [statusCount]="element.status" class="mb-1"></shipment-progress>
-							<span class="fs_12 fsn_4" style="text-transform: capitalize;">{{element.statusLabel}}</span>
-						</div>
-					</td>
-				</ng-container>
-
-				<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="background: #eef0f4;"></tr>
-				<tr mat-row *matRowDef="let row; columns: displayedColumns;" style="background: #fff;"></tr>
-			</table>
-			<ng-container *ngIf="shipmentList && shipmentList.length == 0">
-				<div class="data_notFound">No Data Found.</div>
-			  </ng-container>
-
-			<div class="spinner_loader" *ngIf="apiCallInProcess">
-				<div class="bounce1"></div>
-				<div class="bounce2"></div>
-				<div class="bounce3"></div>
-			</div>
+					<div class="col-md-12 text-end">
+						<a class="pointer me-3" style="border-radius: 30px; padding: 2px 20px;" (click)="reset()">Reset</a>
+						<button color="primary" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary pointer bg_s" (click)="updateFilterList()">
+							<span class="mat-button-wrapper">Update Results</span>
+						</button>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
-<!-- </div>  -->
+
+	<div class="connection_tableScroll tbl_list_ship" (scroll)="onTableScroll($event)">
+		<table mat-table class="all-carriers" [dataSource]="shipmentList" style="width: 100%;">
+			<ng-container matColumnDef="name">
+				<th mat-header-cell *matHeaderCellDef>
+					<span>Name</span>
+					<span class="icon icon-Down fs_12 px-1 arrow_filter"></span>
+				</th>
+				<td mat-cell *matCellDef="let element" class="fs_14 fsm_5 txt_b list_tag_con" style="height: 64px;"  (click)="redirectToShipmentView(element)">
+					<div class="tag_list" *ngIf="element.shipperId"> 
+							<span class="icon-ic-building fs_12 txt_w" matTooltip="Created by {{element.shipperName}}"></span>
+					</div>
+					<div class="name_id">
+						<span class="text_truncate d-block" style="max-width: 180px;" matTooltip="{{element.title}}">{{element.title ? element.title : '-'}}</span>
+						<span class="ms-3"> #{{element.uniqueId}}</span>
+					</div>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="shipperName">
+				<th mat-header-cell *matHeaderCellDef class="px-2">Shipper Name</th>
+				<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2 text_truncate" style="max-width: 180px;" matTooltip="{{element.shipperName}}">{{element.shipperName ? element.shipperName : '-'}}</td>
+			</ng-container>
+
+			<ng-container matColumnDef="carrierName">
+				<th mat-header-cell *matHeaderCellDef class="px-2">Carrier Name</th>
+				<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2 text_truncate" style="max-width: 180px;" matTooltip="{{element.carrierName}}">{{element.carrierName ? element.carrierName : '-'}}</td>
+			</ng-container>
+
+			<ng-container matColumnDef="pickupDate">
+				<th mat-header-cell *matHeaderCellDef class="px-2">Date of Pickup</th>
+				<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2 text_truncate" style="max-width: 180px;" matTooltip="{{element.pickupDate}}">{{element.pickupDate ? (element.pickupDate | date:'MMM d, y') : '-'}}</td>
+			</ng-container>
+
+			<ng-container matColumnDef="driverName">
+				<th mat-header-cell *matHeaderCellDef class="px-2">Driver Name</th>
+				<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2 text_truncate" style="max-width: 180px;" matTooltip="{{element.driverName ? element.driverName : '-'}}">
+				{{element.driverName ? element.driverName : '-'}}</td>
+			</ng-container>
+
+			<ng-container matColumnDef="equipmentType">
+				<th mat-header-cell *matHeaderCellDef class="px-2">Equipment Type</th>
+				<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2 text_truncate" style="max-width: 180px;" matTooltip="{{element.equipmentName ? element.equipmentName : '-'}}">
+				{{element.equipmentName ? element.equipmentName : '-' }}</td>
+			</ng-container>
+
+			<ng-container matColumnDef="pickupLocation">
+				<th mat-header-cell *matHeaderCellDef class="px-2">Pickup <br> Location & Date</th>
+				<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2 text_truncate" style="max-width: 180px;">
+					<span matTooltip="{{element.pickupLocationLongName}}">{{element.pickupCity ? element.pickupCity +',' : ''}} {{element.pickupState ? element.pickupState : '-'}}</span><br/>
+					<span class="fs_12 fsm_5"> {{element.pickupDate | date:'MMM d, y,'}} {{element.pickupTimeslot}} {{element.pickupTimeZone}}</span>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="dropoffLocation">
+				<th mat-header-cell *matHeaderCellDef class="px-2">Dropoff <br> Location & Date</th>
+				<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2 text_truncate" style="max-width: 180px;">
+					<span matTooltip="{{element.dropLocationLongName}}">{{element.dropCity ? element.dropCity +',' : ''}} {{element.dropState ? element.dropState : '-' }}</span><br/>
+					<span class="fs_12 fsm_5"> {{element.dropDate | date:'MMM d, y,'}}  {{element.dropTimeslot}} {{element.dropTimeZone}}</span>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="status">
+				<th mat-header-cell *matHeaderCellDef class="px-2"> Status </th>
+				<td mat-cell *matCellDef="let element" class="px-2">
+					<div class="status_Detail {{statusClass}}">
+						<shipment-progress [bgClass]="bgStatusClass" [statusCount]="element.status" class="mb-1"></shipment-progress>
+						<span class="fs_12 fsn_4" style="text-transform: capitalize;">{{element.statusLabel}}</span>
+					</div>
+				</td>
+			</ng-container>
+
+			<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="background: #eef0f4;"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns;" style="background: #fff;"></tr>
+		</table>
+		<ng-container *ngIf="shipmentList && shipmentList.length == 0">
+			<div class="data_notFound">No Data Found.</div>
+		 </ng-container>
+
+		<div class="spinner_loader" *ngIf="apiCallInProcess">
+			<div class="bounce1"></div>
+			<div class="bounce2"></div>
+			<div class="bounce3"></div>
+		</div>
+	</div>
+</div>

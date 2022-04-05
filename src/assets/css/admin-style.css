@@ -8,6 +8,12 @@ a { text-decoration: none; }
 @media (min-width: 1200px){
     .container { max-width: 1200px; }
 }
+.defult_scroll { height: auto; overflow-y: auto; overflow-x: hidden; }
+.defult_scroll::scrollbar { width: 0.571rem; height: 0.571rem; background-color: #ecf1f700; }
+.defult_scroll::scrollbar-thumb { border-radius: 4px; box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1); background-color: #f4f9ff; }
+.defult_scroll::-webkit-scrollbar { width: 0.571rem; height: 0.571rem; background-color: #ecf1f700; }
+.defult_scroll::-webkit-scrollbar-thumb { border-radius: 4px; -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1); background-color: #f4f9ff; }
+
 .Container_scroll { height: calc(100vh - 50px); overflow-y: auto; overflow-x: hidden; }
 .Container_scroll::scrollbar { width: 0.571rem; height: 0.571rem; background-color: #ecf1f700; }
 .Container_scroll::scrollbar-thumb { border-radius: 4px; box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1); background-color: #f4f9ff; }
@@ -93,7 +99,7 @@ a { text-decoration: none; }
 
 /*Custom Button*/
   .btn { text-transform: inherit; }
-  .custum_button { font-size: 14px; line-height: 20px; border-radius: 30px; padding: 8px 20px; text-transform: inherit; min-width: 9.429rem; max-width: 100%; box-shadow: none; border: none; cursor: pointer; }
+  .custum_button { font-size: 14px; line-height: 21px; border-radius: 30px; padding: 10px 20px; text-transform: inherit; min-width: 9.429rem; max-width: 100%; box-shadow: none; border: none; cursor: pointer; }
   .button_primary, .button_primary:hover, .button_primary:focus, .button_primary:active { color: #fff; background: #3787E6; }
   .button_primary_boder, .button_primary_boder:hover, .button_primary_boder:focus, .button_primary_boder:active { color: #3787e6; border: 1px solid #3787e6; background: #3787e600; }
   .button_success, .button_success:hover, .button_success:focus, .button_success:active { color: #fff; background: #2bac78; }

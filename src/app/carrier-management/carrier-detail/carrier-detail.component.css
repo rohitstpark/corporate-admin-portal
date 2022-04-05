@@ -5,8 +5,8 @@
 .edit_profile_con { background: #fff; border-radius: 4px; /*padding: 18px;*/ }
 
 /*Document View*/
-.dri_docs { display: flex; border: 1px solid #D8D8D8; border-radius: 4px; }
-.dri_docsl { width: 70px; height: 70px; display: flex; justify-content: center; align-items: center; background: #EEF0F4; }
+.dri_docs { border: 1px solid #D8D8D8; position: relative; margin: 0 0 16px; border-radius: 4px; display: flex; align-items: center; justify-content: space-between; padding: 4px 16px 4px 4px; min-height: 58px; }
+.dri_docsl { display: flex; justify-content: center; align-items: center; background: #EEF0F4; }
 .driDocIcon { font-size: 32px; }
 .dri_docsr { display: flex; width: 85%; align-items: center; justify-content: space-between; padding: 0 1rem; }
 /*.dri_docsrEdit { margin: -30px 0 0; }*/
@@ -53,3 +53,8 @@
 .data_notFound { background: #fff; padding: 20px; text-align: center; font-size: 16px; font-weight: 500; color: #818181; }
 
 /*.subs_details { padding: 18px; }*/
+
+/* on hover open new page */
+.dri_docs .open_dri_doc { display: none; }
+.dri_docs:hover .open_dri_doc { display: block; }
+.dri_docs .open_dri_doc { position: absolute; right: 4px; top: 1px; max-width: 16px; cursor: pointer; }
