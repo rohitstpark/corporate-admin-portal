@@ -8,7 +8,7 @@
 			<div class="section_head">
 				<!-- <div class="connection_count" *ngIf="moduleName != 'shipment'">
 					<ul>
-						<li class="fs_16 fsm_5 txt_b " *ngFor="let tab of shipmentTabTypes">{{tab.value}} <span class=" ml-1 {{tab.class}}">{{tab.count}}</span></li>	
+						<li class="fs_16 fsm_5 txt_b " *ngFor="let tab of shipmentTabTypes">{{tab.value}} <span class=" ms-1 {{tab.class}}">{{tab.count}}</span></li>	
 					</ul>
 				</div> -->
 
@@ -17,7 +17,7 @@
 				  <ul>
 				    <li class="fs_16 fsm_5 txt_b" *ngFor="let tab of shipmentTabTypes" [ngClass]="selectedTab == tab.key ? 'active_tab' : ''" (click)="tabClicked(tab)">
 				      <span>{{tab.value}}</span>
-				      <span class="{{tab.class}} ml-1">{{tab.count}}</span>
+				      <span class="{{tab.class}} ms-1">{{tab.count}}</span>
 				    </li>
 				  </ul>
 				</div>
@@ -26,7 +26,7 @@
 					<button [ngClass]="filterActivated ? 'dot_circle' : ''" class="btn custum_button button_primary bg_w txt_lb fsm_5  h_40" (click)="filterToggleEvent()">
 						<span class="mat-button-wrapper">Filter</span>
 					</button>
-					<!-- <div class="custom_search float-right">
+					<!-- <div class="custom_search float-end">
 						<form [formGroup]="searchForm">
 							<mat-form-field appearance="fill">
 								<input matInput #first placeholder="Search" formControlName="searchInput">
@@ -42,10 +42,10 @@
 				<div class="filter_btn active_filter">
 					<div class="custom_search m-0">
 						<mat-form-field appearance="fill">
-							<mat-icon matPrefix class="pr-2">
+							<mat-icon matPrefix class="pe-2">
 								<span class="icon icon-ic-search fs_18"></span>
 							</mat-icon>
-							<input matInput #first placeholder="Search by Company" class="ml-2">
+							<input matInput #first placeholder="Search by Company" class="ms-2">
 						</mat-form-field>
 					</div>
 					<div class="active_filter" style="position: relative;">
@@ -178,8 +178,8 @@
 							</div>
 						</div>
 
-						<div class="col-md-12 text-right">
-							<a class="pointer mr-3" style="border-radius: 30px; padding: 2px 20px;" (click)="reset()">Reset</a>
+						<div class="col-md-12 text-end">
+							<a class="pointer me-3" style="border-radius: 30px; padding: 2px 20px;" (click)="reset()">Reset</a>
 							<button color="primary" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary pointer bg_s" (click)="updateFilterList()">
 								<span class="mat-button-wrapper">Update Results</span>
 							</button>
@@ -202,7 +202,7 @@
 						</div>
 						<div class="name_id">
 							<span class="text_truncate d-block" style="max-width: 180px;" matTooltip="{{element.title}}">{{element.title ? element.title : '-'}}</span>
-							<span class="ml-3"> #{{element.uniqueId}}</span>
+							<span class="ms-3"> #{{element.uniqueId}}</span>
 						</div>
 					</td>
 				</ng-container>

@@ -99,19 +99,19 @@
               <div class="col-md-12">
                 <div class="chip_container">
                   <div class="chip_tag" [ngClass]="shipperProfile.userId ? 'bg_s' : 'bg_d'">
-                    <span class="material-icons fs_16 mr-1">how_to_reg</span>
+                    <span class="material-icons fs_16 me-1">how_to_reg</span>
                     <span class="chip_text">{{shipperProfile.userId ? 'User is Registered' : 'User is not Registered'}}</span>
                   </div>
                   <div class="chip_tag" [ngClass]="shipperProfile.emailVerified ? 'bg_s' : 'bg_d'" >
-                    <span class="material-icons fs_16 mr-1">email</span>
+                    <span class="material-icons fs_16 me-1">email</span>
                     <span class="chip_text">{{shipperProfile.emailVerified ? 'Email is Verified' : 'Email is not Verfied'}}</span>
                   </div>
                   <div class="chip_tag" [ngClass]="shipperProfile.phoneVerified ? 'bg_s' : 'bg_d'">
-                    <span class="material-icons fs_16 mr-1">call</span>
+                    <span class="material-icons fs_16 me-1">call</span>
                     <span class="chip_text">{{shipperProfile.phoneVerified ? 'Phone is Verified' : 'Phone is not Verfied'}}</span>
                   </div>
                   <!-- <div class="chip_tag" [ngClass]="shipperProfile.isSubscriptionPurchased && shipperProfile.subscription ? (shipperProfile.subscription['status'] == 'active' ? 'bg_s' : 'bg_d') : 'bg_y'">
-                    <span class="material-icons fs_16 mr-1">monetization_on</span>
+                    <span class="material-icons fs_16 me-1">monetization_on</span>
                     <span class="chip_text">{{shipperProfile.isSubscriptionPurchased && shipperProfile.subscription ? (shipperProfile.subscription['status'] == 'active' ?'Subscription is Active' : 'Subscription is Inactive') : 'Subscription is not Purchased'}}</span>
                   </div> -->
                 </div>
@@ -139,7 +139,7 @@
                         <span class="icon icon-ic-documents txt_lb" style="font-size: 36px"></span>
                         <!-- <img src="" class="img-fluid"> -->
                       </div>
-                      <div class="ins_certificate_info" class="w-100 ml-3">
+                      <div class="ins_certificate_info" class="w-100 ms-3">
                         <p class="fs_14 fsm_5 txt_b mb-1 text_truncate">{{shipperProfile.docName ? shipperProfile.docName :'-'}}</p>
                         <!-- <p class="fs_12 fsn_4 mb-0 txt_lb"> -->
                           <!-- <span class="create_date">Uploaded on Apr 12, 2019</span>

@@ -26,7 +26,7 @@
 .head_title { font-size: 18px; line-height: 20px; font-weight: 500; color: #fff; margin: 0 0 5px; }
 .head_subtitle { font-size: 14px; font-weight: 400; color: #fff; }
 .container_menu_list { padding: 22px 22px 0px 22px; margin: 15px 0 0; display: flex; flex-direction: column; height: calc(100vh - 130px); justify-content: space-between; }
-.container_menu_list ul { list-style: none; padding: 0 0 0; margin: 0px; }
+.container_menu_list ul { list-style: none; padding: 0 20px; margin: 0 -22px; }
 .container_menu_list li { display: flex; font-size: 14px; color: #818181; padding: 9px 8px; margin: 0px; border-radius: 4px; background: #3787e600; cursor: pointer; }
 .menu_min .container_menu_list li { padding: 8px 6px; max-width: 40px; margin: 0 auto 8px; }
 .container_menu_list li:focus { outline: none; }

@@ -8,7 +8,7 @@
 			<div class="section_head">
 				<div class="connection_count driver_tab connection_tableScroll">
 					<ul>
-						<li class="fs_16 fsm_5 txt_b" *ngFor="let tab of driverTabTypes" [ngClass]="selectedTab == tab.key ? 'active_tab' : ''" (click)="tabClicked(tab)">{{tab.value}} <span class="ml-1 {{tab.class}}">{{tab.count}}</span></li>	
+						<li class="fs_16 fsm_5 txt_b" *ngFor="let tab of driverTabTypes" [ngClass]="selectedTab == tab.key ? 'active_tab' : ''" (click)="tabClicked(tab)">{{tab.value}} <span class="ms-1 {{tab.class}}">{{tab.count}}</span></li>	
 					</ul>
 				</div>
 				<div style="display: flex;">
@@ -36,10 +36,10 @@
 				<div class="filter_btn active_filter">
 					<div class="custom_search m-0">
 						<mat-form-field appearance="fill">
-							<mat-icon matPrefix class="pr-2">
+							<mat-icon matPrefix class="pe-2">
 								<span class="icon icon-ic-search fs_18"></span>
 							</mat-icon>
-							<input matInput #first placeholder="Search by Company" class="ml-2">
+							<input matInput #first placeholder="Search by Company" class="ms-2">
 						</mat-form-field>
 					</div>
 					<div class="active_filter" style="position: relative;">
@@ -150,8 +150,8 @@
 								</mat-select>
 							</mat-form-field>
 						</div>
-						<div class="col-md-12 text-right">
-							<a class="pointer mr-3" style="border-radius: 30px; padding: 2px 20px;" (click)="status=false;reset()">Reset</a>
+						<div class="col-md-12 text-end">
+							<a class="pointer me-3" style="border-radius: 30px; padding: 2px 20px;" (click)="status=false;reset()">Reset</a>
 							<button color="primary" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary pointer bg_s" (click)="updateFilterList()">
 								<span class="mat-button-wrapper">Update Results</span>
 							</button>
@@ -173,7 +173,7 @@
  								<span class="short_name" *ngIf="(!element.profileImage || element.profileImage == '')">{{getInitials(element.name)}}</span>
  								<img *ngIf="(element.profileImage && element.profileImage!='')" src="{{element.profileImage}}" class="img-fluid" />
  							</span>
- 							<div class="ml-2">
+ 							<div class="ms-2">
 								<p class="fs_16 fsm_5 txt_b mb-0 text_truncate" style="max-width: 180px;">{{element.name ? element.name : '-'}}</p>
  								<span class="driver_location" matTooltip="{{element.state}}, {{element.city}}">{{element.state ? (element.state+ ',') : '-'}} {{element.city ? element.city : '-'}}</span>
  							</div>
@@ -236,18 +236,18 @@
 					<!-- <td mat-cell *matCellDef="let element" class="px-2"> {{element.status ? element.status : '-'}} </td> -->
 					<td mat-cell *matCellDef="let element" class="px-2">
 						<span class="dri_status bg_s" *ngIf="element.status == 3">
-							<span class="fs_12 fsn_4 txt_w ml-1">Available</span>
+							<span class="fs_12 fsn_4 txt_w ms-1">Available</span>
 						</span>
 						<span class="dri_status bg_p" *ngIf="element.status == 6">
 							<span class="icon-ic-driver"></span>
-							<span class="fs_12 fsn_4 txt_w ml-1">In Transit</span>
+							<span class="fs_12 fsn_4 txt_w ms-1">In Transit</span>
 						</span>
 						<span class="dri_status txt_p status_invited" *ngIf="element.status == 1">
 							<span class="icon-ic-envelope"></span>
-							<span class="fs_12 fsn_4 ml-1">Pending</span>
+							<span class="fs_12 fsn_4 ms-1">Pending</span>
 						</span>
 						<span class="dri_status bg_d" *ngIf="element.status == 2">
-							<span class="fs_12 fsn_4 txt_w ml-1">Suspended</span>
+							<span class="fs_12 fsn_4 txt_w ms-1">Suspended</span>
 						</span>
 					</td>
 				</ng-container>

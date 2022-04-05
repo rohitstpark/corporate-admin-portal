@@ -26,7 +26,7 @@
 
   <div class="respond_action" *ngIf="responseAction">
     <button class="btn custum_button button_primary fsm_5" (click)="respondToDispute()">Respond to Dispute</button>
-    <!-- <div class="custom_dropdown ml-3">
+    <!-- <div class="custom_dropdown ms-3">
       <label class="dropdown">
         <span class="icon-ic-dots circle_dots"></span>
         <input type="checkbox" class="icon-ic-dots dd-input" id="test">
@@ -48,8 +48,8 @@
      </div>
      <div class="respond_actions">
        <button class="btn custum_button button_primary fsm_5 bg_w txt_lb" (click)="cancelRespond()">Cancel</button>
-       <button class="btn custum_button button_primary fsm_5 ml-3" (click)="submitResponse()">Submit Response</button>
-       <button class="btn custum_button button_primary fsm_5 bg_s txt_w ml-3" (click)="respondAndResolve()">Respond and Resolve</button>
+       <button class="btn custum_button button_primary fsm_5 ms-3" (click)="submitResponse()">Submit Response</button>
+       <button class="btn custum_button button_primary fsm_5 bg_s txt_w ms-3" (click)="respondAndResolve()">Respond and Resolve</button>
      </div>
    </form>
   </div>
@@ -98,14 +98,14 @@
               <div *ngIf="!isEditEnabled">
               <p class="fs_14 fsn_4 txt_lb mb-1">
                 <span>Dispute assignee</span>
-                <span class="txt_p pointer ml-3" (click)="isEditEnabled=true"><u>Edit</u></span>
+                <span class="txt_p pointer ms-3" (click)="isEditEnabled=true"><u>Edit</u></span>
               </p>
               <p class="fs_14 fsm_5 txt_b mb-0">{{disputeDetails.isDispute && disputeDetails.isDispute.disputeAssign ? disputeDetails.isDispute.disputeAssign : '-'}}</p>
               </div>
               <div class="custum_input_css" *ngIf="isEditEnabled">
                 <p class="fs_14 fsn_4 txt_lb mb-0">
                   <span>Dispute assignee</span>
-                  <span class="txt_p pointer ml-3" (click)="updateAssignee()"><u>Update</u></span>
+                  <span class="txt_p pointer ms-3" (click)="updateAssignee()"><u>Update</u></span>
                 </p>
                 <!-- appearance="none" -->
                 <mat-form-field appearance="none" class="w-100">

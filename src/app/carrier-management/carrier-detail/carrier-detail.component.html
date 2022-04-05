@@ -129,19 +129,19 @@
               <div class="col-md-12">
                 <div class="chip_container">
                   <div class="chip_tag" [ngClass]="carrierProfile.userId ? 'bg_s' : 'bg_d'">
-                    <span class="material-icons fs_16 mr-1">how_to_reg</span>
+                    <span class="material-icons fs_16 me-1">how_to_reg</span>
                     <span class="chip_text">{{carrierProfile.userId ? 'User is Registered' : 'User is not Registered'}}</span>
                   </div>
                   <div class="chip_tag" [ngClass]="carrierProfile.emailVerified ? 'bg_s' : 'bg_d'" >
-                    <span class="material-icons fs_16 mr-1">email</span>
+                    <span class="material-icons fs_16 me-1">email</span>
                     <span class="chip_text">{{carrierProfile.emailVerified ? 'Email is Verified' : 'Email is not Verfied'}}</span>
                   </div>
                   <div class="chip_tag" [ngClass]="carrierProfile.phoneVerified ? 'bg_s' : 'bg_d'">
-                    <span class="material-icons fs_16 mr-1">call</span>
+                    <span class="material-icons fs_16 me-1">call</span>
                     <span class="chip_text">{{carrierProfile.phoneVerified ? 'Phone is Verified' : 'Phone is not Verfied'}}</span>
                   </div>
                   <div class="chip_tag" [ngClass]="carrierProfile.subscription ? (carrierProfile.subscription['status'] == 'active' ? 'bg_s' : 'bg_d') : 'bg_y'">
-                    <span class="material-icons fs_16 mr-1">monetization_on</span>
+                    <span class="material-icons fs_16 me-1">monetization_on</span>
                     <span class="chip_text">{{carrierProfile.subscription ? (carrierProfile.subscription['status'] == 'active' ?'Subscription is Active' : 'Subscription is Inactive') : 'Subscription is not Purchased'}}</span>
                   </div>
                 </div>
@@ -161,7 +161,7 @@
                         <img class="img-fluid" id="imgFilter">
                         <span class="short_name"></span>
                       </span>
-                      <span class="ml-3 pointer">
+                      <span class="ms-3 pointer">
                         <u class="fs_14 txt_p fsn_4"
                         (click)="openDialogBox()">Change</u>
                         <input type="file" id="my_file"
@@ -205,9 +205,9 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-12">
-                  <div class="text-right">
+                  <div class="text-end">
                     <span class="botomBack_btn fs_14 txt_lb fsn_4 pointer p-3" (click)="getUserDetail()">Cancel</span>
-                    <button class="btn custum_button button_primary ml-4">Save</button>
+                    <button class="btn custum_button button_primary ms-4">Save</button>
                   </div>
                 </div>
               </div>
@@ -257,7 +257,7 @@
                 </div>
                 <div>
                   <div class="custom_toggle cus_toggle_txt">
-                    <span class="txt_lb mr-3">{{carrierProfile.autoRenew ? 'Yes' : 'No'}}</span><mat-slide-toggle class="float-right" [checked]="carrierProfile.autoRenew" disabled></mat-slide-toggle>
+                    <span class="txt_lb me-3">{{carrierProfile.autoRenew ? 'Yes' : 'No'}}</span><mat-slide-toggle class="float-end" [checked]="carrierProfile.autoRenew" disabled></mat-slide-toggle>
                   </div>
                 </div>
               </div>
@@ -318,9 +318,9 @@
                 <div class="dri_docsrName">
                   <p class="mb-1 fs_14 fsm_5 txt_b">{{doc.docName}}</p>
                   <p class="mb-0 fs_12 fsn_4 txt_lb">
-                    <span class="pr-1">Uploaded on {{doc.createdAt | date:'mediumDate'}}</span>
-                    <span class="expire_date pl-3" *ngIf="doc.isValid">Expires at {{doc.detail.expiryDate | date:'mediumDate'}}</span>
-                    <span class="expire_date pl-3" *ngIf="!doc.isValid">Expired</span>
+                    <span class="pe-1">Uploaded on {{doc.createdAt | date:'mediumDate'}}</span>
+                    <span class="expire_date ps-3" *ngIf="doc.isValid">Expires at {{doc.detail.expiryDate | date:'mediumDate'}}</span>
+                    <span class="expire_date ps-3" *ngIf="!doc.isValid">Expired</span>
                   </p>
                 </div>
               </div>
@@ -342,8 +342,8 @@
                 <div class="dri_docsrName">
                   <p class="mb-1 fs_14 fsm_5 txt_b">insurance_certificate2.pdf</p>
                   <p class="mb-0 fs_12 fsn_4 txt_lb">
-                    <span class="pr-1">Uploaded on Apr 12, 2019</span>
-                    <span class="expire_date pl-3">Expired</span>
+                    <span class="pe-1">Uploaded on Apr 12, 2019</span>
+                    <span class="expire_date ps-3">Expired</span>
                   </p>
                 </div>
               </div>
@@ -608,8 +608,8 @@
 
        <!-- Symbol Column -->
       <ng-container matColumnDef="amount">
-        <th mat-header-cell *matHeaderCellDef class="px-2 text-right"> Amount </th>
-        <td mat-cell *matCellDef="let element" class="px-2 text-right"> {{carrierProfile.subscription.amount ? carrierProfile.subscription.amount : '-'}} </td>
+        <th mat-header-cell *matHeaderCellDef class="px-2 text-end"> Amount </th>
+        <td mat-cell *matCellDef="let element" class="px-2 text-end"> {{carrierProfile.subscription.amount ? carrierProfile.subscription.amount : '-'}} </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="background: #eef0f4;"></tr>

@@ -8,7 +8,7 @@
           <h3>Shipper Management</h3>
           <p>A place to manage all of the Shipper on the LaneAxis system.</p>
         </div>
-        <div class="float-right">
+        <div class="float-end">
           <button _ngcontent-pqc-c142="" mat-flat-button="" color="primary" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" >
             <!-- (click)="clickEvent()" -->
             <span class="mat-button-wrapper">Create New</span>
@@ -22,11 +22,11 @@
           <div class="float-left">
             <h3>All Shippers ({{totalRecords}})</h3>
           </div>
-          <div class="float-right" [ngClass]="filterActivated ? 'active_filter' : ''">
+          <div class="float-end" [ngClass]="filterActivated ? 'active_filter' : ''">
             <button class="mat-focus-indicator mat-flat-button mat-button-base dot_circle" (click)="filterToggleEvent()">
               <span class="mat-button-wrapper">Filter</span>
             </button>
-            <!-- <div class="custom_search float-right">
+            <!-- <div class="custom_search float-end">
               <form [formGroup]="searchForm">
               <mat-form-field appearance="fill">
                 <input matInput #first placeholder="Search" formControlName="searchInput">
@@ -36,7 +36,7 @@
               </mat-form-field>
             </form>
             </div> -->
-            <span class="circle_download ml-3">
+            <span class="circle_download ms-3">
               <span class="icon-ic-download fs_20"></span>
             </span>
           </div>
@@ -45,10 +45,10 @@
           <div class="filter_btn active_filter">
             <div class="custom_search m-0">
               <mat-form-field appearance="fill">
-                <mat-icon matPrefix class="pr-2">
+                <mat-icon matPrefix class="pe-2">
                   <span class="icon icon-ic-search fs_18"></span>
                 </mat-icon>
-                <input matInput #first placeholder="Search by Company" class="ml-2">
+                <input matInput #first placeholder="Search by Company" class="ms-2">
               </mat-form-field>
             </div>
             <div class="active_filter" style="position: relative;">
@@ -69,7 +69,7 @@
               <div class="col-md-12">
                 <div class="custom_checkbox filter_head">
                   <p class="fs_16 txt_b fsb_7 mb-3">Filter</p>
-                  <mat-checkbox class="example-margin" formControlName="isRegisteredUser"><span class="ml-1"> Show Only Registered Users</span></mat-checkbox>
+                  <mat-checkbox class="example-margin" formControlName="isRegisteredUser"><span class="ms-1"> Show Only Registered Users</span></mat-checkbox>
                 </div>
               </div>
               <div class="col-md-3 mb-2">
@@ -180,17 +180,17 @@
 
               <div class="col-md-3 mb-2">
                 <div class="cus_toggle_bg custom_toggle">
-                  <mat-slide-toggle class="float-right" formControlName="emailVerified"><span class="txt_lb ml-3">Email Verify ({{filterForm.get('emailVerified').value == true ? 'Yes' : 'No'}})</span> </mat-slide-toggle>
+                  <mat-slide-toggle class="float-end" formControlName="emailVerified"><span class="txt_lb ms-3">Email Verify ({{filterForm.get('emailVerified').value == true ? 'Yes' : 'No'}})</span> </mat-slide-toggle>
                 </div>
               </div>
               <div class="col-md-3 mb-2">
                 <div class="cus_toggle_bg custom_toggle">
-                  <mat-slide-toggle class="float-right" formControlName="phoneVerified"><span class="txt_lb ml-3">Phone Verify ({{filterForm.get('phoneVerified').value == true ? 'Yes' : 'No'}})</span> </mat-slide-toggle>
+                  <mat-slide-toggle class="float-end" formControlName="phoneVerified"><span class="txt_lb ms-3">Phone Verify ({{filterForm.get('phoneVerified').value == true ? 'Yes' : 'No'}})</span> </mat-slide-toggle>
                 </div>
               </div>
               
-              <div class="col-md-12 text-right">
-                <a class="pointer mr-3" style="border-radius: 30px; padding: 2px 20px;" (click)="status=false;resetData()">Reset</a>
+              <div class="col-md-12 text-end">
+                <a class="pointer me-3" style="border-radius: 30px; padding: 2px 20px;" (click)="status=false;resetData()">Reset</a>
                 <button color="primary" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary pointer bg_s" (click)="updateSearchResults()">
                   <span class="mat-button-wrapper">Update Results</span>
                 </button>
@@ -215,7 +215,7 @@
                   <p class="carrier_name text_truncate" matTooltip="{{element.companyName}}">{{element.companyName}}</p>
                   <span>
                     <span class="carrier_location text_truncate" matTooltip="{{element.phyStreet}}, {{element.phyCity}}, {{element.phyState}}">{{element.phyCity ? element.phyCity : '-'}}, {{element.phyState ? element.phyState : '-'}}</span>
-                    <span class="fs_12 fsm_5 txt_b mb-0 ml-2 ope_5" matTooltip="Revenue">400M</span>
+                    <span class="fs_12 fsm_5 txt_b mb-0 ms-2 ope_5" matTooltip="Revenue">400M</span>
                   </span>
                   <div class="verify_status">
                     <span class="material-icons fs_14" [ngClass]="element.userId ? 'txt_s' : 'txt_d'" matTooltip="{{element.userId ? 'User is Registered' : 'User is not Registered'}}">how_to_reg</span>

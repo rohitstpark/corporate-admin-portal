@@ -7,9 +7,9 @@
 		<div class="section_head">
 			<div class="connection_count" *ngIf="tabCountData">
 				<ul>
-					<li class="fs_16 fsm_5 txt_b">Connected <span class="txt_s ml-1">{{tabCountData.connected}}</span></li>
-					<li class="fs_16 fsm_5 txt_b">New Invitations <span class="txt_p ml-1">{{tabCountData.invitation}}</span></li>
-					<li class="fs_16 fsm_5 txt_b">Pending Requests <span class="txt_d ml-1">{{tabCountData.pending}}</span></li>
+					<li class="fs_16 fsm_5 txt_b">Connected <span class="txt_s ms-1">{{tabCountData.connected}}</span></li>
+					<li class="fs_16 fsm_5 txt_b">New Invitations <span class="txt_p ms-1">{{tabCountData.invitation}}</span></li>
+					<li class="fs_16 fsm_5 txt_b">Pending Requests <span class="txt_d ms-1">{{tabCountData.pending}}</span></li>
 				</ul>
 			</div>
 			<div></div>
@@ -17,7 +17,7 @@
 				<button [ngClass]="filterActivated ? 'dot_circle' : ''" class="btn custum_button button_primary bg_w txt_lb fsm_5  h_40" (click)="filterToggleEvent()">
 					<span class="mat-button-wrapper">Filter</span>
 				</button>
-				<!-- <div class="custom_search float-right">
+				<!-- <div class="custom_search float-end">
 				<form [formGroup]="searchForm">
 					<mat-form-field appearance="fill">
 						<input matInput #first placeholder="Search" formControlName="searchInput">
@@ -33,10 +33,10 @@
 			<div class="filter_btn active_filter">
 				<div class="custom_search m-0">
 					<mat-form-field appearance="fill">
-						<mat-icon matPrefix class="pr-2">
+						<mat-icon matPrefix class="pe-2">
 							<span class="icon icon-ic-search fs_18"></span>
 						</mat-icon>
-						<input matInput #first placeholder="Search by Company" class="ml-2">
+						<input matInput #first placeholder="Search by Company" class="ms-2">
 					</mat-form-field>
 				</div>
 				<div class="active_filter" style="position: relative;">
@@ -101,8 +101,8 @@
 					 </mat-form-field>
 					 <small class="txt_d" *ngIf="revenueValidationFailed">Minimum required revenue is {{filterForm.get('minRevenue').value}}</small>
 					</div>
-					<div class="col-md-12 text-right">
-						<a class="pointer mr-3" style="border-radius: 30px; padding: 2px 20px;" (click)="reset()">Reset</a>
+					<div class="col-md-12 text-end">
+						<a class="pointer me-3" style="border-radius: 30px; padding: 2px 20px;" (click)="reset()">Reset</a>
 						<button color="primary" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary pointer bg_s" (click)="updateFilterList()">
 							<span class="mat-button-wrapper">Update Results</span>
 						</button>

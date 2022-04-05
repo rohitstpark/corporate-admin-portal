@@ -25,7 +25,7 @@
 
   <div class="respond_action" *ngIf="responseAction">
     <button class="btn custum_button button_primary fsm_5" (click)="respondToDispute()">Respond to Dispute</button>
-    <!-- <div class="custom_dropdown ml-3">
+    <!-- <div class="custom_dropdown ms-3">
       <label class="dropdown">
         <span class="icon-ic-dots circle_dots"></span>
         <input type="checkbox" class="icon-ic-dots dd-input" id="test">
@@ -47,8 +47,8 @@
      </div>
      <div class="respond_actions">
        <button class="btn custum_button button_primary fsm_5 bg_w txt_lb" (click)="cancelRespond()">Cancel</button>
-       <button class="btn custum_button button_primary fsm_5 ml-3" (click)="submitResponse()">Submit Response</button>
-       <button class="btn custum_button button_primary fsm_5 bg_s txt_w ml-3" (click)="respondAndResolve()">Respond and Resolve</button>
+       <button class="btn custum_button button_primary fsm_5 ms-3" (click)="submitResponse()">Submit Response</button>
+       <button class="btn custum_button button_primary fsm_5 bg_s txt_w ms-3" (click)="respondAndResolve()">Respond and Resolve</button>
      </div>
    </form>
   </div>
@@ -74,7 +74,7 @@
 							<span class="short_name" *ngIf="(!element.profileImage || element.profileImage == '')">{{getInitials(element.userName)}}</span>
 							<img src="{{element.profileImage}}" class="img-fluid" />
 						</span>
-						<div class="ml-2">
+						<div class="ms-2">
 						<p class="fs_16 fsm_5 txt_b mb-0 text_truncate" style="max-width: 180px;">{{element.userName ? element.userName : '-'}}</p>
 						</div>
 					</div>

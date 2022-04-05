@@ -118,7 +118,7 @@ a { text-decoration: none; }
 
 /*Input Field*/
   .mat-form-field { display: inline !important; }
-  .custom_input { font-size: 14px !important; line-height: 18px !important; font-weight: 500 !important; color: #000 !important; width: 100% !important; height: 40px; padding: 11px 16px !important; border: none !important; border-radius: 4px; background: #f6f6f6 !important; box-sizing: border-box !important; }
+  .custom_input { font-size: 14px !important; line-height: 18px !important; font-weight: 500 !important; color: #000 !important; width: 100% !important; height: 40px; padding: 11px 16px !important; border: none !important; border-radius: 4px; background: #f6f6f6 !important; /*background: #ddd !important;*/ box-sizing: border-box !important; }
   .custom_input:focus { outline: 0 !important; box-shadow: none !important; background: #f6f6f6 !important; }
   .custom_input::placeholder { font-size: 14px; line-height: 18px !important; font-weight: 500; color: #818181; }
   .custom_input .mat-select-placeholder { font-size: 14px; font-weight: 500; color: #818181; }
@@ -231,7 +231,7 @@ mat-form-field mat-icon:focus, .btn:focus, u:focus { outline: none; box-shadow: 
 .text_truncate { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* SignIn SignUp */
-  .custom_matSuffix_icon .mat-form-field-suffix { position: absolute; right: 5px; top: 17px; }
+  .custom_matSuffix_icon .mat-form-field-suffix { position: absolute; right: 5px; top: 20px; }
   .custom_matSuffix_icon .mat-button-focus-overlay, .custom_matSuffix_icon .mat-button-ripple.mat-ripple { display: none; }
 
 /* custom expansion-panel */
@@ -445,7 +445,7 @@ table tbody tr:hover { background: #f5f5f5; }
 .ic_calander .mat-form-field-flex { display: flex; align-items: center; }
 .ic_calander .custom_input { border-radius: 2px 0px 0px 2px; }
 
-  .custom_matSuffix_icon .mat-form-field-suffix { position: absolute; right: 5px; top: 17px; }
+  /*.custom_matSuffix_icon .mat-form-field-suffix { position: absolute; right: 5px; top: 17px; }*/
   .custom_matSuffix_icon .mat-button-focus-overlay, .custom_matSuffix_icon .mat-button-ripple.mat-ripple { display: none; }
 
 .custom_matSuffix_iconN .mat-form-field-suffix { top: 1.5rem; }

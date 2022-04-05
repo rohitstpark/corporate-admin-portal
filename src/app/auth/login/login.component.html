@@ -24,9 +24,8 @@
                   <!-- appearance="none" -->
                   <mat-form-field appearance="none" class="w-100 custom_matSuffix_icon ic_password">
                     <input matInput [type]="hide ? 'text' : 'password'" formControlName="password" placeholder="Enter password" class="form-control custom_input"/>
-                    <button *ngIf="loginForm.get('password').value" mat-icon-button matSuffix (click)="hide = !hide"
-                      [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" type="button">
-                    <mat-icon class="ff_im fs_18 txt_lb {{hide ? 'icon-ic-show' : 'icon-ic-hide'}}"></mat-icon>
+                    <button *ngIf="loginForm.get('password').value" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" type="button">
+                      <mat-icon class="ff_im fs_18 txt_lb {{hide ? 'icon-ic-show' : 'icon-ic-hide'}}"></mat-icon>
                     </button>
                     <mat-error *ngIf="isLoginFormSubmitted && loginForm.get('password').errors?.['required']">Password is required.</mat-error>
                     <mat-error *ngIf="isLoginFormSubmitted && loginForm.get('password').errors?.['minlength']">Password must be at least 6 characters long</mat-error>

@@ -63,7 +63,7 @@
 														<img class="img-fluid" id="imgFilter" src="{{userDetail.profileImage}}" *ngIf="userDetail.profileImage!=''">
 														<span class="short_name" *ngIf="(!userDetail.profileImage || userDetail.profileImage =='')">{{getInitials()}}</span>
 													</span>
-													<span class="ml-3 pointer">
+													<span class="ms-3 pointer">
 														<u class="fs_14 txt_p fsn_4"
 															(click)="openDialogBox()">Change</u>
 														<input type="file" id="my_file"
@@ -111,9 +111,9 @@
 											</mat-form-field>
 										</div>
 										<div class="col-md-12">
-											<div class="text-right">
+											<div class="text-end">
 												<span class="botomBack_btn fs_14 txt_lb fsn_4 pointer p-3" (click)="getUserDetail()">Cancel</span>
-												<button class="btn custum_button button_primary ml-4">Save</button>
+												<button class="btn custum_button button_primary ms-4">Save</button>
 											</div>
 										</div>
 									</div>
