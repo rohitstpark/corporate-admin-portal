@@ -7,7 +7,7 @@
         <p>A place to view all of the Twilio Lookup request completed within the admin panel</p>
     </div>
     <div class="float-end">
-    <button _ngcontent-pqc-c142="" mat-flat-button="" color="primary" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" (click)="OpenCreate()">
+    <button class="btn custum_button button_primary" (click)="OpenCreate()">
     <span class="mat-button-wrapper">New Lookup</span>
     <span matripple="" class="mat-ripple mat-button-ripple"></span>
     <span class="mat-button-focus-overlay"></span>
@@ -55,7 +55,7 @@
   
         <div class="col-md-12 text-end">
           <a mat-button class="pointer me-3" style="border-radius: 30px; padding: 2px 20px;" (click)="resetData()">Reset</a>
-          <button color="primary" class="btn custum_button button_primary bg_s" (click)="updateSearchResults()">
+          <button class="btn custum_button button_primary bg_s" (click)="updateSearchResults()">
             <span class="mat-button-wrapper">Update Results</span>
           </button>
         </div>
@@ -71,7 +71,7 @@
 
 
 
-<div class="user_table" (scroll)="onTableScroll($event)">
+<div class="user_table defult_scroll" (scroll)="onTableScroll($event)">
   <table mat-table [dataSource]="dataSource" style="width: 100%;">
 
     <ng-container matColumnDef="id">

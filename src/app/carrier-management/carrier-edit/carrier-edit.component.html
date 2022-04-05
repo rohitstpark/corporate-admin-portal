@@ -27,14 +27,13 @@
               <div class="row">
                 <!-- update profile image  -->
                <div class="col-md-12">
-                  <div class="upload_files upload_file_64 mb-4">
+                  <div class="upload_files upload_file_64 mb-4 edit_profile">
                     <input type="file" class="form-control input_upload" (change)="onFileSelected($event)"/>
-                    <img src="{{ carrierProfile.profileImage }}" id="imgFilter"
-                    *ngIf="carrierProfile.profileImage != ''" class="img-fluid" class="img_upload_field">
-                    <span class="short_name" *ngIf="!carrierProfile.profileImage ||carrierProfile.profileImage == ''">{{ carrierProfile.name }}</span>
+                    <img src="{{ carrierProfile.profileImage }}" id="imgFilter" *ngIf="carrierProfile.profileImage != ''" class="img-fluid" class="img_upload_field">
+                    <!-- <span class="short_name" *ngIf="!carrierProfile.profileImage ||carrierProfile.profileImage == ''">{{ carrierProfile.name }}</span> -->
+                      <span class="short_name" *ngIf="(!carrierProfile.profileImage || carrierProfile.profileImage == '')">{{getInitials(carrierProfile.legalName)}}</span>
                     <span class="upload_file_icon" (click)="openDialogBox()">
                       <span class="icon-ic-upload"></span>
-                  <span class="short_name" *ngIf="(!carrierProfile.profileImage || carrierProfile.profileImage == '')">{{getInitials(carrierProfile.legalName)}}</span>
                     </span>
                   </div>
                 </div>
