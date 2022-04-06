@@ -9,7 +9,7 @@
 		</div>
 		<div class="float-end">
 		  <button class="btn custum_button button_primary bg_p">
-		    <span class="mat-button-wrapper">Create new Shipment</span>
+		    <span class="mat-button-wrapper">Create New Shipment</span>
 		    <span matripple="" class="mat-ripple mat-button-ripple"></span>
 		    <span class="mat-button-focus-overlay"></span>
 		  </button>
@@ -19,7 +19,7 @@
   <div class="dispute_list_tab">
     <div class="tab_header">
       <ul>
-        <li  *ngFor="let tab of disputeStatus" [ngClass]="selectedTab == tab.value ? 'active_tab' : ''" (click)="tabClicked(tab)">
+        <li *ngFor="let tab of disputeStatus" [ngClass]="selectedTab == tab.value ? 'active_tab' : ''" (click)="tabClicked(tab)" class="fs_16 fsm_5 txt_b">
           <span>{{tab.key}}</span>
           <span class="{{tab.class}} ms-1">{{tab.count}}</span>
         </li>
@@ -209,7 +209,7 @@
         <th mat-header-cell *matHeaderCellDef>
           <div class="row_shorted">
             <span>Shipment ID </span>
-            <span class="icon icon-Down fs_12 txt_lb px-1 arrow_filter"></span>
+            <span class="icon icon-Down fs_12 txt_lb ps-1 arrow_filter"></span>
           </div>
         </th>
         <td mat-cell *matCellDef="let element" (click)="redirectToDisputeView(element)">

@@ -241,7 +241,7 @@ table.all-carriers tr:first-child { margin-bottom: 24px !important; }
     padding: 24px;
 }
 
-.btn_filter { font-size: 14px; background: #818181; padding: 9px 18px; color: #fff; }
+.btn_filter { font-size: 14px; background: #FFFFFF; padding: 9px 18px; color: #000000; }
 .filter_section .filter_bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
 .filter_section .mob-section-head { display: none; }
 .filter_hide .filter_container { display: none; }
