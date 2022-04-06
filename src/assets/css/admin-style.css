@@ -464,3 +464,7 @@ table tbody tr:hover { background: #f5f5f5; }
 .doc_view_con .doc_view_icon { display: none; }
 .doc_view_con:hover .doc_view_icon { display: block; }
 .doc_view_con .doc_view_icon { position: absolute; right: 4px; top: 1px; max-width: 16px; cursor: pointer; }
+
+.admin_before_login .custom_matSuffix_icon .mat-form-field-suffix {
+    top: 20px;
+}
