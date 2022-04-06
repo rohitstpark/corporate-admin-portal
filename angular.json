@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/corporative-admin",
+            "outputPath": "dist/LA-Admin",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -99,10 +99,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "corporative-admin:build:production"
+              "browserTarget": "LA-Admin:build:production"
             },
             "uat": {
-              "browserTarget": "corporative-admin:build:uat"
+              "browserTarget": "LA-Admin:build:uat"
             }
           },
           "defaultConfiguration": "uat"
@@ -110,7 +110,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "corporative-admin:build"
+            "browserTarget": "LA-Admin:build"
           }
         },
         "test": {
@@ -134,5 +134,5 @@
       }
     }
   },
-  "defaultProject": "corporative-admin"
+  "defaultProject": "LA-Admin"
 }
