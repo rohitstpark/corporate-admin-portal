@@ -102,7 +102,7 @@
               "browserTarget": "LA-Admin:build:production"
             },
             "uat": {
-              "browserTarget": "LA-Admin:build:uat"
+              "browserTarget": "corporative-admin:build:uat"
             }
           },
           "defaultConfiguration": "uat"
@@ -110,7 +110,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "LA-Admin:build"
+            "browserTarget": "corporative-admin:build"
           }
         },
         "test": {
@@ -134,5 +134,5 @@
       }
     }
   },
-  "defaultProject": "LA-Admin"
+  "defaultProject": "corporative-admin"
 }
