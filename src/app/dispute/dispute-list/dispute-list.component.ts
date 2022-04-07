@@ -25,6 +25,7 @@ export class DisputeListComponent implements OnInit {
   page:number = 1;
   limit:number=20;
   totalRecords:any;
+  filterSearched:boolean=false;
   showLoader:boolean=false;
   displayedColumns = ['shipmentId', 'shipmentName', 'carrierName','shipperName', 'assigneName',  'reason', 'description', 'dateTime'];
   disputeStatus:any=[];
@@ -350,6 +351,10 @@ export class DisputeListComponent implements OnInit {
       queryParams = queryParams + 'disputeStatus=' + formValue.disputeStatus + '&';
     }
  
+    if(queryParams.length>16)
+    this.filterSearched=true;
+
+
     // this.selectedQueryParams = queryParams;
     if(queryParams && queryParams.length>1){
 
@@ -382,6 +387,7 @@ export class DisputeListComponent implements OnInit {
       this.selectedQueryParams = '';
     }
     this.methodToChangQueryParams(this.selectedQueryParams);
+    this.filterSearched=false;
   }
 
   getCarrierList(val, setValue?){

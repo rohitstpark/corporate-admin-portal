@@ -34,7 +34,7 @@
         <h3>All {{selectedDispute}} Disputes</h3>
       </div>
       <div class="float-end" [ngClass]="filterActivated ? 'active_filter' : ''">
-        <button class="mat-focus-indicator mat-flat-button mat-button-base dot_circle" (click)="filterToggleEvent()">
+        <button class="mat-focus-indicator mat-flat-button mat-button-base" [ngClass]="filterSearched ? 'dot_circle' : ''" (click)="filterToggleEvent()">
           <span class="mat-button-wrapper">Filter</span>
         </button>
         <!-- <div class="custom_search float-end">
