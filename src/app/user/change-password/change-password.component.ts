@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '../../common/services/http.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import  * as APIURL  from '../../common/config/api-endpoints';
+import {Location} from '@angular/common';
 
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 import { AlertMessageComponent } from '../../common/alert-message/alert-message.component';
@@ -23,6 +24,7 @@ export class changePasswordComponent implements OnInit {
   hide2: boolean = false;
 
   constructor(private fb: FormBuilder,
+    private _location: Location,
     private httpService: HttpService,
     private snackBar: MatSnackBar) { }
 
@@ -86,6 +88,10 @@ export class changePasswordComponent implements OnInit {
         this.showLoader = false;
       });
     }
+  }
+  
+  backClicked() {
+    this._location.back();
   }
 
   resetForm(){
