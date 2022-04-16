@@ -514,7 +514,7 @@
               </div>
               <div class="col-md-4">
                 <p class="fs_14 fsn_4 txt_lb mb-1">Preferred Lanes</p>
-                <p class="fs_14 fsm_5 txt_b mb-4">{{carrierProfile.laneCity ? carrierProfile.laneCity : '-'}}</p>
+                <p class="fs_14 fsm_5 txt_b mb-4">{{(carrierProfile.laneCity && !carrierProfile.lane) ? carrierProfile.laneCity : (!carrierProfile.laneCity && carrierProfile.lane) ? 'All' : '-' }}</p>
               </div>
               <div class="col-md-4">
                 <p class="fs_14 fsn_4 txt_lb mb-1">Industries</p>
