@@ -111,6 +111,7 @@ constructor(
 
   closePopup(){
     this.dialogRef.close({event:"close"});
+    console.log('close runs')
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('userProfile_sugBox');
   }

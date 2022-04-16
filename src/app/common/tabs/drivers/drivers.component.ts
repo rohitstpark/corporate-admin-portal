@@ -194,10 +194,14 @@ export class DriversComponent implements OnInit {
         this.driverList = [];
       }
       if(resp['success']){
+        console.log('this.driverTabTypes');
+        console.log(this.driverTabTypes);
         this.tabCountData = resp['response']['tabCount'];
+        console.log('this.tabCountData');
+        console.log(this.tabCountData);
         this.driverTabTypes.forEach(element => {
           element['count'] = this.tabCountData[element.key] ? this.tabCountData[element.key] : 0;
-        });
+        }); 
         this.totalRecords = resp['response']['totalRecords'];
       }
     }, (err) => {
