@@ -13,14 +13,24 @@
 			</div> -->
 
 			<!-- Only for shipment list tab -->
-			<div class="shipment_tab connection_tableScroll">
+			<div>
+			<div class="shipment_tab ">
 			  <ul>
-			    <li class="fs_16 fsm_5 txt_b" *ngFor="let tab of shipmentTabTypes" [ngClass]="selectedTab == tab.key ? 'active_tab' : ''" (click)="tabClicked(tab)">
+			    <li class="fs_16 fsm_5 txt_b" *ngFor="let tab of shipmentTabTypes | slice:0:4" [ngClass]="selectedTab == tab.key ? 'active_tab' : ''" (click)="tabClicked(tab)">
 			      <span>{{tab.value}}</span>
 			      <span class="{{tab.class}} ms-1">{{tab.count}}</span>
 			    </li>
 			  </ul>
 			</div>
+			<div class="shipment_tab ">
+				<ul>
+				  <li class="fs_16 fsm_5 txt_b" *ngFor="let tab of shipmentTabTypes | slice:4:9" [ngClass]="selectedTab == tab.key ? 'active_tab' : ''" (click)="tabClicked(tab)">
+					<span>{{tab.value}}</span>
+					<span class="{{tab.class}} ms-1">{{tab.count}}</span>
+				  </li>
+				</ul>
+			  </div>
+			  </div>
 
 			<div style="display: flex;"> 
 				<button [ngClass]="filterActivated ? 'dot_circle' : ''" class="btn custum_button button_primary bg_w txt_lb fsm_5  h_40" (click)="filterToggleEvent()">
@@ -60,65 +70,64 @@
 		<div class="show-filter">
 			<form class="example-form filter_selection" [formGroup]="filterForm">
 				<div class="row">
-					<div class="col-md-3 mb-2">
+					<!-- <div *ngIf="tabType!=='availableToBid' && tabType!=='currentBids' && tabType!=='offerRate' && tabType!=='offerRateConfirmed'"  class="col-md-3 mb-2">
 						<mat-form-field class="w-100">
 							<mat-label>Title</mat-label>
 							<input matInput placeholder="Enter Title" type="text" formControlName="title">
 						</mat-form-field>
-					</div>
-					<div class="col-md-3 mb-2">
+					</div> -->
+					<!-- <div *ngIf="tabType!=='availableToBid' && tabType!=='currentBids' && tabType!=='offerRate' && tabType!=='offerRateConfirmed'"  class="col-md-3 mb-2">
 						<mat-form-field class="w-100">
 							<mat-label>Pickup City</mat-label>
 							<input matInput placeholder="Enter Pickup City" type="text" formControlName="pickupCity">
 						</mat-form-field>
-					</div>
-					<div class="col-md-3 mb-2">
+					</div> -->
+					<!-- <div *ngIf="tabType!=='availableToBid'&& tabType!=='currentBids' && tabType!=='offerRate' && tabType!=='offerRateConfirmed'"  class="col-md-3 mb-2">
 						<mat-form-field class="w-100">
 							<mat-label>DropOff City</mat-label>
 							<input matInput placeholder="Enter DropOff City" type="text" formControlName="dropCity">
 						</mat-form-field>
-					</div>
-					<div class="col-md-3 mb-2">
+					</div> -->
+					<!-- <div *ngIf="tabType!=='availableToBid' && tabType!=='currentBids' && tabType!=='offerRate' && tabType!=='offerRateConfirmed'"  class="col-md-3 mb-2">
 						<mat-form-field class="w-100">
 							<mat-label>Equipment Height</mat-label>
 							<input matInput placeholder="Enter Equipment Height" type="text" formControlName="equipmentHeight">
 						</mat-form-field>
-					</div>
-					<div class="col-md-3 mb-2">
+					</div> -->
+					<!-- <div *ngIf="tabType!=='availableToBid' && tabType!=='currentBids' && tabType!=='offerRate' && tabType!=='offerRateConfirmed'"  class="col-md-3 mb-2">
 						<mat-form-field class="w-100">
 							<mat-label>Equipment Width</mat-label>
 							<input matInput placeholder="Enter Equipment Width" type="text" formControlName="equipmentWidth">
 						</mat-form-field>
-					</div>
-					<div class="col-md-3 mb-2">
+					</div> -->
+					<!-- <div *ngIf="tabType!=='availableToBid' && tabType!=='currentBids' && tabType!=='offerRate' && tabType!=='offerRateConfirmed'"  class="col-md-3 mb-2">
 						<mat-form-field class="w-100">
 							<mat-label>Equipment Weight</mat-label>
 							<input matInput placeholder="Enter Equipment Weight" type="text" formControlName="equipmentWeight">
 						</mat-form-field>
-					</div>
-					<div class="col-md-3 mb-2">
+					</div> -->
+					<!-- <div *ngIf="tabType!=='availableToBid' && tabType!=='currentBids' && tabType!=='offerRate' && tabType!=='offerRateConfirmed'"  class="col-md-3 mb-2">
 						<mat-form-field class="w-100">
 							<mat-label>Pickup Zip Code</mat-label>
 							<input matInput placeholder="Enter Pickup Zip Code" type="text" formControlName="pickupZipCode">
 						</mat-form-field>
-					</div>
-					<div class="col-md-3 mb-2">
+					</div> -->
+					<!-- <div *ngIf="tabType!=='availableToBid' && tabType!=='currentBids' && tabType!=='offerRate' && tabType!=='offerRateConfirmed'"  class="col-md-3 mb-2">
 						<mat-form-field class="w-100">
 							<mat-label>DropOff Zip Code</mat-label>
 							<input matInput placeholder="Enter DropOff Zip Code" type="text" formControlName="dropZipcode">
 						</mat-form-field>
-					</div>
-					<div class="col-md-3 mb-2" *ngIf="moduleName != 'driver'">
+					</div> -->
+					<!-- <div class="col-md-3 mb-2" *ngIf="moduleName != 'driver' && tabType!=='availableToBid' && tabType!=='offerRateConfirmed' && tabType!=='offerRate' && tabType!=='currentBids'">
 						<mat-form-field class="w-100">
 							<mat-label>Batch Id</mat-label>
 							<input matInput placeholder="Enter Batch Id" type="text" formControlName="batchId">
 						</mat-form-field>
-					</div>
+					</div> -->
 					<div class="col-md-3 mb-2">
 						<mat-form-field class="w-100">
 							<mat-label>Pickup Location</mat-label>
 							<input matInput placeholder="By Location" matGoogleMapsAutocomplete (onGermanAddressMapped)="pickUpAutocomplete($event)" (keyup)="clearPickupLocation($event)" formControlName="pickUpLocation" >
-							<!-- <input matInput placeholder="Enter Pickup Location" type="text" formControlName="pickUpLocation"> -->
 						</mat-form-field>
 					</div>
 					<div class="col-md-3 mb-2">
@@ -128,16 +137,15 @@
 							<!-- <input matInput placeholder="Enter DropOff Location" type="text" formControlName="dropOffLocation"> -->
 						</mat-form-field>
 					</div>						
-
-					<div class="col-md-3 mb-2" *ngIf="moduleName != 'driver'">
+					<!-- <div class="col-md-3 mb-2" *ngIf="moduleName != 'driver' && tabType!=='availableToBid' && tabType!=='offerRateConfirmed' && tabType!=='offerRate' && tabType!=='currentBids'">
 						<mat-form-field class="w-100">
 							<mat-label>Driver Id</mat-label>
 							<mat-select formControlName="driverId">
 								<mat-option *ngFor="let driver of driverList" value="{{driver.userId}}">{{driver.name}}</mat-option>
 							</mat-select>	
 						</mat-form-field>
-					</div>
-					<div class="col-md-3 mb-2">
+					</div> -->
+					<div class="col-md-3 mb-2" *ngIf="tabType!=='availableToBid' && tabType!=='currentBids' && tabType!=='offerRate' && tabType!=='offerRateConfirmed'">
 						<mat-form-field class="w-100">
 							<mat-label>Status</mat-label>
 							<mat-select formControlName="status">									
@@ -153,14 +161,14 @@
 							  </mat-select>
 						</mat-form-field>
 					</div>
-					<div class="col-md-3 mb-2" *ngIf="moduleName != 'shipment'">
+					<!-- <div class="col-md-3 mb-2" *ngIf="moduleName != 'shipment'">
 						<mat-form-field class="w-100">
 							<mat-label>Tab Type</mat-label>
 							<mat-select formControlName="tabType">
 								<mat-option *ngFor="let data of shipmentTabTypes" value="{{data.key}}">{{data.value}}</mat-option>
 							</mat-select>
 						</mat-form-field>
-					</div>
+					</div> -->
 					<div class="col-md-3 mb-2">
 						<div class="date-picker-with-icon">
 							<mat-form-field class="w-100">
@@ -176,6 +184,14 @@
 								<input matInput type="text" ngxDaterangepickerMd startKey="start" endKey="end" [ranges]="ranges" [readonly]="true" [alwaysShowCalendars]="true" [closeOnAutoApply]="true" [locale]="{ cancelLabel: 'Cancel', applyLabel: 'ok', format: 'DD-MM-YYYY'}"  [showClearButton]="true"  formControlName="dropOffDate" drops="down" opens="right" autocomplete="off" [maxDate]="todayDate">
 							</mat-form-field>
 						</div>
+					</div>
+					<div class="col-md-3 mb-2" *ngIf="tabType!=='availableToBid' && tabType!=='currentBids' && tabType!=='offerRate' && tabType!=='offerRateConfirmed'">
+						<mat-form-field class="w-100">
+							<mat-label>Carrier Name</mat-label>
+							<mat-select formControlName="carrierName">							
+								<mat-option *ngFor="let status of carriersName" value="{{status.id}}">{{status.legalName}}</mat-option>
+							</mat-select>
+						</mat-form-field>
 					</div>
 
 					<div class="col-md-12 text-end">

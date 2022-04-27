@@ -57,6 +57,8 @@ export class sharedService {
 
   setFormControlBasedOnQueryParams(params:any, filterForm:any){
       const paramsKeys =  Object.keys(params);
+      console.log('url params');
+      console.log(params);
       const paramsValues: any =  Object.values(params);
       paramsKeys.forEach((element, index) => {
         if(filterForm.controls[element])

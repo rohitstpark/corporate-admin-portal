@@ -11,6 +11,7 @@ import { GermanAddress } from '@angular-material-extensions/google-maps-autocomp
 import { MapsAPILoader } from '@agm/core';
 import { Appearance} from '@angular-material-extensions/google-maps-autocomplete';
 import PlaceResult = google.maps.places.PlaceResult;
+import { getQueryPredicate } from '@angular/compiler/src/render3/view/util';
 
 @Component({
   selector: 'app-shipments',
@@ -55,6 +56,7 @@ export class ShipmentsComponent implements OnInit {
   public dropOffLatitude:any;
   public dropOffLongitude:any;
   shipmentStatus:any = [];
+  carriersName:any = [];
   shipperId:any;
   public pickUpLocation:any ;
   public dropOffLocation:any;
@@ -87,6 +89,7 @@ export class ShipmentsComponent implements OnInit {
 
   ngOnInit() {
     console.log('module', this.moduleName)
+    this.getCarrierList();
     localStorage.removeItem('shipmentNameUniqueId');
     localStorage.removeItem('shipmentStatusLabel');
     localStorage.removeItem('shipmentStatusCount');
@@ -163,6 +166,20 @@ export class ShipmentsComponent implements OnInit {
       });
   }
 
+  getCarrierList()
+  {
+    let url = APIURL.envConfig.CARRIERENDPOINTS.getcarrierList;
+    this.httpService.get(url).subscribe(resp => {
+      const responseList = (resp['success'])
+
+      this.carriersName=resp['response']['allCarrier'];
+            console.log('responseList');
+      console.log(this.carriersName);
+      console.log(resp['response']);
+
+    })
+  }
+
   setFormControls() {
     this.filterForm = this.fb.group({
       title:[],
@@ -183,6 +200,7 @@ export class ShipmentsComponent implements OnInit {
       tabType:[],
       pickUpDate:[],
       dropOffDate:[],
+      carrierName:[],
     });
 
     this.searchForm = this.fb.group({
@@ -318,6 +336,7 @@ export class ShipmentsComponent implements OnInit {
       queryParams = queryParams + 'title=' + formValue.title + '&';
     }
 
+
     if (formValue.pickupCity) {
       queryParams = queryParams + 'pickupCity=' + formValue.pickupCity + '&';
     }
@@ -376,6 +395,10 @@ export class ShipmentsComponent implements OnInit {
       queryParams = queryParams + 'status=' + formValue.status + '&';
     }
 
+    if (formValue.carrierName) {
+      queryParams = queryParams + 'carrierName=' + formValue.carrierName + '&';
+    }
+
     if (formValue.equipmentType) {
       queryParams = queryParams + 'equipmentType=' + formValue.equipmentType + '&';
     }
@@ -414,7 +437,10 @@ export class ShipmentsComponent implements OnInit {
        '&'+ 'dropOffDate=' + fromdropOffDate + '-' + todropOffDate + '&';
     }
 
-    if(queryParams && queryParams.length>1){
+    // console.log('queryParams');
+    // console.log(Object.keys(queryParams));
+    // console.log(queryParams);
+    if(queryParams && queryParams.length>19){
       const lastchar = queryParams.charAt(queryParams.length - 1);
       // Remove & from last character
       if (lastchar === '&') {queryParams = queryParams.substring(0, queryParams.length - 1); }
@@ -423,12 +449,12 @@ export class ShipmentsComponent implements OnInit {
       const convertQuery = JSON.parse('{"' + decodeURI(queryParams.substring(0).replace(/&/g, "\",\"").replace(/=/g, "\":\"")) + '"}')
       this.methodToChangQueryParams(convertQuery);
       this.filterActivated = true;
-      if(!this.userId){
-        this.getUserAPICall();
-      }
-      else
-      this.getShipmentList();
     }
+    if(!this.userId){
+      this.getUserAPICall();
+    }
+    else
+    this.getShipmentList();
   }
 
   methodToChangQueryParams(query:any) {
@@ -524,6 +550,8 @@ redirectToShipmentView(element:any){
 }
 
 tabClicked(tabType:any){
+  console.log('tabType');
+  console.log(tabType);
   this.selectedTab = tabType.key;
   this.filterForm.controls.tabType.setValue(tabType.key);
   this.updateFilterList();

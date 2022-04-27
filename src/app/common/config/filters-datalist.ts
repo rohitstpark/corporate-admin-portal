@@ -97,15 +97,17 @@ const statusList = [
 ];
 
 const shipmentTabTypes = [
-    {key : 'inProgress', value : 'Active', class : 'txt_p', count : 0},
-    {key : 'upcoming', value : 'Upcoming', class : 'txt_y', count : 0},
-    {key : 'past', value : 'Past', class : 'txt_s', count : 0},
-    {key : 'pending', value : 'Pending', class : 'txt_d', count : 0},
-    {key : 'availableLoads', value : 'Available Loads', class : 'txt_p', count : 0},
-    {key : 'activeBidding', value : 'Active Bidding', class : 'txt_p', count : 0},
-    {key : 'pastBidding', value : 'Past Bidding', class : 'txt_d', count : 0},
+    {key : 'availableToBid', value : 'Available To Bid', class : 'txt_p', count : 0},
+    {key : 'currentBids', value : 'Active Bidding', class : 'txt_p', count : 0},
+    {key : 'offerRate', value : 'Offer Rate', class : 'txt_d', count : 0},
+    {key : 'offerRateConfirmed', value : 'Offer Rate Confirm', class : 'txt_y', count : 0}, 
+
+    {key : 'inProgress', value : 'In-Transit', class : 'txt_p', count : 0},
+    {key : 'upcoming', value : 'Confirmed', class : 'txt_y', count : 0},
+    {key : 'past', value : 'Completed', class : 'txt_s', count : 0},
+    {key : 'pending', value : 'Awaiting', class : 'txt_d', count : 0},
     {key : 'dispute', value : 'Dispute', class : 'txt_y', count : 0},
-    {key : 'shipmentAndBids', value : 'Shipment & Bids', class : 'txt_y', count : 0},    
+   
 ];
 
 const driverTabTypes = [
