@@ -98,14 +98,14 @@ const statusList = [
 
 const shipmentTabTypes = [
     {key : 'availableToBid', value : 'Available To Bid', class : 'txt_p', count : 0},
-    {key : 'currentBids', value : 'Active Bidding', class : 'txt_p', count : 0},
-    {key : 'offerRate', value : 'Offer Rate', class : 'txt_d', count : 0},
-    {key : 'offerRateConfirmed', value : 'Offer Rate Confirm', class : 'txt_y', count : 0}, 
+    {key : 'currentBids', value : 'Current Bids', class : 'txt_p', count : 0},
+    {key : 'offerRate', value : 'Available Offer Rates', class : 'txt_d', count : 0},
+    {key : 'offerRateConfirmed', value : 'Accepted Offer Rates', class : 'txt_y', count : 0}, 
 
-    {key : 'inProgress', value : 'In-Transit', class : 'txt_p', count : 0},
-    {key : 'upcoming', value : 'Confirmed', class : 'txt_y', count : 0},
-    {key : 'past', value : 'Completed', class : 'txt_s', count : 0},
     {key : 'pending', value : 'Awaiting', class : 'txt_d', count : 0},
+    {key : 'upcoming', value : 'Confirmed', class : 'txt_y', count : 0},
+    {key : 'inProgress', value : 'In-Transit', class : 'txt_p', count : 0},
+    {key : 'past', value : 'Completed', class : 'txt_s', count : 0},
     {key : 'dispute', value : 'Dispute', class : 'txt_y', count : 0},
    
 ];
@@ -132,7 +132,7 @@ const shipmentStatus =
                     {key: 'rest', name: 'Rest'},
                     {key: 'underMaintenance', name: 'Under Maintenance'},
                     {key: 'etc', name: 'Etc'},
-                    {key: 'fuelling', name: 'Fueling'},
+                    // {key: 'fuelling', name: 'Fueling'},
                     {key: 'navigateToDropOff', name: 'Navigate To DropOff'},
                     {key: 'reachedAtDropOffGeofence', name: 'Reached at DropOff Geofence'},
                     {key: 'atDropOffLocation', name: 'At DropOff Location'},
@@ -151,16 +151,23 @@ const shipmentStatus =
                 {key:'cancel', name:'Canceled'},
                 {key:'delivered', name:'Delivered'},
                 {key:'completed', name:'Completed'},
+                {key: 'paymentReleased', name: 'Payment Released'},
+                {key: 'paymentInitiated', name: 'Payment Initiated'},
+                {key: 'paymentOnHold', name: 'Payment On Hold'},
+                {key: 'expired', name: 'Expired'},
+
             ]},
          pending:{ className : 'txt_d', bgClassName : 'bg_d',
             statuses : [
                 {key:'', name:'Select Status Type'},
                 {key:'assign', name:'Assigned'},
-                {key:'unAssign', name:'Unassigned'},
+                {key:'assignToCarrier', name:'Assigned To Carrier'},
+                // {key:'unAssign', name:'Unassigned'},
                 {key:'reject', name:'Rejected'},
-                {key:'unDelivered', name:'Undelivered'},
+                {key:'create', name:'Create'},
+                // {key:'unDelivered', name:'Undelivered'},
                 {key:'dispute', name:'Dispute'},
-                {key:'draft', name:'Draft'},
+                // {key:'draft', name:'Draft'},
             ]},
         dispute:{ className : 'txt_y', bgClassName : 'bg_y',
             statuses : [

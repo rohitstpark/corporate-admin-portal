@@ -450,6 +450,10 @@ export class ShipmentsComponent implements OnInit {
       this.methodToChangQueryParams(convertQuery);
       this.filterActivated = true;
     }
+    else 
+    {
+      this.methodToChangQueryParams(null);
+    }
     if(!this.userId){
       this.getUserAPICall();
     }
@@ -458,6 +462,8 @@ export class ShipmentsComponent implements OnInit {
   }
 
   methodToChangQueryParams(query:any) {
+    console.log('method to han');
+    console.log(query);
     this.route.navigate(
       [],
       {
@@ -480,12 +486,15 @@ export class ShipmentsComponent implements OnInit {
   }
 
   reset(){
+    console.log('reset runs')
     this.page = 1;
     this.filterActivated = false;
     this.filterForm.reset();
     if(this.selectedQueryParams && this.selectedQueryParams.length>1){
       this.selectedQueryParams = '';
+      this.updateFilterList();
     }
+
     this.tabType = 'inProgress';
     this.filterForm.controls.tabType.setValue(this.tabType);
     this.updateFilterList();
