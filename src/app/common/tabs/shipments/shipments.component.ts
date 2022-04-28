@@ -88,7 +88,6 @@ export class ShipmentsComponent implements OnInit {
               private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
-    console.log('module', this.moduleName)
     this.getCarrierList();
     localStorage.removeItem('shipmentNameUniqueId');
     localStorage.removeItem('shipmentStatusLabel');
@@ -136,9 +135,6 @@ export class ShipmentsComponent implements OnInit {
     
     this.setFormControls();
 
-    console.log('equipment in ngoninit');
-    console.log(this.filterForm.get('equipmentType'));
-
     this.filterForm.get('tabType').valueChanges.subscribe(val => {
     if(val !== '') {
       this.tabType = val;
@@ -184,10 +180,6 @@ export class ShipmentsComponent implements OnInit {
       const responseList = (resp['success'])
 
       this.carriersName=resp['response']['allCarrier'];
-            console.log('responseList');
-      console.log(this.carriersName);
-      console.log(resp['response']);
-
     })
   }
 
@@ -308,7 +300,6 @@ export class ShipmentsComponent implements OnInit {
         this.totalRecords = resp['response']['totalShipment'];
       }
     }, (err) => {
-      console.log('err', err)
       this.showLoader = false;
       this.apiCallInProcess = false;
       const errorMsg = 'Error - ' + err.message;
@@ -327,7 +318,6 @@ export class ShipmentsComponent implements OnInit {
         this.driverList = [];
       }
     }, (err) => {
-      console.log('err', err)
       this.showLoader = false;
       const errorMsg = 'Error - ' + err.message;
       // this.openMessagePopup(errorMsg);
@@ -448,9 +438,6 @@ export class ShipmentsComponent implements OnInit {
        '&'+ 'dropOffDate=' + fromdropOffDate + '-' + todropOffDate + '&';
     }
 
-    // console.log('queryParams');
-    // console.log(Object.keys(queryParams));
-    // console.log(queryParams);
     if(queryParams && queryParams.length>1){
       const lastchar = queryParams.charAt(queryParams.length - 1);
       // Remove & from last character
@@ -459,7 +446,10 @@ export class ShipmentsComponent implements OnInit {
       // convert queryparams to object to store it in url as queryparam
       const convertQuery = JSON.parse('{"' + decodeURI(queryParams.substring(0).replace(/&/g, "\",\"").replace(/=/g, "\":\"")) + '"}')
       this.methodToChangQueryParams(convertQuery);
-      this.filterActivated = true;
+      if(Object.keys(convertQuery).length === 1)
+      this.filterActivated = false;
+      else if(Object.keys(convertQuery).length >= 1)
+      this.filterActivated=true
     }
     else 
     {
@@ -473,8 +463,6 @@ export class ShipmentsComponent implements OnInit {
   }
 
   methodToChangQueryParams(query:any) {
-    console.log('method to han');
-    console.log(query);
     this.route.navigate(
       [],
       {
@@ -497,7 +485,6 @@ export class ShipmentsComponent implements OnInit {
   }
 
   reset(){
-    console.log('reset runs')
     this.page = 1;
     this.filterActivated = false;
     this.filterForm.reset();
@@ -571,11 +558,8 @@ redirectToShipmentView(element:any){
 }
 
 tabClicked(tabType:any){
-  console.log('tabType');
-  console.log(tabType);
   this.selectedTab = tabType.key;
   this.filterForm.controls.tabType.setValue(tabType.key);
   this.updateFilterList();
 }
-
 }
