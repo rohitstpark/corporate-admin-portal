@@ -440,7 +440,7 @@ export class ShipmentsComponent implements OnInit {
     // console.log('queryParams');
     // console.log(Object.keys(queryParams));
     // console.log(queryParams);
-    if(queryParams && queryParams.length>19){
+    if(queryParams && queryParams.length>1){
       const lastchar = queryParams.charAt(queryParams.length - 1);
       // Remove & from last character
       if (lastchar === '&') {queryParams = queryParams.substring(0, queryParams.length - 1); }
@@ -452,7 +452,7 @@ export class ShipmentsComponent implements OnInit {
     }
     else 
     {
-      this.methodToChangQueryParams(null);
+          this.methodToChangQueryParams(null);
     }
     if(!this.userId){
       this.getUserAPICall();
