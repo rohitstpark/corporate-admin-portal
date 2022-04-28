@@ -45,7 +45,7 @@ export class ShipmentsComponent implements OnInit {
   driverId:any;
   driverList:any = [];
   public searchForm!: FormGroup;
-  tabType = 'inProgress';
+  tabType = 'availableToBid';
   statusClass = 'txt_p';
   selectedTab:any;
   public geoCode:any;
@@ -96,6 +96,8 @@ export class ShipmentsComponent implements OnInit {
     localStorage.removeItem('shipmentId');
     localStorage.removeItem('shipmentDriverId');
     localStorage.removeItem('shipmentShipperId');
+
+    
     
     this.equipmentTypes = FILTERS.carrierFilters.shipmentEquipmentTypes;
     this.shipmentTabTypes = FILTERS.carrierFilters.shipmentTabTypes;
@@ -134,6 +136,9 @@ export class ShipmentsComponent implements OnInit {
     
     this.setFormControls();
 
+    console.log('equipment in ngoninit');
+    console.log(this.filterForm.get('equipmentType'));
+
     this.filterForm.get('tabType').valueChanges.subscribe(val => {
     if(val !== '') {
       this.tabType = val;
@@ -159,11 +164,17 @@ export class ShipmentsComponent implements OnInit {
             if(this.selectedQueryParams && this.selectedQueryParams.length>1){
               this.selectedQueryParams = '';
             }
+            this.tabType = 'availableToBid';
+            this.selectedTab='Available To Bid';
+            this.filterForm.controls.tabType.setValue(this.tabType);
+            this.updateFilterList();
             this.filterActivated = false;
           }
           this.getUserAPICall();
         }
       });
+
+
   }
 
   getCarrierList()
@@ -496,6 +507,7 @@ export class ShipmentsComponent implements OnInit {
     }
 
     this.tabType = 'inProgress';
+    this.selectedTab='In-Transit';
     this.filterForm.controls.tabType.setValue(this.tabType);
     this.updateFilterList();
     // this.methodToChangQueryParams(this.selectedQueryParams)

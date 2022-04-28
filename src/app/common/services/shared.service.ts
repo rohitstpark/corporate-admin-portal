@@ -69,7 +69,9 @@ export class sharedService {
               {start: moment(splitValues[0]), end: moment(splitValues[1])});
           }
           else if(element == 'equipmentType'){
-            const splitValues = paramsValues[index].split(',');
+            const splitValues = parseInt(paramsValues[index].split(','));
+            console.log('splitvalues');
+            console.log(splitValues);
             filterForm.controls[element].setValue(splitValues);
           }
           else {

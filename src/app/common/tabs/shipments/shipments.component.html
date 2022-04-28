@@ -157,7 +157,7 @@
 						<mat-form-field class="w-100">
 							<mat-label>Equipment Type</mat-label>
 							<mat-select formControlName="equipmentType">
-								<mat-option *ngFor="let eValue of equipmentTypes" value="{{eValue.id}}">{{eValue.value}}</mat-option>
+								<mat-option *ngFor="let eValue of equipmentTypes" [value]="eValue['id']">{{eValue.value}}</mat-option>
 							  </mat-select>
 						</mat-form-field>
 					</div>
@@ -230,7 +230,7 @@
 
 			<ng-container matColumnDef="carrierName">
 				<th mat-header-cell *matHeaderCellDef class="px-2">Carrier Name</th>
-				<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2 text_truncate" style="max-width: 180px;" matTooltip="{{element.carriers.legalName}}">{{element.carriers.legalName ? element.carriers.legalName : '-'}}</td>
+				<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2 text_truncate" style="max-width: 180px;" matTooltip="{{element.carriers}}">{{element.carriers ? element.carriers : '-'}}</td>
 			</ng-container>
 
 			<ng-container matColumnDef="pickupDate">
