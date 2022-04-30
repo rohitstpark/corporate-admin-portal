@@ -12,6 +12,7 @@ import { MapsAPILoader } from '@agm/core';
 import { Appearance} from '@angular-material-extensions/google-maps-autocomplete';
 import PlaceResult = google.maps.places.PlaceResult;
 import { getQueryPredicate } from '@angular/compiler/src/render3/view/util';
+import { MatTable } from '@angular/material/table';
 
 @Component({
   selector: 'app-shipments',
@@ -65,6 +66,7 @@ export class ShipmentsComponent implements OnInit {
   bgStatusClass:any
   userId:any;
 	@ViewChild(DaterangepickerDirective, { static: false }) pickerDirective: DaterangepickerDirective;
+  @ViewChild(MatTable) tableName:MatTable<any>;
 
 	ranges: any = {
     'Today': [moment(), moment()],
@@ -222,7 +224,7 @@ export class ShipmentsComponent implements OnInit {
         this.sharedService.getUserIdAndName(this.carrierId).subscribe(resp=>{
           const carrierProfile = resp['response'];
           this.userId = carrierProfile['userId'];
-          this.userName = carrierProfile['legalName'];
+          this.userName = carrierProfile['legalName'] ? carrierProfile['legalName'] : '-';
           this.getShipmentList();
         });        
       }     
@@ -384,7 +386,7 @@ export class ShipmentsComponent implements OnInit {
       }
     }
 
-    if (formValue.driverId) {
+    if (formValue.driverId  && (this.tabType!=='availableToBid' && this.tabType!=='currentBids' && this.tabType!=='offerRate' && this.tabType!=='offerRateConfirmed')) {
       queryParams = queryParams + 'driverId=' + formValue.driverId + '&';
     }
 
@@ -396,7 +398,7 @@ export class ShipmentsComponent implements OnInit {
       queryParams = queryParams + 'status=' + formValue.status + '&';
     }
 
-    if (formValue.carrierName) {
+    if (formValue.carrierName && (this.tabType!=='availableToBid' && this.tabType!=='currentBids' && this.tabType!=='offerRate' && this.tabType!=='offerRateConfirmed')) {
       queryParams = queryParams + 'carrierName=' + formValue.carrierName + '&';
     }
 
@@ -561,5 +563,6 @@ tabClicked(tabType:any){
   this.selectedTab = tabType.key;
   this.filterForm.controls.tabType.setValue(tabType.key);
   this.updateFilterList();
+  this.tableName.renderRows(); 
 }
 }
