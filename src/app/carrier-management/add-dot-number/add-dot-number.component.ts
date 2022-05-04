@@ -56,7 +56,7 @@ export class AddDotNumberComponent implements OnInit {
       this.showLoader = true;
       const formValues = this.filterForm.value;
       console.log(formValues)
-      let date = formValues.mcs150Date ? moment(formValues.mcs150Date).format("DD/MM/YYYY") : '';
+      let date = formValues.mcs150Date ? moment(formValues.mcs150Date).format("MM/DD/YYYY") : '';
       const reqBody = {
         dotNumber:formValues.dotNumber,
         legalName:formValues.legalName,
