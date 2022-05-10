@@ -90,6 +90,8 @@ export class ShipmentsComponent implements OnInit {
               private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
+    console.log('this.shipmenttab type444');
+
     this.getCarrierList();
     localStorage.removeItem('shipmentNameUniqueId');
     localStorage.removeItem('shipmentStatusLabel');
@@ -119,7 +121,9 @@ export class ShipmentsComponent implements OnInit {
     }
 
     if(this.moduleName == 'driver'){
-      this.shipmentTabTypes = this.shipmentTabTypes.slice(0,4);
+      this.shipmentTabTypes = this.shipmentTabTypes.slice(4,8);
+      console.log('this.shipmenttab type');
+      console.log(this.shipmentTabTypes);
       this.userName = localStorage.getItem('driverName');
       this.activatedRoute.params.subscribe(params => {
           this.driverId = params.driverId;
