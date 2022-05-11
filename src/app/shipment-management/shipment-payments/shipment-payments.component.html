@@ -23,16 +23,20 @@
 
 	<div class="tab_status" *ngIf="shipmentDetails">
 		<app-shipment-tabs [shipperId]="shipmentDetails.shipperId"></app-shipment-tabs>
-		<div class="current_status">
-			<div class="status_details">
-				<span class="status_text bg_s">{{shipmentDetails.statusLabel ? shipmentDetails.statusLabel : '-'}}</span>
-				<shipment-progress [bgClass]="'bg_s'" [statusCount]="shipmentDetails.status"></shipment-progress>
-			</div>
-		</div>
+
 	</div>
 	<div class="tab_label_two">
 		<div class="label_two_l">
-			<app-shipment-tabs [shipperId]="shipmentDetails.shipperId"></app-shipment-tabs>
+			<div class="tab_header" style="margin: 0 0 32px;">
+			<ul>
+			<li (click)="transactionHistory('shipper')">
+				<span>Payments</span>
+			  </li>
+			  <li  (click)="transactionHistory('carrier')">
+				<span>Bid History</span>
+			  </li>
+			</ul>
+		  </div>
 		</div>
 		<div class="label_two_r">
 			<button class="btn custum_button button_primary bg_p">Re-schedule</button>

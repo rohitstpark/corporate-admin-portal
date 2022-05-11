@@ -4,3 +4,7 @@
 .status_text { font-size: 12px; line-height: 16px; font-weight: 500; color: #fff; padding: 2px 4px; border-radius: 2px; margin: 0 6px 0 0; }
 .payment_status { margin: 0 12px 0 0; display: block; width: 100%; text-align: right; }
 .tab_label_two { display: flex; align-items: center; justify-content: space-between; }
+.tab_header ul { list-style: none; padding: 0px; margin: 0px; border-bottom: 2px solid #cbcbcb40; }
+.tab_header li { display: inline-block; font-size: 16px; font-weight: 500; color: #818181; border-bottom: 2px solid #3787e600; margin: 0 20px -2px 0; padding: 15px 2px; cursor: pointer; }
+.tab_header li:focus { outline: none; }
+.tab_header li.active_tab { border-bottom: 2px solid #3787e6; }

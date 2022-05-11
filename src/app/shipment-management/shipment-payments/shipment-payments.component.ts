@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+// import * as APIURL from '../../common/config/api-endpoints';
 import * as APIURL from '../../common/config/api-endpoints';
 import { HttpService } from '../../common/services/http.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-shipment-payments',
@@ -14,6 +16,7 @@ export class ShipmentPaymentsComponent implements OnInit {
   shipmentDetails:any;
   constructor(private activatedRoute: ActivatedRoute,
     private httpService: HttpService,
+    private httpClient: HttpClient,
     private router: Router) { }
 
   ngOnInit() {
@@ -24,6 +27,7 @@ export class ShipmentPaymentsComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.shipmentId = params.shipmentId;
       this.showLoader = true;
+      this.getShipmentPayment();
       this.getShipmentDetails();
    });
   }
@@ -59,6 +63,37 @@ export class ShipmentPaymentsComponent implements OnInit {
     this.router.navigate(['driver/view/', element.driverId, 'details']);
   }
 
+  transactionHistory(tab)
+  {
+    console.log('tab');
+    console.log(tab);
+  }
+
+  getShipmentPayment()
+  {
+    const url = 'https://payapi-dev.laneaxis.com/api/admin/shipment-payment';
+    this.httpClient.get(url).subscribe(resp => {
+      if(resp['response']){
+        console.log('resp');
+        console.log(resp);
+        this.showLoader = false;
+        this.shipmentDetails = resp['response'];
+        this.shipmentDetails.createdAt = this.shipmentDetails.createdAt ? new Date(this.shipmentDetails.createdAt +' '+'UTC') : null;
+        localStorage.setItem('shipmentNameUniqueId',this.shipmentDetails.title+'$*'+this.shipmentDetails.uniqueId);
+        localStorage.setItem('shipmentStatusLabel', this.shipmentDetails.statusLabel)
+        localStorage.setItem('shipmentStatusCount', this.shipmentDetails.status)
+        if(this.shipmentDetails.driverId && this.shipmentDetails.driverId!= null){
+          localStorage.setItem('shipmentDriverId', this.shipmentDetails.driverId);
+        }
+        if(this.shipmentDetails.shipperId!=null){
+          localStorage.setItem('shipmentShipperId', this.shipmentDetails.shipperId);
+        }
+      }
+    }, (err) => {
+      this.showLoader = false;
+      console.log('err', err)
+    });
+  }
 
 }
 

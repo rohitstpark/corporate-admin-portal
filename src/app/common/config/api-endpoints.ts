@@ -1,5 +1,5 @@
 const APIDOMAIN = {
-    dev: 'https://api-uat.laneaxis.com/api/',  // UAT Admin
+    dev: 'https://payapi-dev.laneaxis.com/api/',  // UAT Admin
 };
 
 const USERENDPOINTS = {
@@ -42,7 +42,9 @@ const SHIPMENTENDPOINTS = {
     getShipmentDetails:'admin/shipment-get',
     getShipmentLoadHistory:'shipment/history',
     getShipmentDocuments:'media/shipment-documents',
-    getShipmentBid:'admin/shipment-bid/history'
+    getShipmentBid:'admin/shipment-bid/history',
+    getShipmentPayment:'admin/shipment-payment',
+    getShipmentAch:'admin/ach-payment'
 };
 
 const SHIPPERENDPOINTS = {
