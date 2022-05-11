@@ -7,6 +7,7 @@ import { ShipmentLoadHistoryComponent } from './shipment-load-history/shipment-l
 import { ShipmentViewComponent } from './shipment-view/shipment-view.component';
 import { ShipmentDriverComponent } from './shipment-driver/shipment-driver.component';
 import { ShipmentDocumentComponent } from './shipment-document/shipment-document.component';
+import { ShipmentPaymentsComponent } from './shipment-payments/shipment-payments.component';
 
 
 const routes: Routes = [
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'view/:shipmentId/bidhistory', component: ShipmentBidHistoryComponent, canActivate : [AuthGuard] },
   { path: 'view/:shipmentId/loadhistory', component: ShipmentLoadHistoryComponent, canActivate : [AuthGuard] },
   { path: 'view/:shipmentId/driver', component: ShipmentDriverComponent, canActivate : [AuthGuard] },
-  { path: 'view/:shipmentId/documents', component: ShipmentDocumentComponent, canActivate : [AuthGuard] }
+  { path: 'view/:shipmentId/documents', component: ShipmentDocumentComponent, canActivate : [AuthGuard] },
+  { path: 'view/:shipmentId/payments', component: ShipmentPaymentsComponent, canActivate : [AuthGuard] }
 
 ]
 

@@ -14,7 +14,7 @@
       <span>Documents</span>
     </li>
 
-    <li>
+    <li [routerLink]="['/shipment/view',shipmentId,'payments']" routerLinkActive="active_tab">
       <span>Payments</span>
     </li>
     <li [routerLink]="['/shipment/view',shipmentId,'bidhistory']" routerLinkActive="active_tab" *ngIf="shipperId!=null">

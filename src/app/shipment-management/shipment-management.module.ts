@@ -18,6 +18,7 @@ import { ShipmentViewComponent } from './shipment-view/shipment-view.component';
 import { ShipmentDocumentComponent } from './shipment-document/shipment-document.component';
 import { ShipmentDriverComponent } from './shipment-driver/shipment-driver.component';
 import { MapBoxShipmentComponent } from './map-box-shipment/map-box-shipment.component';
+import { ShipmentPaymentsComponent } from './shipment-payments/shipment-payments.component';
 
 
 
@@ -41,7 +42,8 @@ import { MapBoxShipmentComponent } from './map-box-shipment/map-box-shipment.com
     ShipmentViewComponent,
     ShipmentDocumentComponent,
     ShipmentDriverComponent,
-    MapBoxShipmentComponent
+    MapBoxShipmentComponent,
+    ShipmentPaymentsComponent
   ],
   providers:[
     {

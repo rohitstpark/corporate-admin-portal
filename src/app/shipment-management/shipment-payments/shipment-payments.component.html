@@ -1,0 +1,244 @@
+<div class="site-loader" *ngIf="showLoader">
+	<div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>
+<div class="Container_scroll">
+	<div class="container_header mb-3">
+		<div class="cus_breadculam">
+		  <ul>
+		    <li class="fs_16 fsm_5 txt_lb" [routerLink]="['/shipment']">All Shipments</li>
+		    <li class="fs_16 fsm_5 txt_lb" *ngIf="shipmentDetails">{{shipmentDetails.title}}<span class="ms-2">#{{shipmentDetails.uniqueId}}</span></li>
+		  </ul>
+		</div>
+		<!-- <div class="custom_dropdown">
+		  <label class="dropdown">
+		    <span class="icon-ic-dots circle_dots rectangle_dots"></span>
+		    <input type="checkbox" class="icon-ic-dots dd-input" id="test">
+		    <ul class="dd-menu dd-rmenu">
+		      <li>Action</li>
+		      <li>Another action</li>
+		    </ul>
+		  </label>
+		</div> -->
+	</div>
+
+	<div class="tab_status" *ngIf="shipmentDetails">
+		<app-shipment-tabs [shipperId]="shipmentDetails.shipperId"></app-shipment-tabs>
+		<div class="current_status">
+			<div class="status_details">
+				<span class="status_text bg_s">{{shipmentDetails.statusLabel ? shipmentDetails.statusLabel : '-'}}</span>
+				<shipment-progress [bgClass]="'bg_s'" [statusCount]="shipmentDetails.status"></shipment-progress>
+			</div>
+		</div>
+	</div>
+
+	<div class="customExpansion_panel" *ngIf="shipmentDetails">
+	  <mat-accordion class="example-headers-align" multi>
+	    <mat-expansion-panel [expanded]="true">
+	      <mat-expansion-panel-header>
+	        <mat-panel-title class="fs_16 fsm_5 txt_b">Carrier Information</mat-panel-title>
+	        <mat-panel-description></mat-panel-description>
+	      </mat-expansion-panel-header>
+	      <div class="sign_up_tab input_error">
+	        <div class="update_profile_container">
+	          <div class="row">
+	            <!-- <div class="col-md-4">
+	              <span *ngIf="(driverProfile.profileImage && driverProfile.profileImage!='')" style="display: flex; width: 42px; height: 42px; border-radius: 50%; overflow: hidden;">
+	                <img class="img-fluid"  src="{{driverProfile.profileImage}}">
+	              </span>
+	              <span class="short_name" *ngIf="(!driverProfile.profileImage || driverProfile.profileImage == '')">{{getInitials(driverProfile.name)}}</span>
+	            </div> -->
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Carrier Name</p>
+	              <p class="fs_14 fsm_5 txt_p mb-0" (click)="redirectToCarrierDetails(shipmentDetails)"><u class="pointer">{{shipmentDetails.carrierName ? shipmentDetails.carrierName : '-'}}</u></p>
+	            </div>
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Carrier Email</p>
+	              <p class="fs_14 fsm_5 txt_b mb-0">{{shipmentDetails.carrierEmail ? shipmentDetails.carrierEmail : '-'}}</p>
+	            </div>
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Created On</p>
+	              <p class="fs_14 fsm_5 txt_b mb-0">{{shipmentDetails.createdAt ? (shipmentDetails.createdAt | date:'MMM d, y, h:mm a') : '-'}}</p>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </mat-expansion-panel>
+	    <mat-expansion-panel [expanded]="true">
+	      <mat-expansion-panel-header>
+	        <mat-panel-title class="fs_16 fsm_5 txt_b">Shipper Information</mat-panel-title>
+	        <mat-panel-description></mat-panel-description>
+	      </mat-expansion-panel-header>
+	      <div class="sign_up_tab input_error">
+	        <div class="update_profile_container">
+	          <div class="row">
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Shipper Name</p>
+	              <p class="fs_14 fsm_5 txt_p mb-0"><u class="pointer">{{shipmentDetails.shipperName ? shipmentDetails.shipperName : '-'}}</u></p>
+	            </div>
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Shipper Email</p>
+	              <p class="fs_14 fsm_5 txt_b mb-0">{{shipmentDetails.shipperEmail ? shipmentDetails.shipperEmail : '-'}}</p>
+	            </div>
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Created On</p>
+	              <p class="fs_14 fsm_5 txt_b mb-0">{{shipmentDetails.createdAt ? (shipmentDetails.createdAt | date:'MMM d, y, h:mm a') : '-'}}</p>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </mat-expansion-panel>
+	    <mat-expansion-panel [expanded]="true">
+	      <mat-expansion-panel-header>
+	        <mat-panel-title class="fs_16 fsm_5 txt_b">Pickup Information</mat-panel-title>
+	        <mat-panel-description></mat-panel-description>
+	      </mat-expansion-panel-header>
+	      <div class="sign_up_tab input_error">
+	        <div class="update_profile_container">
+	          <div class="row">
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Pickup Location</p>
+	              <p class="fs_14 fsm_5 txt_b mb-4">{{shipmentDetails.pickupLocationLongName ? shipmentDetails.pickupLocationLongName : '-'}}</p>
+	            </div>
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Zip Code</p>
+	              <p class="fs_14 fsm_5 txt_b mb-4">{{shipmentDetails.pickupPincode ? shipmentDetails.pickupPincode : '-'}}</p>
+	            </div>
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Pickup Date & Time</p>
+	              <p class="fs_14 fsm_5 txt_b mb-4">{{shipmentDetails.pickupDate ? (shipmentDetails.pickupDate| date:'MMM d, y') : '-'}} {{shipmentDetails.pickupTimeslot ? ('at ' +shipmentDetails.pickupTimeslot) : '-'}} {{shipmentDetails.pickupTimeZone ? shipmentDetails.pickupTimeZone : '-'}}</p>
+	            </div>
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Contact Number</p>
+	              <p class="fs_14 fsm_5 txt_b mb-0">{{shipmentDetails.pickupContact ? shipmentDetails.pickupContact : '-'}}</p>
+	            </div>
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Instructions</p>
+	              <p class="fs_14 fsm_5 txt_b mb-0">{{shipmentDetails.pickupInstructions ? shipmentDetails.pickupInstructions : '-'}}</p>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </mat-expansion-panel>
+	    <mat-expansion-panel [expanded]="true">
+	      <mat-expansion-panel-header>
+	        <mat-panel-title class="fs_16 fsm_5 txt_b">Dropoff Information</mat-panel-title>
+	        <mat-panel-description></mat-panel-description>
+	      </mat-expansion-panel-header>
+	      <div class="sign_up_tab input_error">
+	        <div class="update_profile_container">
+	          <div class="row">
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Dropoff Location</p>
+	              <p class="fs_14 fsm_5 txt_b mb-4">{{shipmentDetails.dropLocationLongName ? shipmentDetails.dropLocationLongName : '-'}}</p>
+	            </div>
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Zip Code</p>
+	              <p class="fs_14 fsm_5 txt_b mb-4">{{shipmentDetails.dropPincode ? shipmentDetails.dropPincode : '-'}}</p>
+	            </div>
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Dropoff Date & Time</p>
+	              <p class="fs_14 fsm_5 txt_b mb-4">{{shipmentDetails.dropDate ? (shipmentDetails.dropDate|date:'MMM d, y') : '-'}} {{shipmentDetails.dropTimeslot ? ('at ' +shipmentDetails.dropTimeslot) : '-'}} {{shipmentDetails.dropTimeZone ? shipmentDetails.dropTimeZone : '-'}}</p>
+	            </div>
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Contact Number</p>
+	              <p class="fs_14 fsm_5 txt_b mb-0">{{shipmentDetails.dropContact ? shipmentDetails.dropContact : '-'}}</p>
+	            </div>
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Instructions</p>
+	              <p class="fs_14 fsm_5 txt_b mb-0">{{shipmentDetails.dropInstructions ? shipmentDetails.dropInstructions : '-'}}</p>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </mat-expansion-panel>
+	    <mat-expansion-panel [expanded]="true">
+	      <mat-expansion-panel-header>
+	        <mat-panel-title class="fs_16 fsm_5 txt_b">Load Information</mat-panel-title>
+	        <mat-panel-description></mat-panel-description>
+	      </mat-expansion-panel-header>
+	      <div class="sign_up_tab input_error">
+	        <div class="update_profile_container">
+	          <div class="row">
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Equipment Type</p>
+	              <p class="fs_14 fsm_5 txt_b mb-4">{{shipmentDetails.equipmentName ? shipmentDetails.equipmentName : '-'}}</p>
+	            </div>
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Commodity</p>
+	              <p class="fs_14 fsm_5 txt_b mb-4">{{shipmentDetails.commodity ? shipmentDetails.commodity : '-'}}</p>
+	            </div>
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Quantity</p>
+	              <p class="fs_14 fsm_5 txt_b mb-4">{{shipmentDetails.quantity ? (shipmentDetails.quantity + ' boxes') : '-'}} </p>
+	            </div>
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Weight in Lbs</p>
+	              <p class="fs_14 fsm_5 txt_b mb-4">{{shipmentDetails.equipmentWeight ? (shipmentDetails.equipmentWeight + ' lbs') : '-'}}</p>
+	            </div>
+				<div class="col-md-4">
+					<p class="fs_14 fsn_4 txt_lb mb-1">Equipment Length</p>
+					<p class="fs_14 fsm_5 txt_b mb-4">{{shipmentDetails.equipmentLength ? (shipmentDetails.equipmentLength + ' Feet') : '-'}}</p>
+				</div>
+				<div class="col-md-4">
+					<p class="fs_14 fsn_4 txt_lb mb-1">Visibility</p>
+					<p class="fs_14 fsm_5 txt_b mb-4">{{shipmentDetails.visibility ? (shipmentDetails.visibility) : '-'}}</p>
+				</div>
+	            <!-- <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">100 lbs</p>
+	              <p class="fs_14 fsm_5 txt_b mb-4">This is car tyre type shipment</p>
+	            </div> -->
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Height</p>
+	              <p class="fs_14 fsm_5 txt_b mb-4">{{shipmentDetails.equipmentHeight ? shipmentDetails.equipmentHeight : '-'}}</p>
+	            </div>
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Width</p>
+	              <p class="fs_14 fsm_5 txt_b mb-0">{{shipmentDetails.equipmentWidth ? shipmentDetails.equipmentWidth : '-'}}</p>
+	            </div>
+				<div class="col-md-4">
+					<p class="fs_14 fsn_4 txt_lb mb-1">Truckload Type</p>
+					<p class="fs_14 fsm_5 txt_b mb-0">{{shipmentDetails.truckLoadType.slug ? shipmentDetails.truckLoadType.slug : '-'}}</p>
+				  </div>
+	          </div>
+	        </div>
+	      </div>
+	    </mat-expansion-panel>
+	    <mat-expansion-panel [expanded]="true">
+	      <mat-expansion-panel-header>
+	        <mat-panel-title class="fs_16 fsm_5 txt_b">Driver Information</mat-panel-title>
+	        <mat-panel-description></mat-panel-description>
+	      </mat-expansion-panel-header>
+	      <div class="sign_up_tab input_error">
+	        <div class="update_profile_container">
+	          <div class="row">
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Name</p>
+	              <p class="fs_14 fsm_5 txt_p mb-4"  (click)="redirectToDriverDetails(shipmentDetails)"><u class="pointer">{{shipmentDetails.assignedDriver && shipmentDetails.assignedDriver.name ? shipmentDetails.assignedDriver.name : '-'}}</u></p>
+	            </div>
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Contact Number</p>
+	              <p class="fs_14 fsm_5 txt_b mb-4">{{shipmentDetails.assignedDriver && shipmentDetails.assignedDriver.driverPhone ? shipmentDetails.assignedDriver.driverPhone : '-'}}</p>
+	            </div>
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">CDL No.</p>
+	              <p class="fs_14 fsm_5 txt_b mb-4">{{shipmentDetails.assignedDriver && shipmentDetails.assignedDriver.cdlNumber ? shipmentDetails.assignedDriver.cdlNumber : '-'}}</p>
+	            </div>
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Vehicle No.</p>
+	              <p class="fs_14 fsm_5 txt_b mb-0">{{shipmentDetails.assignedDriver && shipmentDetails.assignedDriver.vehicleNo ? shipmentDetails.assignedDriver.vehicleNo : '-'}}</p>
+	            </div>
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Equipment Type</p>
+	              <p class="fs_14 fsm_5 txt_b mb-0">{{shipmentDetails.assignedDriver && shipmentDetails.assignedDriver.equipmentName ? shipmentDetails.assignedDriver.equipmentName : '-'}}</p>
+	            </div>
+	            <div class="col-md-4">
+	              <p class="fs_14 fsn_4 txt_lb mb-1">Rate</p>
+	              <p class="fs_14 fsm_5 txt_b mb-0">Not Defined</p>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </mat-expansion-panel>
+	  </mat-accordion>
+	</div>
+</div>
