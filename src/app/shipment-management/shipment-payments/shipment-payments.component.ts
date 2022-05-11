@@ -14,6 +14,11 @@ export class ShipmentPaymentsComponent implements OnInit {
   shipmentId:any;
   showLoader:boolean=false;
   shipmentDetails:any;
+  historyDetailsShipper:any;
+  historyDetailsCarrier:any;
+  items=[1,2,3,4,5,6,7,8];
+  selectedTab='shipper';
+  
   constructor(private activatedRoute: ActivatedRoute,
     private httpService: HttpService,
     private httpClient: HttpClient,
@@ -65,29 +70,25 @@ export class ShipmentPaymentsComponent implements OnInit {
 
   transactionHistory(tab)
   {
-    console.log('tab');
-    console.log(tab);
+    this.showLoader=true;
+   this.selectedTab=tab;
+   this.showLoader=false;
+
   }
 
   getShipmentPayment()
   {
-    const url = 'https://payapi-dev.laneaxis.com/api/admin/shipment-payment';
+    const url = 'https://payapi-dev.laneaxis.com/admin/shipment-payment';
     this.httpClient.get(url).subscribe(resp => {
-      if(resp['response']){
+      if(resp['success']){
         console.log('resp');
-        console.log(resp);
+        console.log(resp['respons'][0]['Shipper transaction history']);
         this.showLoader = false;
-        this.shipmentDetails = resp['response'];
-        this.shipmentDetails.createdAt = this.shipmentDetails.createdAt ? new Date(this.shipmentDetails.createdAt +' '+'UTC') : null;
-        localStorage.setItem('shipmentNameUniqueId',this.shipmentDetails.title+'$*'+this.shipmentDetails.uniqueId);
-        localStorage.setItem('shipmentStatusLabel', this.shipmentDetails.statusLabel)
-        localStorage.setItem('shipmentStatusCount', this.shipmentDetails.status)
-        if(this.shipmentDetails.driverId && this.shipmentDetails.driverId!= null){
-          localStorage.setItem('shipmentDriverId', this.shipmentDetails.driverId);
-        }
-        if(this.shipmentDetails.shipperId!=null){
-          localStorage.setItem('shipmentShipperId', this.shipmentDetails.shipperId);
-        }
+        this.historyDetailsShipper = resp['respons'][0]['Shipper transaction history'];
+        this.historyDetailsCarrier = resp['respons'][0]['Carrier transaction history'];
+        console.log('details');
+        console.log(this.historyDetailsCarrier);
+        console.log(this.historyDetailsShipper);
       }
     }, (err) => {
       this.showLoader = false;
