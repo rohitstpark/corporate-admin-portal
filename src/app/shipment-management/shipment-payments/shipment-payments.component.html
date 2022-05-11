@@ -30,7 +30,8 @@
 			</div>
 		</div>
 	</div>
-
+	<app-shipment-tabs [shipperId]="shipmentDetails.shipperId"></app-shipment-tabs>
+	
 	<div class="customExpansion_panel" *ngIf="shipmentDetails">
 	  <mat-accordion class="example-headers-align" multi>
 	    <mat-expansion-panel [expanded]="true">
