@@ -30,14 +30,27 @@
 			</div>
 		</div>
 	</div>
-	<app-shipment-tabs [shipperId]="shipmentDetails.shipperId"></app-shipment-tabs>
+	<div class="tab_label_two">
+		<div class="label_two_l">
+			<app-shipment-tabs [shipperId]="shipmentDetails.shipperId"></app-shipment-tabs>
+		</div>
+		<div class="label_two_r">
+			<button class="btn custum_button button_primary bg_p">Re-schedule</button>
+		</div>
+	</div>
+	
 	
 	<div class="customExpansion_panel" *ngIf="shipmentDetails">
 	  <mat-accordion class="example-headers-align" multi>
 	    <mat-expansion-panel [expanded]="true">
 	      <mat-expansion-panel-header>
 	        <mat-panel-title class="fs_16 fsm_5 txt_b">Carrier Information</mat-panel-title>
-	        <mat-panel-description></mat-panel-description>
+	        <mat-panel-description class="fs_16 fsm_5">
+	        	<div class="payment_status">
+	        		<span class="txt_s">Success</span>
+	        		<!-- <span class="txt_d">Failed</span> -->
+	        	</div>
+	        </mat-panel-description>
 	      </mat-expansion-panel-header>
 	      <div class="sign_up_tab input_error">
 	        <div class="update_profile_container">
@@ -67,7 +80,12 @@
 	    <mat-expansion-panel [expanded]="true">
 	      <mat-expansion-panel-header>
 	        <mat-panel-title class="fs_16 fsm_5 txt_b">Shipper Information</mat-panel-title>
-	        <mat-panel-description></mat-panel-description>
+	        <mat-panel-description class="fs_16 fsm_5">
+	        	<div class="payment_status">
+	        		<span class="txt_s">Success</span>
+	        		<!-- <span class="txt_d">Failed</span> -->
+	        	</div>
+	        </mat-panel-description>
 	      </mat-expansion-panel-header>
 	      <div class="sign_up_tab input_error">
 	        <div class="update_profile_container">
@@ -91,7 +109,12 @@
 	    <mat-expansion-panel [expanded]="true">
 	      <mat-expansion-panel-header>
 	        <mat-panel-title class="fs_16 fsm_5 txt_b">Pickup Information</mat-panel-title>
-	        <mat-panel-description></mat-panel-description>
+	        <mat-panel-description class="fs_16 fsm_5">
+	        	<div class="payment_status">
+	        		<span class="txt_s">Success</span>
+	        		<!-- <span class="txt_d">Failed</span> -->
+	        	</div>
+	        </mat-panel-description>
 	      </mat-expansion-panel-header>
 	      <div class="sign_up_tab input_error">
 	        <div class="update_profile_container">
@@ -123,7 +146,12 @@
 	    <mat-expansion-panel [expanded]="true">
 	      <mat-expansion-panel-header>
 	        <mat-panel-title class="fs_16 fsm_5 txt_b">Dropoff Information</mat-panel-title>
-	        <mat-panel-description></mat-panel-description>
+	        <mat-panel-description class="fs_16 fsm_5">
+	        	<div class="payment_status">
+	        		<!-- <span class="txt_s">Success</span> -->
+	        		<span class="txt_d">Failed</span>
+	        	</div>
+	        </mat-panel-description>
 	      </mat-expansion-panel-header>
 	      <div class="sign_up_tab input_error">
 	        <div class="update_profile_container">
@@ -155,7 +183,12 @@
 	    <mat-expansion-panel [expanded]="true">
 	      <mat-expansion-panel-header>
 	        <mat-panel-title class="fs_16 fsm_5 txt_b">Load Information</mat-panel-title>
-	        <mat-panel-description></mat-panel-description>
+	        <mat-panel-description class="fs_16 fsm_5">
+	        	<div class="payment_status">
+	        		<span class="txt_s">Success</span>
+	        		<!-- <span class="txt_d">Failed</span> -->
+	        	</div>
+	        </mat-panel-description>
 	      </mat-expansion-panel-header>
 	      <div class="sign_up_tab input_error">
 	        <div class="update_profile_container">
@@ -207,7 +240,12 @@
 	    <mat-expansion-panel [expanded]="true">
 	      <mat-expansion-panel-header>
 	        <mat-panel-title class="fs_16 fsm_5 txt_b">Driver Information</mat-panel-title>
-	        <mat-panel-description></mat-panel-description>
+	        <mat-panel-description class="fs_16 fsm_5">
+	        	<div class="payment_status">
+	        		<!-- <span class="txt_s">Success</span> -->
+	        		<span class="txt_d">Failed</span>
+	        	</div>
+	        </mat-panel-description>
 	      </mat-expansion-panel-header>
 	      <div class="sign_up_tab input_error">
 	        <div class="update_profile_container">
