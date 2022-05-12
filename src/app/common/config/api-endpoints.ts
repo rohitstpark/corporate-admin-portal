@@ -1,5 +1,5 @@
 const APIDOMAIN = {
-    dev: 'https://payapi-dev.laneaxis.com/api/',  // UAT Admin
+    dev: 'https://payapi-uat.laneaxis.com/api/',  // UAT Admin
 };
 
 const USERENDPOINTS = {

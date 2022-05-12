@@ -32,17 +32,20 @@ export class ShipmentPaymentsComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.shipmentId = params.shipmentId;
       this.showLoader = true;
-      this.getShipmentPayment();
       this.getShipmentDetails();
+      ;
    });
   }
 
   getShipmentDetails(){
     const url = APIURL.envConfig.SHIPMENTENDPOINTS.getShipmentDetails + '?id=' + this.shipmentId;
     this.httpService.get(url).subscribe(resp => {
-      if(resp['response']){
+      if(resp['success']){
         this.showLoader = false;
+       
         this.shipmentDetails = resp['response'];
+        console.log(resp)
+        console.log(this.shipmentDetails)
         this.shipmentDetails.createdAt = this.shipmentDetails.createdAt ? new Date(this.shipmentDetails.createdAt +' '+'UTC') : null;
         localStorage.setItem('shipmentNameUniqueId',this.shipmentDetails.title+'$*'+this.shipmentDetails.uniqueId);
         localStorage.setItem('shipmentStatusLabel', this.shipmentDetails.statusLabel)
@@ -53,11 +56,17 @@ export class ShipmentPaymentsComponent implements OnInit {
         if(this.shipmentDetails.shipperId!=null){
           localStorage.setItem('shipmentShipperId', this.shipmentDetails.shipperId);
         }
+       this.getShipmentPayment()
       }
     }, (err) => {
       this.showLoader = false;
       console.log('err', err)
     });
+
+    console.log('details');
+    console.log(this.shipmentDetails.shipperId);
+    console.log(this.shipmentDetails.id);
+    console.log(this.shipmentDetails.carrierId);
   }
 
   redirectToCarrierDetails(element){
@@ -78,7 +87,7 @@ export class ShipmentPaymentsComponent implements OnInit {
 
   getShipmentPayment()
   {
-    const url = 'https://payapi-dev.laneaxis.com/admin/shipment-payment';
+    const url = 'https://payapi-uat.laneaxis.com/admin/transaction-history?shipperId='+this.shipmentDetails['shipperId']+'&shipmentId='+this.shipmentDetails['id']+'&carrierId='+this.shipmentDetails['carrierId'];
     this.httpClient.get(url).subscribe(resp => {
       if(resp['success']){
         console.log('resp');
