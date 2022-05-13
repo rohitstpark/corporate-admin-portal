@@ -17,8 +17,17 @@ const routes: Routes = [
   { path: 'view/:shipmentId/loadhistory', component: ShipmentLoadHistoryComponent, canActivate : [AuthGuard] },
   { path: 'view/:shipmentId/driver', component: ShipmentDriverComponent, canActivate : [AuthGuard] },
   { path: 'view/:shipmentId/documents', component: ShipmentDocumentComponent, canActivate : [AuthGuard] },
-  { path: 'view/:shipmentId/payments', component: ShipmentPaymentsComponent, canActivate : [AuthGuard] }
-
+  { path: 'view/:shipmentId/payments', component: ShipmentPaymentsComponent, 
+  children: [
+    {
+        path: 'shipperTransaction',
+        component: ShipmentPaymentsComponent
+    },
+    {
+        path : 'carrierTransaction',
+        component : ShipmentPaymentsComponent
+    },
+], canActivate : [AuthGuard] },
 ]
 
 @NgModule({

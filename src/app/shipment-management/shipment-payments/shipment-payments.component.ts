@@ -17,11 +17,13 @@ export class ShipmentPaymentsComponent implements OnInit {
   historyDetailsShipper:any;
   historyDetailsCarrier:any;
   items=[1,2,3,4,5,6,7,8];
+  rescheduleButton=false;
   selectedTab='shipper';
   
   constructor(private activatedRoute: ActivatedRoute,
     private httpService: HttpService,
     private httpClient: HttpClient,
+    private route: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit() {
@@ -32,9 +34,22 @@ export class ShipmentPaymentsComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.shipmentId = params.shipmentId;
       this.showLoader = true;
-      this.getShipmentDetails();
-      ;
+      
+      // this.getShipmentDetails();
+
    });
+
+   let queryParam = this.router.url.split('/')[this.router.url.split('/').length-1];
+     console.log('params');
+     console.log(queryParam);
+    if (queryParam === 'payments' || queryParam === 'shipperTransaction') {
+      this.transactionHistory('shipper');
+    }
+    if(queryParam==='carrierTransaction')
+   {
+      this.transactionHistory('carrier');
+    }
+
   }
 
   getShipmentDetails(){
@@ -44,8 +59,6 @@ export class ShipmentPaymentsComponent implements OnInit {
         this.showLoader = false;
        
         this.shipmentDetails = resp['response'];
-        console.log(resp)
-        console.log(this.shipmentDetails)
         this.shipmentDetails.createdAt = this.shipmentDetails.createdAt ? new Date(this.shipmentDetails.createdAt +' '+'UTC') : null;
         localStorage.setItem('shipmentNameUniqueId',this.shipmentDetails.title+'$*'+this.shipmentDetails.uniqueId);
         localStorage.setItem('shipmentStatusLabel', this.shipmentDetails.statusLabel)
@@ -60,7 +73,6 @@ export class ShipmentPaymentsComponent implements OnInit {
       }
     }, (err) => {
       this.showLoader = false;
-      console.log('err', err)
     });
 
   }
@@ -75,31 +87,57 @@ export class ShipmentPaymentsComponent implements OnInit {
 
   transactionHistory(tab)
   {
-    this.showLoader=true;
    this.selectedTab=tab;
-   this.showLoader=false;
+   if(tab==='shipper')
+   {
+    this.getShipmentDetails();
+   this.router.navigate(['shipment/view/2906/payments/shipperTransaction']);
+}
+   if(tab==='carrier')
+{ 
+  this.getShipmentDetails();
+  // this.showLoader=true;
+  this.router.navigate(['shipment/view/2906/payments/carrierTransaction']);
+}
+  //  this.showLoader=false;
 
   }
 
   getShipmentPayment()
   {
-    const url = 'https://payapi-uat.laneaxis.com/admin/transaction-history?shipperId='+this.shipmentDetails['shipperPkId']+'&shipmentId='+this.shipmentDetails['id']+'&carrierId='+this.shipmentDetails['carrierPkId'];
+    const url = 'https://payapi-dev.laneaxis.com/admin/transaction-history?shipperId=179566'+'&shipmentId=3363'+'&carrierId=2335029';
     this.httpClient.get(url).subscribe(resp => {
       if(resp['success']){
-        console.log('resp');
-        console.log(resp);
+      
         this.showLoader = false;
         this.historyDetailsShipper = resp['response'].records.shipperTransactionHistory;
         this.historyDetailsCarrier = resp['response'].records.carrierTransactionHistory;
-        console.log('details');
-        console.log(this.historyDetailsCarrier);
-        console.log(this.historyDetailsShipper);
+        if(this.historyDetailsShipper.length)
+        {
+          if(this.historyDetailsShipper.achFailed.attempt >= 5)
+          this.rescheduleButton=true;
+        }
       }
     }, (err) => {
       this.showLoader = false;
-      console.log('err', err)
     });
   }
 
+  reschedule()
+  {
+    if(this.historyDetailsShipper.achFailed.attempt >= 5)
+    {
+      const url = 'https://payapi-dev.laneaxis.com/admin/ach-payment';
+      const reqBody = {
+        shipmentBidId: this.historyDetailsShipper.shipperTransactionStatus.shipmentBidId,
+        userId:this.historyDetailsShipper.shipperTransactionStatus.userId,
+       };
+      this.httpService.post(url, reqBody).subscribe(resp => {
+        console.log('resp');
+        console.log(resp);
+    })
+  }
+
+}
 }
 
