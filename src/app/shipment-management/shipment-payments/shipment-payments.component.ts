@@ -63,10 +63,6 @@ export class ShipmentPaymentsComponent implements OnInit {
       console.log('err', err)
     });
 
-    console.log('details');
-    console.log(this.shipmentDetails.shipperId);
-    console.log(this.shipmentDetails.id);
-    console.log(this.shipmentDetails.carrierId);
   }
 
   redirectToCarrierDetails(element){
@@ -87,14 +83,14 @@ export class ShipmentPaymentsComponent implements OnInit {
 
   getShipmentPayment()
   {
-    const url = 'https://payapi-uat.laneaxis.com/admin/transaction-history?shipperId='+this.shipmentDetails['shipperId']+'&shipmentId='+this.shipmentDetails['id']+'&carrierId='+this.shipmentDetails['carrierId'];
+    const url = 'https://payapi-uat.laneaxis.com/admin/transaction-history?shipperId='+this.shipmentDetails['shipperPkId']+'&shipmentId='+this.shipmentDetails['id']+'&carrierId='+this.shipmentDetails['carrierPkId'];
     this.httpClient.get(url).subscribe(resp => {
       if(resp['success']){
         console.log('resp');
-        console.log(resp['respons'][0]['Shipper transaction history']);
+        console.log(resp);
         this.showLoader = false;
-        this.historyDetailsShipper = resp['respons'][0]['Shipper transaction history'];
-        this.historyDetailsCarrier = resp['respons'][0]['Carrier transaction history'];
+        this.historyDetailsShipper = resp['response'].records.shipperTransactionHistory;
+        this.historyDetailsCarrier = resp['response'].records.carrierTransactionHistory;
         console.log('details');
         console.log(this.historyDetailsCarrier);
         console.log(this.historyDetailsShipper);

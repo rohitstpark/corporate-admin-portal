@@ -70,23 +70,34 @@
 	              <p class="fs_14 fsn_4 txt_lb mb-1">Payment Method</p>
 	              <p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsShipper[i].terms ? historyDetailsShipper[i].terms : '-'}}</p>
 	            </div>
+				<div class="col-md-4">
+					<p class="fs_14 fsn_4 txt_lb mb-1">Carrier Company Name</p>
+					<p class="fs_14 fsm_5 txt_b mb-0">{{ shipmentDetails.carrierName ? shipmentDetails.carrierName : '-'}}</p>
+				  </div>
 				
 				<div class="col-md-4">
 					<p class="fs_14 fsn_4 txt_lb mb-1">Gross Price</p>
 					<p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsShipper[i].grossPrice.amount ? historyDetailsShipper[i].grossPrice.amount : '-'}}</p>
-				  </div>
+					<p class="fs_14 fsn_4 txt_lb mb-1">LaneAxis Visibility Fee ({{historyDetailsShipper[i].LaneAxisVisibilityFee.fixed ? '$'+historyDetailsShipper[i].LaneAxisVisibilityFee.fixed : '-'}})</p>
+					<p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsShipper[i].LaneAxisVisibilityFee.amount ? '$'+historyDetailsShipper[i].LaneAxisVisibilityFee.amount : '-'}}</p>  
+					<p class="fs_14 fsn_4 txt_lb mb-1">LaneAxis Fee (LaneAxis Processing Fee {{historyDetailsShipper[i].LaneAxisFee.percent ? historyDetailsShipper[i].LaneAxisFee.percent+'%' : '-'}})</p>
+					<p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsShipper[i].LaneAxisFee.amount ? historyDetailsShipper[i].LaneAxisFee.amount : '-'}}</p>
 
+					<p class="fs_14 fsn_4 txt_lb mb-1">Shipper Term Fee (Shipper Term Fee {{historyDetailsShipper[i].shipperTermsFee.amount ? historyDetailsShipper[i].shipperTermsFee.amount+'%' : '-'}})</p>
+					<p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsShipper[i].shipperTermsFee.amount ? '$'+historyDetailsShipper[i].shipperTermsFee.amount : '-'}}</p>
+
+					<p class="fs_14 fsn_4 txt_lb mb-1">Transaction Fee (Stripe Transaction Fee {{historyDetailsShipper[i].transactionFee.percent ? historyDetailsShipper[i].transactionFee.percent+'%' : '-'}})</p>
+					<p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsShipper[i].transactionFee.amount ? '$'+historyDetailsShipper[i].transactionFee.amount : '-'}}</p>
+
+					<p class="fs_14 fsn_4 txt_lb mb-1">Amount Paid</p>
+					<p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsShipper[i].totalAmount ? '$'+historyDetailsShipper[i].totalAmount : '-'}}</p>
+				</div>
+<!-- 
 				  <div class="col-md-4">
 					<p class="fs_14 fsn_4 txt_lb mb-1">LaneAxis Visibility Fee ({{historyDetailsShipper[i].LaneAxisVisibilityFee.fixed ? '$'+historyDetailsShipper[i].LaneAxisVisibilityFee.fixed : '-'}})</p>
 					<p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsShipper[i].LaneAxisVisibilityFee.amount ? '$'+historyDetailsShipper[i].LaneAxisVisibilityFee.amount : '-'}}</p>
-				  </div>
+				  </div> -->
 
-				  <div class="col-md-4">
-					<p class="fs_14 fsn_4 txt_lb mb-1">LaneAxis Fee (LaneAxis Processing Fee {{historyDetailsShipper[i].LaneAxisFee.percent ? historyDetailsShipper[i].LaneAxisFee.percent : '-'}})</p>
-					<p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsShipper[i].LaneAxisFee.amount ? historyDetailsShipper[i].LaneAxisFee.amount : '-'}}</p>
-				  </div>
-
-				  
 	          </div>
 	        </div>
 	      </div>
