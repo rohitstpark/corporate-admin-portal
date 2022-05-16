@@ -114,7 +114,9 @@ export class ShipmentPaymentsComponent implements OnInit {
         this.historyDetailsCarrier = resp['response'].records.carrierTransactionHistory;
         if(this.historyDetailsShipper.length)
         {
-          if(this.historyDetailsShipper.achFailed.attempt >= 5)
+          console.log('if runs');
+          console.log(this.historyDetailsShipper[0].achFailed.attempt);
+          if(this.historyDetailsShipper[0].achFailed.attempt >= 5)
           this.rescheduleButton=true;
         }
       }

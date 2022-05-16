@@ -154,7 +154,10 @@
 		</mat-accordion>
 	  </div>
 
-	  <div *ngIf="!historyDetailsCarrier?.length && selectedTab === 'carrier' " class="customExpansion_panel example-headers-align">
+	  <div *ngIf="(!historyDetailsCarrier?.length && selectedTab === 'carrier' || !historyDetailsShipper?.length && selectedTab === 'shipper' )" >
+	  </div >
+
+	  <!-- <div *ngIf="!historyDetailsCarrier?.length && selectedTab === 'carrier' " class="customExpansion_panel example-headers-align">
 		<p>Carrier Transaction History not avaiable.</p>
-	  </div>
+	  </div> -->
 </div>
