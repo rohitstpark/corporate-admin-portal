@@ -105,7 +105,8 @@ export class ShipmentPaymentsComponent implements OnInit {
 
   getShipmentPayment()
   {
-    const url = 'https://payapi-dev.laneaxis.com/admin/transaction-history?shipperId=179566'+'&shipmentId=3363'+'&carrierId=2335029';
+    // const url = 'https://payapi-dev.laneaxis.com/admin/transaction-history?shipperId=179566'+'&shipmentId=3363'+'&carrierId=2335029';
+    const url = 'https://payapi-dev.laneaxis.com/admin/transaction-history?shipperId='+this.shipmentDetails.shipperPkId+'&shipmentId='+this.shipmentDetails.id+'&carrierId='+this.shipmentDetails.carrierPkId;
     this.httpClient.get(url).subscribe(resp => {
       if(resp['success']){
       

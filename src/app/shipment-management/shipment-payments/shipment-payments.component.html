@@ -123,7 +123,7 @@
 				  </div>
 				  <div class="col-md-4">
 					<p class="fs_14 fsn_4 txt_lb mb-1">Payment Term</p>
-					<p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsCarrier[i].terms ? historyDetailsCarrier[i].terms : '-'}} ({{historyDetailsCarrier[i].stDays ? historyDetailsShipper[i].stDays : ''}})</p>
+					<p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsCarrier[i].terms ? historyDetailsCarrier[i].terms : '-'}}</p>
 				  </div>
 				  <div class="col-md-4">
 					  <p class="fs_14 fsn_4 txt_lb mb-1">Shipper Company Name</p>
@@ -136,13 +136,13 @@
 				  <div class="col-md-4">
 					  <p class="fs_14 fsn_4 txt_lb mb-1">Gross Price</p>
 					  <p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsCarrier[i].sourceAmount ? historyDetailsCarrier[i].sourceAmount : '-'}}</p>
-					  <p class="fs_14 fsn_4 txt_lb mb-1">Account Debit Fee (of Gross Price {{historyDetailsCarrier[i].platformCharges ? '$'+historyDetailsCarrier[i].platformCharges : '-'}})</p>
-					  <p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsCarrier[i].platformCharges ? '$'+historyDetailsCarrier[i].platformCharges : '-'}}</p>  
-					  <p class="fs_14 fsn_4 txt_lb mb-1">LaneAxis Fee (LaneAxis Processing Fee {{historyDetailsCarrier[i].laneaxisCharges ? historyDetailsCarrier[i].laneaxisCharges +'%' : '-'}})</p>
-					  <p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsCarrier[i].laneaxisCharges ? '$'+historyDetailsCarrier[i].laneaxisCharges : '-'}}</p>
+					  <p *ngIf="historyDetailsCarrier[i].platformCharges" class="fs_14 fsn_4 txt_lb mb-1">Account Debit Fee (of Gross Price {{historyDetailsCarrier[i].platformCharges ? '$'+historyDetailsCarrier[i].platformCharges : '-'}})</p>
+					  <p *ngIf="historyDetailsCarrier[i].platformCharges" class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsCarrier[i].platformCharges ? '$'+historyDetailsCarrier[i].platformCharges : '-'}}</p>  
+					  <p class="fs_14 fsn_4 txt_lb mb-1">LaneAxis Fee (LaneAxis Processing Fee {{historyDetailsCarrier[i].laneaxisCharges ? historyDetailsCarrier[i].laneAxisFee.percent +'%' : '-'}})</p>
+					  <p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsCarrier[i].laneAxisFee.amount ? '$'+historyDetailsCarrier[i].laneaxisCharges : '-'}}</p>
     
-					  <p class="fs_14 fsn_4 txt_lb mb-1">Carrier Charge (Stripe Transaction Fee {{historyDetailsCarrier[i].stripeCharges ? historyDetailsCarrier[i].stripeCharges+'%' : '-'}})</p>
-					  <p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsCarrier[i].stripeCharges ? '$'+historyDetailsCarrier[i].stripeCharges : '-'}}</p>
+					  <p class="fs_14 fsn_4 txt_lb mb-1">Carrier Charge ({{historyDetailsCarrier[i].transactionFee.percent ? historyDetailsCarrier[i].transactionFee.fixed+'% of Transferable Fee + '+ '$'+ historyDetailsCarrier[i].transactionFee.fixed : '-'}})</p>
+					  <p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsCarrier[i].transactionFee.amount ? '$'+historyDetailsCarrier[i].transactionFee.amount : '-'}}</p>
   
 					  <p class="fs_14 fsn_4 txt_lb mb-1">Amount Paid</p>
 					  <p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsCarrier[i].destinationAmount ? '$'+historyDetailsCarrier[i].destinationAmount : '-'}}</p>
