@@ -142,5 +142,14 @@ export class ShipmentPaymentsComponent implements OnInit {
   }
 
 }
+
+  public generateFake(count: number): Array<number> {
+    const indexes = [];
+    for (let i = 0; i < count; i++) {
+      indexes.push(i);
+    }
+    return indexes;
+  }
+  
 }
 

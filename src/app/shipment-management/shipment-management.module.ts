@@ -19,7 +19,7 @@ import { ShipmentDocumentComponent } from './shipment-document/shipment-document
 import { ShipmentDriverComponent } from './shipment-driver/shipment-driver.component';
 import { MapBoxShipmentComponent } from './map-box-shipment/map-box-shipment.component';
 import { ShipmentPaymentsComponent } from './shipment-payments/shipment-payments.component';
-
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 
 @NgModule({
@@ -31,7 +31,8 @@ import { ShipmentPaymentsComponent } from './shipment-payments/shipment-payments
     MaterialModule,
     ShipmentManagementRoutingModule,
     CommonModuleModule,
-    NgxDaterangepickerMd
+    NgxDaterangepickerMd,
+    NgxSkeletonLoaderModule
   ],
 
   declarations: [

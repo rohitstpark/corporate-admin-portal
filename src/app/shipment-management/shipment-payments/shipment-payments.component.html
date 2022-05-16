@@ -55,45 +55,66 @@
 	        	</div>
 	        </mat-panel-description>
 	      </mat-expansion-panel-header>
-	      <div class="sign_up_tab input_error">
-	        <div class="update_profile_container">
-	          <div class="row">
-	            <div class="col-md-4">
-	              <p class="fs_14 fsn_4 txt_lb mb-1">Transaction ID</p>
-	              <p class="fs_14 fsm_5 txt_p mb-0">{{historyDetailsShipper[i].id ? historyDetailsShipper[i].id : '-'}}</p>
-	            </div>
-	            <div class="col-md-4">
-	              <p class="fs_14 fsn_4 txt_lb mb-1">Created At</p>
-	              <p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsShipper[i].createdAt ? historyDetailsShipper[i].createdAt : '-'}}</p>
-	            </div>
-	            <div class="col-md-4">
-	              <p class="fs_14 fsn_4 txt_lb mb-1">Payment Term</p>
-	              <p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsShipper[i].terms ? historyDetailsShipper[i].terms : '-'}}</p>
-	            </div>
-				<div class="col-md-4">
-					<p class="fs_14 fsn_4 txt_lb mb-1">Carrier Company Name</p>
-					<p class="fs_14 fsm_5 txt_b mb-0">{{ shipmentDetails.carrierName ? shipmentDetails.carrierName : '-'}}</p>
-				  </div>
-				
-				<div class="col-md-4">
-					<p class="fs_14 fsn_4 txt_lb mb-1">Gross Price</p>
-					<p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsShipper[i].grossPrice.amount ? historyDetailsShipper[i].grossPrice.amount : '-'}}</p>
-					<p class="fs_14 fsn_4 txt_lb mb-1">LaneAxis Visibility Fee ({{historyDetailsShipper[i].LaneAxisVisibilityFee.fixed ? '$'+historyDetailsShipper[i].LaneAxisVisibilityFee.fixed : '-'}})</p>
-					<p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsShipper[i].LaneAxisVisibilityFee.amount ? '$'+historyDetailsShipper[i].LaneAxisVisibilityFee.amount : '-'}}</p>  
-					<p class="fs_14 fsn_4 txt_lb mb-1">LaneAxis Fee (LaneAxis Processing Fee {{historyDetailsShipper[i].LaneAxisFee.percent ? historyDetailsShipper[i].LaneAxisFee.percent+'%' : '-'}})</p>
-					<p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsShipper[i].LaneAxisFee.amount ? historyDetailsShipper[i].LaneAxisFee.amount : '-'}}</p>
+	      <div class="pay_attempt_card">
+	      	<div class="row">
+	      		<div class="col-md-6">
+	      			<div class="con_wrapper_row">
+	      				<div class="row_label">Transaction ID</div>
+	      				<div class="row_value">{{historyDetailsShipper[i].id ? historyDetailsShipper[i].id : '-'}}</div>
+	      			</div>
+	      			<div class="con_wrapper_row">
+	      				<div class="row_label">Created At</div>
+	      				<div class="row_value">{{historyDetailsShipper[i].createdAt ? historyDetailsShipper[i].createdAt : '-'}}</div>
+	      			</div>
+	      			<div class="con_wrapper_row">
+	      				<div class="row_label">Payment Term</div>
+	      				<div class="row_value">{{historyDetailsShipper[i].terms ? historyDetailsShipper[i].terms : '-'}}</div>
+	      			</div>
+	      			<div class="con_wrapper_row">
+	      				<div class="row_label">Carrier Company Name</div>
+	      				<div class="row_value">{{ shipmentDetails.carrierName ? shipmentDetails.carrierName : '-'}}</div>
+	      			</div>
+	      		</div>
 
-					<p class="fs_14 fsn_4 txt_lb mb-1">Shipper Term Fee (Shipper Term Fee {{historyDetailsShipper[i].shipperTermsFee.percent ? historyDetailsShipper[i].shipperTermsFee.percent+'%' : '-'}})</p>
-					<p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsShipper[i].shipperTermsFee.amount ? '$'+historyDetailsShipper[i].shipperTermsFee.amount : '-'}}</p>
-
-					<p class="fs_14 fsn_4 txt_lb mb-1">Transaction Fee (Stripe Transaction Fee {{historyDetailsShipper[i].transactionFee.percent ? historyDetailsShipper[i].transactionFee.percent+'%' : '-'}})</p>
-					<p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsShipper[i].transactionFee.amount ? '$'+historyDetailsShipper[i].transactionFee.amount : '-'}}</p>
-
-					<p class="fs_14 fsn_4 txt_lb mb-1">Amount Paid</p>
-					<p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsShipper[i].totalAmount ? '$'+historyDetailsShipper[i].totalAmount : '-'}}</p>
-				</div>
-	          </div>
-	        </div>
+	      		<div class="col-md-6 pay_attempt_r">
+	      			<div class="con_wrapper_row">
+	      				<div class="row_label">Gross Price</div>
+	      				<div class="row_value">{{historyDetailsShipper[i].grossPrice.amount ? historyDetailsShipper[i].grossPrice.amount : '-'}}</div>
+	      			</div>
+							<div class="con_wrapper_row">
+	      				<div class="row_label">
+		      				<span>LaneAxis Visibility Fee </span>
+		      				<span class="fs_12">({{historyDetailsShipper[i].LaneAxisVisibilityFee.fixed ? '$'+historyDetailsShipper[i].LaneAxisVisibilityFee.fixed : '-'}})</span>
+		      			</div>
+	      				<div class="row_value">{{historyDetailsShipper[i].LaneAxisVisibilityFee.amount ? '$'+historyDetailsShipper[i].LaneAxisVisibilityFee.amount : '-'}}</div>
+	      			</div>
+							<div class="con_wrapper_row">
+	      				<div class="row_label">
+	      					<span>LaneAxis Fee </span>
+		      				<span class="fs_12">(LaneAxis Processing Fee {{historyDetailsShipper[i].LaneAxisFee.percent ? historyDetailsShipper[i].LaneAxisFee.percent+'%' : '-'}})</span>
+		      			</div>
+	      				<div class="row_value">{{historyDetailsShipper[i].LaneAxisFee.amount ? historyDetailsShipper[i].LaneAxisFee.amount : '-'}}</div>
+	      			</div>
+							<div class="con_wrapper_row">
+	      				<div class="row_label">
+	      					<span>Shipper Term Fee </span>
+	      					<span class="fs_12">(Shipper Term Fee {{historyDetailsShipper[i].shipperTermsFee.percent ? historyDetailsShipper[i].shipperTermsFee.percent+'%' : '-'}})</span>
+	      				</div>
+	      				<div class="row_value">{{historyDetailsShipper[i].shipperTermsFee.amount ? '$'+historyDetailsShipper[i].shipperTermsFee.amount : '-'}}</div>
+	      			</div>
+							<div class="con_wrapper_row">
+	      				<div class="row_label">
+	      					<span>Transaction Fee </span>
+	      					<span class="fs_12">(Stripe Transaction Fee {{historyDetailsShipper[i].transactionFee.percent ? historyDetailsShipper[i].transactionFee.percent+'%' : '-'}})</span>
+	      				</div>
+	      				<div class="row_value">{{historyDetailsShipper[i].transactionFee.amount ? '$'+historyDetailsShipper[i].transactionFee.amount : '-'}}</div>
+	      			</div>
+							<div class="con_wrapper_row">
+	      				<div class="row_label">Amount Paid</div>
+	      				<div class="row_value">{{historyDetailsShipper[i].totalAmount ? '$'+historyDetailsShipper[i].totalAmount : '-'}}</div>
+	      			</div>
+      			</div>
+	      	</div>
 	      </div>
 	    </mat-expansion-panel>
 	  </mat-accordion>
@@ -110,42 +131,97 @@
 				  </div>
 			  </mat-panel-description>
 			</mat-expansion-panel-header>
-			<div class="sign_up_tab input_error">
+			<div class="pay_attempt_card">
+      	<div class="row">
+      		<div class="col-md-6">
+      			<div class="con_wrapper_row">
+      				<div class="row_label">Transaction ID</div>
+      				<div class="row_value">{{historyDetailsCarrier[i].id ? historyDetailsCarrier[i].id : '-'}}</div>
+      			</div>
+      			<div class="con_wrapper_row">
+      				<div class="row_label">Created At</div>
+      				<div class="row_value">{{historyDetailsCarrier[i].createdAt ? historyDetailsCarrier[i].createdAt : '-'}}</div>
+      			</div>
+      			<div class="con_wrapper_row">
+      				<div class="row_label">Payment Term</div>
+      				<div class="row_value">{{historyDetailsCarrier[i].terms ? historyDetailsCarrier[i].terms : '-'}} ({{historyDetailsCarrier[i].stDays ? historyDetailsShipper[i].stDays : ''}})</div>
+      			</div>
+      			<div class="con_wrapper_row">
+      				<div class="row_label">Shipper Company Name</div>
+      				<div class="row_value">{{ shipmentDetails.shipperName ? shipmentDetails.shipperName : '-'}}</div>
+      			</div>
+      		</div>
+
+      		<div class="col-md-6 pay_attempt_r">
+      			<div class="con_wrapper_row">
+      				<div class="row_label">Gross Price</div>
+      				<div class="row_value">{{historyDetailsCarrier[i].sourceAmount ? historyDetailsCarrier[i].sourceAmount : '-'}}</div>
+      			</div>
+						<div class="con_wrapper_row">
+      				<div class="row_label">
+	      				<span>Account Debit Fee</span>
+	      				<span class="fs_12"> (of Gross Price {{historyDetailsCarrier[i].platformCharges ? '$'+historyDetailsCarrier[i].platformCharges : '-'}})</span>
+	      			</div>
+      				<div class="row_value">{{historyDetailsCarrier[i].platformCharges ? '$'+historyDetailsCarrier[i].platformCharges : '-'}}</div>
+      			</div>
+						<div class="con_wrapper_row">
+      				<div class="row_label">
+      					<span>LaneAxis Fee </span>
+	      				<span class="fs_12">(LaneAxis Processing Fee {{historyDetailsCarrier[i].laneaxisCharges ? historyDetailsCarrier[i].laneaxisCharges +'%' : '-'}})</span>
+	      			</div>
+      				<div class="row_value">{{historyDetailsCarrier[i].laneaxisCharges ? '$'+historyDetailsCarrier[i].laneaxisCharges : '-'}}</div>
+      			</div>
+						<div class="con_wrapper_row">
+      				<div class="row_label">
+      					<span>Carrier Charge </span>
+      					<span class="fs_12">(Stripe Transaction Fee {{historyDetailsCarrier[i].stripeCharges ? historyDetailsCarrier[i].stripeCharges+'%' : '-'}})</span>
+      				</div>
+      				<div class="row_value">{{historyDetailsCarrier[i].stripeCharges ? '$'+historyDetailsCarrier[i].stripeCharges : '-'}}</div>
+      			</div>
+						<div class="con_wrapper_row">
+      				<div class="row_label">Amount Paid</div>
+      				<div class="row_value">{{historyDetailsCarrier[i].destinationAmount ? '$'+historyDetailsCarrier[i].destinationAmount : '-'}}</div>
+      			</div>
+    			</div>
+      	</div>
+      </div>
+
+
+			<div class="sign_up_tab input_error" style="display: none;">
 			  <div class="update_profile_container">
 				<div class="row">
-				  <div class="col-md-4">
-					<p class="fs_14 fsn_4 txt_lb mb-1">Transaction ID</p>
-					<p class="fs_14 fsm_5 txt_p mb-0">{{historyDetailsCarrier[i].id ? historyDetailsCarrier[i].id : '-'}}</p>
-				  </div>
-				  <div class="col-md-4">
-					<p class="fs_14 fsn_4 txt_lb mb-1">Created At</p>
-					<p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsCarrier[i].createdAt ? historyDetailsCarrier[i].createdAt : '-'}}</p>
-				  </div>
-				  <div class="col-md-4">
-					<p class="fs_14 fsn_4 txt_lb mb-1">Payment Term</p>
-					<p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsCarrier[i].terms ? historyDetailsCarrier[i].terms : '-'}}</p>
-				  </div>
-				  <div class="col-md-4">
-					  <p class="fs_14 fsn_4 txt_lb mb-1">Shipper Company Name</p>
-					  <p class="fs_14 fsm_5 txt_b mb-0">{{ shipmentDetails.shipperName ? shipmentDetails.shipperName : '-'}}</p>
-					</div>
-				 
+				  <!-- <div class="col-md-4">
+						<p class="fs_14 fsn_4 txt_lb mb-1">Transaction ID</p>
+						<p class="fs_14 fsm_5 txt_p mb-0"></p>
+					  </div>
+					  <div class="col-md-4">
+						<p class="fs_14 fsn_4 txt_lb mb-1">Created At</p>
+						<p class="fs_14 fsm_5 txt_b mb-0"></p>
+					  </div>
+					  <div class="col-md-4">
+						<p class="fs_14 fsn_4 txt_lb mb-1">Payment Term</p>
+						<p class="fs_14 fsm_5 txt_b mb-0"></p>
+					  </div>
+					  <div class="col-md-4">
+						  <p class="fs_14 fsn_4 txt_lb mb-1"></p>
+						  <p class="fs_14 fsm_5 txt_b mb-0"></p>
+					</div> -->
 					<div><p class="fs_14 fsm_5 txt_b mb-0">Price Details</p></div>
-					
-
 				  <div class="col-md-4">
 					  <p class="fs_14 fsn_4 txt_lb mb-1">Gross Price</p>
-					  <p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsCarrier[i].sourceAmount ? historyDetailsCarrier[i].sourceAmount : '-'}}</p>
-					  <p *ngIf="historyDetailsCarrier[i].platformCharges" class="fs_14 fsn_4 txt_lb mb-1">Account Debit Fee (of Gross Price {{historyDetailsCarrier[i].platformCharges ? '$'+historyDetailsCarrier[i].platformCharges : '-'}})</p>
-					  <p *ngIf="historyDetailsCarrier[i].platformCharges" class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsCarrier[i].platformCharges ? '$'+historyDetailsCarrier[i].platformCharges : '-'}}</p>  
-					  <p class="fs_14 fsn_4 txt_lb mb-1">LaneAxis Fee (LaneAxis Processing Fee {{historyDetailsCarrier[i].laneaxisCharges ? historyDetailsCarrier[i].laneAxisFee.percent +'%' : '-'}})</p>
-					  <p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsCarrier[i].laneAxisFee.amount ? '$'+historyDetailsCarrier[i].laneaxisCharges : '-'}}</p>
+					  <p class="fs_14 fsm_5 txt_b mb-0"></p>
+
+					  <p class="fs_14 fsn_4 txt_lb mb-1"></p>
+					  <p class="fs_14 fsm_5 txt_b mb-0"></p>  
+
+					  <p class="fs_14 fsn_4 txt_lb mb-1"></p>
+					  <p class="fs_14 fsm_5 txt_b mb-0"></p>
     
-					  <p class="fs_14 fsn_4 txt_lb mb-1">Carrier Charge ({{historyDetailsCarrier[i].transactionFee.percent ? historyDetailsCarrier[i].transactionFee.fixed+'% of Transferable Fee + '+ '$'+ historyDetailsCarrier[i].transactionFee.fixed : '-'}})</p>
-					  <p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsCarrier[i].transactionFee.amount ? '$'+historyDetailsCarrier[i].transactionFee.amount : '-'}}</p>
+					  <p class="fs_14 fsn_4 txt_lb mb-1"></p>
+					  <p class="fs_14 fsm_5 txt_b mb-0"></p>
   
-					  <p class="fs_14 fsn_4 txt_lb mb-1">Amount Paid</p>
-					  <p class="fs_14 fsm_5 txt_b mb-0">{{historyDetailsCarrier[i].destinationAmount ? '$'+historyDetailsCarrier[i].destinationAmount : '-'}}</p>
+					  <p class="fs_14 fsn_4 txt_lb mb-1"></p>
+					  <p class="fs_14 fsm_5 txt_b mb-0"></p>
 				  </div>
 				</div>
 			  </div>
@@ -154,9 +230,20 @@
 		</mat-accordion>
 	  </div>
 
-	  <div *ngIf="(!historyDetailsCarrier?.length && selectedTab === 'carrier' || !historyDetailsShipper?.length && selectedTab === 'shipper' )" >
-	  </div >
+	  <div *ngIf="(!historyDetailsCarrier?.length && selectedTab === 'carrier' || !historyDetailsShipper?.length && selectedTab === 'shipper' )"></div>
 
+	  <!-- Skeleton Loader -->
+	  <div class="pay_card_skt">
+			<ngx-skeleton-loader [theme]="{ width: '100%', height: '24px' }" class="loader_m_0 skt_btn_loader mb-2"></ngx-skeleton-loader>
+			<div class="pay_card_skt_row" *ngFor="let fake of generateFake(3)">
+				<div class="pay_card_skt_rowl">
+					<ngx-skeleton-loader [theme]="{ width: '95%', height: '16px' }" class="loader_m_0 skt_btn_loader mb-2"></ngx-skeleton-loader>
+				</div>
+				<div class="pay_card_skt_rowr">
+					<ngx-skeleton-loader [theme]="{ width: '98%', height: '16px' }" class="loader_m_0 skt_btn_loader mb-2"></ngx-skeleton-loader>
+				</div>
+			</div>
+		</div>
 	  <!-- <div *ngIf="!historyDetailsCarrier?.length && selectedTab === 'carrier' " class="customExpansion_panel example-headers-align">
 		<p>Carrier Transaction History not avaiable.</p>
 	  </div> -->
