@@ -16,6 +16,7 @@ export class ShipmentPaymentsComponent implements OnInit {
   shipmentDetails:any;
   historyDetailsShipper:any;
   historyDetailsCarrier:any;
+  emptyScreen=false;
   items=[1,2,3,4,5,6,7,8];
   rescheduleButton=false;
   selectedTab='shipper';
@@ -105,8 +106,8 @@ export class ShipmentPaymentsComponent implements OnInit {
 
   getShipmentPayment()
   {
-    // const url = 'https://payapi-dev.laneaxis.com/admin/transaction-history?shipperId=179566'+'&shipmentId=3363'+'&carrierId=2335029';
-    const url = 'https://payapi-dev.laneaxis.com/admin/transaction-history?shipperId='+this.shipmentDetails.shipperPkId+'&shipmentId='+this.shipmentDetails.id+'&carrierId='+this.shipmentDetails.carrierPkId;
+    const url = 'https://payapi-dev.laneaxis.com/admin/transaction-history?shipperId=179566'+'&shipmentId=3363'+'&carrierId=2335029';
+    // const url = 'https://payapi-dev.laneaxis.com/admin/transaction-history?shipperId='+this.shipmentDetails.shipperPkId+'&shipmentId='+this.shipmentDetails.id+'&carrierId='+this.shipmentDetails.carrierPkId;
     this.httpClient.get(url).subscribe(resp => {
       if(resp['success']){
       
@@ -120,9 +121,18 @@ export class ShipmentPaymentsComponent implements OnInit {
           if(this.historyDetailsShipper[0].achFailed.attempt >= 5)
           this.rescheduleButton=true;
         }
+        this.emptyScreen=false;
       }
+      if(resp['error'])
+      { console.log('err');
+      console.log(resp['error']);
+        this.emptyScreen=true;
+    }
     }, (err) => {
+      console.log('err');
+      console.log(err);
       this.showLoader = false;
+      this.emptyScreen=true;
     });
   }
 

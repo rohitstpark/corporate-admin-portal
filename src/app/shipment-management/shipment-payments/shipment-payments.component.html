@@ -144,7 +144,7 @@
       			</div>
       			<div class="con_wrapper_row">
       				<div class="row_label">Payment Term</div>
-      				<div class="row_value">{{historyDetailsCarrier[i].terms ? historyDetailsCarrier[i].terms : '-'}} ({{historyDetailsCarrier[i].stDays ? historyDetailsShipper[i].stDays : ''}})</div>
+      				<div class="row_value">{{historyDetailsCarrier[i].terms ? historyDetailsCarrier[i].terms : '-'}}</div>
       			</div>
       			<div class="con_wrapper_row">
       				<div class="row_label">Shipper Company Name</div>
@@ -157,7 +157,7 @@
       				<div class="row_label">Gross Price</div>
       				<div class="row_value">{{historyDetailsCarrier[i].sourceAmount ? historyDetailsCarrier[i].sourceAmount : '-'}}</div>
       			</div>
-						<div class="con_wrapper_row">
+						<div *ngIf="historyDetailsCarrier[i].platformCharges" class="con_wrapper_row">
       				<div class="row_label">
 	      				<span>Account Debit Fee</span>
 	      				<span class="fs_12"> (of Gross Price {{historyDetailsCarrier[i].platformCharges ? '$'+historyDetailsCarrier[i].platformCharges : '-'}})</span>
@@ -167,16 +167,16 @@
 						<div class="con_wrapper_row">
       				<div class="row_label">
       					<span>LaneAxis Fee </span>
-	      				<span class="fs_12">(LaneAxis Processing Fee {{historyDetailsCarrier[i].laneaxisCharges ? historyDetailsCarrier[i].laneaxisCharges +'%' : '-'}})</span>
+	      				<span class="fs_12">(LaneAxis Processing Fee {{historyDetailsCarrier[i].laneAxisFee.percent ? historyDetailsCarrier[i].laneAxisFee.percent +'%' : '-'}})</span>
 	      			</div>
-      				<div class="row_value">{{historyDetailsCarrier[i].laneaxisCharges ? '$'+historyDetailsCarrier[i].laneaxisCharges : '-'}}</div>
+      				<div class="row_value">{{historyDetailsCarrier[i].laneAxisFee.amount ? '$'+historyDetailsCarrier[i].laneAxisFee.amount : '-'}}</div>
       			</div>
 						<div class="con_wrapper_row">
       				<div class="row_label">
       					<span>Carrier Charge </span>
-      					<span class="fs_12">(Stripe Transaction Fee {{historyDetailsCarrier[i].stripeCharges ? historyDetailsCarrier[i].stripeCharges+'%' : '-'}})</span>
+      					<span class="fs_12">({{historyDetailsCarrier[i].transactionFee.percent ? historyDetailsCarrier[i].transactionFee.percent+'% of Transferable Fee + $'+ historyDetailsCarrier[i].transactionFee.fixed  : '-'}})</span>
       				</div>
-      				<div class="row_value">{{historyDetailsCarrier[i].stripeCharges ? '$'+historyDetailsCarrier[i].stripeCharges : '-'}}</div>
+      				<div class="row_value">{{historyDetailsCarrier[i].transactionFee.amount ? '$'+historyDetailsCarrier[i].transactionFee.amount : '-'}}</div>
       			</div>
 						<div class="con_wrapper_row">
       				<div class="row_label">Amount Paid</div>
@@ -230,10 +230,9 @@
 		</mat-accordion>
 	  </div>
 
-	  <div *ngIf="(!historyDetailsCarrier?.length && selectedTab === 'carrier' || !historyDetailsShipper?.length && selectedTab === 'shipper' )"></div>
 
 	  <!-- Skeleton Loader -->
-	  <div class="pay_card_skt">
+	  <div *ngIf="((!historyDetailsCarrier?.length && selectedTab === 'carrier' && !emptyScreen) || (!historyDetailsShipper?.length && selectedTab === 'shipper' && !emptyScreen) )" class="pay_card_skt">
 			<ngx-skeleton-loader [theme]="{ width: '100%', height: '24px' }" class="loader_m_0 skt_btn_loader mb-2"></ngx-skeleton-loader>
 			<div class="pay_card_skt_row" *ngFor="let fake of generateFake(3)">
 				<div class="pay_card_skt_rowl">
@@ -244,6 +243,10 @@
 				</div>
 			</div>
 		</div>
+
+		   <ng-container>
+      <div class="data_notFound" *ngIf="emptyScreen">No Data Found.</div>
+    </ng-container>
 	  <!-- <div *ngIf="!historyDetailsCarrier?.length && selectedTab === 'carrier' " class="customExpansion_panel example-headers-align">
 		<p>Carrier Transaction History not avaiable.</p>
 	  </div> -->
