@@ -110,7 +110,8 @@
 	      				<div class="row_value">{{historyDetailsShipper[i].transactionFee.amount ? '$'+historyDetailsShipper[i].transactionFee.amount : '-'}}</div>
 	      			</div>
 							<div style="border-top: 1px solid #818181" class="con_wrapper_row ">
-	      				<div class="row_label  txt_b fsb_6 ">Amount Paid</div>
+	      				<div *ngIf="historyDetailsShipper[i].status=== 'Success'" class="row_label  txt_b fsb_6 ">Amount Paid</div>
+	      				<div *ngIf="historyDetailsShipper[i].status!== 'Success'" class="row_label  txt_b fsb_6 ">Amount Payable</div>
 	      				<div class="row_value">{{historyDetailsShipper[i].totalAmount ? '$'+historyDetailsShipper[i].totalAmount : '-'}}</div>
 	      			</div>
       			</div>
@@ -178,8 +179,9 @@
       				</div>
       				<div class="row_value">{{historyDetailsCarrier[i].transactionFee.amount ? '$'+historyDetailsCarrier[i].transactionFee.amount : '-'}}</div>
       			</div>
-						<div style="border-top: 1px solid #818181" class="con_wrapper_row">
-      				<div class="row_label  txt_b fsb_6">Amount Paid</div>
+						<div  style="border-top: 1px solid #818181" class="con_wrapper_row">
+      				<div  *ngIf="historyDetailsShipper[i].status=== 'Success'"  class="row_label  txt_b fsb_6">Amount Paid</div>
+      				<div  *ngIf="historyDetailsShipper[i].status!== 'Success'"  class="row_label  txt_b fsb_6">Amount Payable</div>
       				<div class="row_value">{{historyDetailsCarrier[i].destinationAmount ? '$'+historyDetailsCarrier[i].destinationAmount : '-'}}</div>
       			</div>
     			</div>
