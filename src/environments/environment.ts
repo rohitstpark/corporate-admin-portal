@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   laneAxisDotCom: 'https://laneaxis.com',
-  apiEndpoint: 'https://api-uat.laneaxis.com/api/',
+  apiEndpoint: 'https://api-dev.laneaxis.com/api/',
   searchRestriction:['us','in'],
   stripePublicKey:"pk_live_zjL5w9gOnJcnCs5ptE8g3AOr00OuijpVh5",
   paymentApiEndpoint: 'https://payapi.laneaxis.com',
