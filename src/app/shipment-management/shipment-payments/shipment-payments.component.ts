@@ -12,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ShipmentPaymentsComponent implements OnInit {
   shipmentId:any;
-  showLoader:boolean=false;
+  showLoader:boolean=true;
   shipmentDetails:any;
   historyDetailsShipper:any;
   historyDetailsCarrier:any;
@@ -50,7 +50,7 @@ export class ShipmentPaymentsComponent implements OnInit {
    {
       this.transactionHistory('carrier');
     }
-
+    this.showLoader = false;
   }
 
   getShipmentDetails(){
@@ -73,7 +73,7 @@ export class ShipmentPaymentsComponent implements OnInit {
     }, (err) => {
       this.showLoader = false;
     });
-    this.showLoader = false;
+    
   }
 
   redirectToCarrierDetails(element){
@@ -105,13 +105,14 @@ export class ShipmentPaymentsComponent implements OnInit {
   getShipmentPayment()
   {
     // const url = 'https://payapi-dev.laneaxis.com/admin/transaction-history?shipperId=179566'+'&shipmentId=3363'+'&carrierId=2335029';
-    const url = 'https://payapi-uat.laneaxis.com/admin/transaction-history?shipperId='+this.shipmentDetails.shipperPkId+'&shipmentId='+this.shipmentDetails.id+'&carrierId='+this.shipmentDetails.carrierPkId;
+    const url = 'https://payapi-uat.laneaxis.com/admin/transaction-history?shipperId='+this.shipmentDetails.shipperPkId+'&shipmentId='+this.shipmentDetails?.id+'&carrierId='+this.shipmentDetails.carrierPkId;
     this.httpClient.get(url).subscribe(resp => {
       if(resp['success']){
       
         this.showLoader = false;
         this.historyDetailsShipper = resp['response'].records.shipperTransactionHistory;
         this.historyDetailsCarrier = resp['response'].records.carrierTransactionHistory;
+        
         if(this.historyDetailsShipper.length)
         {
           console.log('if runs');
@@ -120,6 +121,13 @@ export class ShipmentPaymentsComponent implements OnInit {
           this.rescheduleButton=true;
         }
         this.emptyScreen=false;
+        if(!this.historyDetailsCarrier.length || this.historyDetailsCarrier.length===null)
+        {
+     
+          this.selectedTab==='Carrier'
+          this.emptyScreen=true;
+          
+        }
       }
       if(resp['error'])
       { console.log('err');
