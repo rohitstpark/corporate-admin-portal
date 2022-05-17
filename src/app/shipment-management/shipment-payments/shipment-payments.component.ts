@@ -28,13 +28,13 @@ export class ShipmentPaymentsComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    this.showLoader = true;
     localStorage.removeItem('shipmentNameUniqueId');
     localStorage.removeItem('shipmentStatusLabel');
     localStorage.removeItem('shipmentDriverId');
     localStorage.removeItem('shipmentShipperId');
     this.activatedRoute.params.subscribe(params => {
       this.shipmentId = params.shipmentId;
-      this.showLoader = true;
       
       // this.getShipmentDetails();
 
@@ -57,8 +57,6 @@ export class ShipmentPaymentsComponent implements OnInit {
     const url = APIURL.envConfig.SHIPMENTENDPOINTS.getShipmentDetails + '?id=' + this.shipmentId;
     this.httpService.get(url).subscribe(resp => {
       if(resp['success']){
-        this.showLoader = false;
-       
         this.shipmentDetails = resp['response'];
         this.shipmentDetails.createdAt = this.shipmentDetails.createdAt ? new Date(this.shipmentDetails.createdAt +' '+'UTC') : null;
         localStorage.setItem('shipmentNameUniqueId',this.shipmentDetails.title+'$*'+this.shipmentDetails.uniqueId);
@@ -75,7 +73,7 @@ export class ShipmentPaymentsComponent implements OnInit {
     }, (err) => {
       this.showLoader = false;
     });
-
+    this.showLoader = false;
   }
 
   redirectToCarrierDetails(element){
