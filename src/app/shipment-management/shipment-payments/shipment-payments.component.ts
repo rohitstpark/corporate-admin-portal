@@ -92,13 +92,13 @@ export class ShipmentPaymentsComponent implements OnInit {
    if(tab==='shipper')
    {
     this.getShipmentDetails();
-   this.router.navigate(['shipment/view/2906/payments/shipperTransaction']);
+   this.router.navigate(['shipment/view/'+this.shipmentDetails.id+'/payments/shipperTransaction']);
 }
    if(tab==='carrier')
 { 
   this.getShipmentDetails();
   // this.showLoader=true;
-  this.router.navigate(['shipment/view/2906/payments/carrierTransaction']);
+  this.router.navigate(['shipment/view/'+this.shipmentDetails.id+'/payments/carrierTransaction']);
 }
   //  this.showLoader=false;
 
@@ -106,8 +106,8 @@ export class ShipmentPaymentsComponent implements OnInit {
 
   getShipmentPayment()
   {
-    const url = 'https://payapi-dev.laneaxis.com/admin/transaction-history?shipperId=179566'+'&shipmentId=3363'+'&carrierId=2335029';
-    // const url = 'https://payapi-dev.laneaxis.com/admin/transaction-history?shipperId='+this.shipmentDetails.shipperPkId+'&shipmentId='+this.shipmentDetails.id+'&carrierId='+this.shipmentDetails.carrierPkId;
+    // const url = 'https://payapi-dev.laneaxis.com/admin/transaction-history?shipperId=179566'+'&shipmentId=3363'+'&carrierId=2335029';
+    const url = 'https://payapi-uat.laneaxis.com/admin/transaction-history?shipperId='+this.shipmentDetails.shipperPkId+'&shipmentId='+this.shipmentDetails.id+'&carrierId='+this.shipmentDetails.carrierPkId;
     this.httpClient.get(url).subscribe(resp => {
       if(resp['success']){
       
