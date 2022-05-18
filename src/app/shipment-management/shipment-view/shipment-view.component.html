@@ -239,6 +239,35 @@
 	        </div>
 	      </div>
 	    </mat-expansion-panel>
+		<mat-expansion-panel [expanded]="true">
+			<mat-expansion-panel-header>
+			  <mat-panel-title class="fs_16 fsm_5 txt_b">Payment Detail</mat-panel-title>
+			  <mat-panel-description></mat-panel-description>
+			</mat-expansion-panel-header>
+			<div class="sign_up_tab input_error">
+			  <div class="update_profile_container">
+				<div class="row">
+				  <div class="col-md-4">
+					<p class="fs_14 fsn_4 txt_lb mb-1">Payment Method</p>
+					<p class="fs_14 fsm_5 txt_b mb-4" >{{shipmentDetails?.paymentMethod === 1 ? 'USD' : shipmentDetails?.paymentMethod === 2 ? 'USDC' : '-'}}</p>
+				  </div>
+				  <div class="col-md-4">
+					<p class="fs_14 fsn_4 txt_lb mb-1">Payment Terms</p>
+					<p class="fs_14 fsm_5 txt_b mb-4">{{shipmentDetails.terms ? shipmentDetails.terms : '-'}}</p>
+				  </div>
+				  <div class="col-md-4">
+					<p class="fs_14 fsn_4 txt_lb mb-1">Offer Rate</p>
+					<p class="fs_14 fsm_5 txt_b mb-4">{{shipmentDetails.isOfferRate === 'N' ? 'No' : 'Yes'}}</p>
+				  </div>
+				  <div class="col-md-4">
+					<p *ngIf="shipmentDetails.isOfferRate === 'N'" class="fs_14 fsn_4 txt_lb mb-1">Freight Rate</p>
+					<p *ngIf="shipmentDetails.isOfferRate === 'Y'" class="fs_14 fsn_4 txt_lb mb-1">Contracted Rate</p>
+					<p class="fs_14 fsm_5 txt_b mb-0">{{shipmentDetails.freightRate ? '$'+shipmentDetails.freightRate : '-'}}</p>
+				  </div>
+				</div>
+			  </div>
+			</div>
+		  </mat-expansion-panel>
 	  </mat-accordion>
 	</div>
 </div>
