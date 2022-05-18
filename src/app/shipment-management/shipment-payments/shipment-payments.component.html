@@ -76,7 +76,7 @@
 	      			</div>
 	      		</div>
 
-	      		<div class="col-md-6 pay_attempt_r">
+	      		<div style="background-color: #f7f2f2;" class="col-md-6 pay_attempt_r">
 	      			<div class="con_wrapper_row">
 	      				<div class="row_label">Gross Price</div>
 	      				<div class="row_value">{{historyDetailsShipper[i].grossPrice.amount ? historyDetailsShipper[i].grossPrice.amount : '-'}}</div>
@@ -110,8 +110,8 @@
 	      				<div class="row_value">{{historyDetailsShipper[i].transactionFee.amount ? '$'+historyDetailsShipper[i].transactionFee.amount : '-'}}</div>
 	      			</div>
 							<div style="border-top: 1px solid #818181" class="con_wrapper_row ">
-	      				<div *ngIf="historyDetailsShipper[i].status=== 'Success'" class="row_label  txt_b fsb_6 ">Amount Paid</div>
-	      				<div *ngIf="historyDetailsShipper[i].status!== 'Success'" class="row_label  txt_b fsb_6 ">Amount Payable</div>
+	      				<div *ngIf="historyDetailsShipper[i]?.status=== 'Success'" class="row_label  txt_b fsb_6 ">Amount Paid</div>
+	      				<div *ngIf="historyDetailsShipper[i]?.status!== 'Success'" class="row_label  txt_b fsb_6 ">Amount Payable</div>
 	      				<div class="row_value">{{historyDetailsShipper[i].totalAmount ? '$'+historyDetailsShipper[i].totalAmount : '-'}}</div>
 	      			</div>
       			</div>
@@ -153,7 +153,7 @@
       			</div>
       		</div>
 
-      		<div  class="col-md-6 pay_attempt_r">
+      		<div style="background-color: #f7f2f2;" class="col-md-6 pay_attempt_r">
       			<div class="con_wrapper_row">
       				<div class="row_label">Gross Price</div>
       				<div class="row_value">{{historyDetailsCarrier[i].sourceAmount ? historyDetailsCarrier[i].sourceAmount : '-'}}</div>

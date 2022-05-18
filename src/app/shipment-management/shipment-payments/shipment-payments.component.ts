@@ -110,7 +110,7 @@ export class ShipmentPaymentsComponent implements OnInit {
   getShipmentPayment()
   {
     // const url = 'https://payapi-dev.laneaxis.com/admin/transaction-history?shipperId=179566'+'&shipmentId=3363'+'&carrierId=2335029';
-    const url = 'https://payapi-uat.laneaxis.com/admin/transaction-history?shipperId='+this.shipmentDetails.shipperPkId+'&shipmentId='+this.shipmentDetails?.id+'&carrierId='+this.shipmentDetails.carrierPkId;
+    const url = APIURL.envConfig.APIDOMAIN.transaction+'?shipperId='+this.shipmentDetails.shipperPkId+'&shipmentId='+this.shipmentDetails?.id+'&carrierId='+this.shipmentDetails.carrierPkId;
     this.httpClient.get(url).subscribe(resp => {
       if(resp['success']){
       
@@ -151,7 +151,9 @@ export class ShipmentPaymentsComponent implements OnInit {
   {
     if(this.historyDetailsShipper[0].achFailed.attempt >= 5)
     {
-      const url = 'https://payapi-uat.laneaxis.com/admin/ach-payment'+'?shipmentBidId='+this.shipperTransactionStatus.shipmentBidId+'&userId='+this.shipperTransactionStatus.shipperId;
+      this.showLoader=true;
+      // const url = 'https://payapi-uat.laneaxis.com/admin/ach-payment'+'?shipmentBidId='+this.shipperTransactionStatus.shipmentBidId+'&userId='+this.shipperTransactionStatus.shipperId;
+      const url = APIURL.envConfig.APIDOMAIN.ach+'?shipmentBidId='+this.shipperTransactionStatus.shipmentBidId+'&userId='+this.shipperTransactionStatus.shipperId;
       const reqBody = {
         shipmentBidId: this.shipperTransactionStatus.shipmentBidId,
         userId:this.shipperTransactionStatus.shipperId,
