@@ -43,8 +43,6 @@ export class ShipmentPaymentsComponent implements OnInit {
    });
 
    let queryParam = this.router.url.split('/')[this.router.url.split('/').length-1];
-     console.log('params');
-     console.log(queryParam);
     if (queryParam === 'payments' || queryParam === 'shipperTransaction') {
       this.transactionHistory('shipper');
     }
@@ -134,14 +132,12 @@ export class ShipmentPaymentsComponent implements OnInit {
         }
       }
       if(resp['error'])
-      { console.log('err');
-      console.log(resp['error']);
+      {
         this.emptyScreen=true;
         this.showLoader=false;
     }
     }, (err) => {
-      console.log('err');
-      console.log(err);
+
       this.showLoader = false;
       this.emptyScreen=true;
     });
@@ -159,8 +155,6 @@ export class ShipmentPaymentsComponent implements OnInit {
         userId:this.shipperTransactionStatus.shipperId,
        };
       this.httpClient.post(url, reqBody).subscribe(resp => {
-        console.log('resp');
-        console.log(resp);
         if(resp['success'])
         {
           this.getShipmentDetails();
