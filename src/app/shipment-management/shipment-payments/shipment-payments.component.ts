@@ -16,6 +16,8 @@ export class ShipmentPaymentsComponent implements OnInit {
   shipmentDetails:any;
   historyDetailsShipper:any;
   historyDetailsCarrier:any;
+  shipperTransactionStatus:any;
+  carrierTransactionStatus:any;
   emptyScreen=false;
   items=[1,2,3,4,5,6,7,8];
   rescheduleButton=false;
@@ -86,6 +88,7 @@ export class ShipmentPaymentsComponent implements OnInit {
 
   transactionHistory(tab)
   {
+    this.emptyScreen=false;
    this.selectedTab=tab;
    if(tab==='shipper')
    {
@@ -94,7 +97,9 @@ export class ShipmentPaymentsComponent implements OnInit {
 }
    if(tab==='carrier')
 { 
+
   this.getShipmentDetails();
+
   // this.showLoader=true;
   this.router.navigate(['shipment/view/'+this.shipmentDetails.id+'/payments/carrierTransaction']);
 }
@@ -112,19 +117,18 @@ export class ShipmentPaymentsComponent implements OnInit {
         this.showLoader = false;
         this.historyDetailsShipper = resp['response'].records.shipperTransactionHistory;
         this.historyDetailsCarrier = resp['response'].records.carrierTransactionHistory;
+        this.shipperTransactionStatus=resp['response'].records.shipperTransactionStatus;
+        this.carrierTransactionStatus=resp['response'].records.carrierTransactionStatus;
         
         if(this.historyDetailsShipper.length)
         {
-          console.log('if runs');
-          console.log(this.historyDetailsShipper[0].achFailed.attempt);
           if(this.historyDetailsShipper[0].achFailed.attempt >= 5)
           this.rescheduleButton=true;
         }
         this.emptyScreen=false;
-        if(!this.historyDetailsCarrier.length || this.historyDetailsCarrier.length===null)
+        if(!this.historyDetailsCarrier.length )
         {
-     
-          this.selectedTab==='Carrier'
+          if(this.selectedTab==='carrier')
           this.emptyScreen=true;
           
         }
@@ -133,6 +137,7 @@ export class ShipmentPaymentsComponent implements OnInit {
       { console.log('err');
       console.log(resp['error']);
         this.emptyScreen=true;
+        this.showLoader=false;
     }
     }, (err) => {
       console.log('err');
@@ -144,16 +149,20 @@ export class ShipmentPaymentsComponent implements OnInit {
 
   reschedule()
   {
-    if(this.historyDetailsShipper.achFailed.attempt >= 5)
+    if(this.historyDetailsShipper[0].achFailed.attempt >= 5)
     {
-      const url = 'https://payapi-dev.laneaxis.com/admin/ach-payment';
+      const url = 'https://payapi-uat.laneaxis.com/admin/ach-payment'+'?shipmentBidId='+this.shipperTransactionStatus.shipmentBidId+'&userId='+this.shipperTransactionStatus.shipperId;
       const reqBody = {
-        shipmentBidId: this.historyDetailsShipper.shipperTransactionStatus.shipmentBidId,
-        userId:this.historyDetailsShipper.shipperTransactionStatus.userId,
+        shipmentBidId: this.shipperTransactionStatus.shipmentBidId,
+        userId:this.shipperTransactionStatus.shipperId,
        };
-      this.httpService.post(url, reqBody).subscribe(resp => {
+      this.httpClient.post(url, reqBody).subscribe(resp => {
         console.log('resp');
         console.log(resp);
+        if(resp['success'])
+        {
+          this.getShipmentDetails();
+        }
     })
   }
 

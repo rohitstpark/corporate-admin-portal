@@ -39,7 +39,7 @@
 		  </div>
 		</div>
 		<div class="label_two_r">
-			<button (click)="reschedule()" [disabled]='!rescheduleButton' [hidden]="selectedTab==='carrier'" class="btn custum_button button_primary bg_p">Re-schedule</button>
+			<button (click)="reschedule()" [disabled]='!shipperTransactionStatus' [hidden]="selectedTab==='carrier'" class="btn custum_button button_primary bg_p">Re-schedule</button>
 		</div>
 	</div>
 	
@@ -48,7 +48,7 @@
 	  <mat-accordion class="example-headers-align" multi>
 	    <mat-expansion-panel *ngFor="let item of historyDetailsShipper, index as i" [expanded]="true">
 	      <mat-expansion-panel-header>
-	        <mat-panel-title class="fs_16 fsm_5 txt_b">{{'Payment Attempt '+ (historyDetailsShipper[i].achFailed?.attempt ? historyDetailsShipper[i].achFailed?.attempt : '-')  }}</mat-panel-title>
+	        <mat-panel-title class="fs_16 fsm_5 txt_b">{{'Payment Attempt '+ (historyDetailsShipper.length ? historyDetailsShipper.length-i : '-')  }}</mat-panel-title>
 	        <mat-panel-description class="fs_16 fsm_5">
 	        	<div class="payment_status">
 	        		<span [ngClass]="historyDetailsShipper[i].status=== 'Success' ? 'txt_s' : historyDetailsShipper[i].status=== 'Failed' ? 'txt_d': 'txt_y'">{{historyDetailsShipper[i].status}}</span>
@@ -125,10 +125,10 @@
 		<mat-accordion class="example-headers-align" multi>
 		  <mat-expansion-panel *ngFor="let item of historyDetailsCarrier, index as i" [expanded]="true">
 			<mat-expansion-panel-header>
-			  <mat-panel-title class="fs_16 fsm_5 txt_b">{{'Payment Attempt '+ (i+1)  }}</mat-panel-title>
+			  <mat-panel-title class="fs_16 fsm_5 txt_b">{{'Payment Attempt '+ (historyDetailsCarrier.length ? historyDetailsCarrier.length-i : '-')   }}</mat-panel-title>
 			  <mat-panel-description class="fs_16 fsm_5">
 				  <div class="payment_status">
-					  <span [ngClass]="historyDetailsCarrier[i].destinationStatus=== 'succeeded' ? 'txt_s' :historyDetailsCarrier[i].destinationStatus=== 'failed' ? 'txt_d' : 'txt_y'">{{historyDetailsCarrier[i].destinationStatus=== 'succeeded' ? 'Success' : 'Failed'}}</span>
+					  <span [ngClass]="(historyDetailsCarrier[i].destinationStatus=== 'succeeded' && historyDetailsShipper[i].status=== 'Success') ? 'txt_s' :(historyDetailsCarrier[i].destinationStatus=== 'failed' || historyDetailsShipper[i].status=== 'Failed') ? 'txt_d' : 'txt_y'">{{(historyDetailsCarrier[i].destinationStatus=== 'succeeded' && historyDetailsShipper[i].status=== 'Success') ? 'Success' : 'Failed'}}</span>
 				  </div>
 			  </mat-panel-description>
 			</mat-expansion-panel-header>
