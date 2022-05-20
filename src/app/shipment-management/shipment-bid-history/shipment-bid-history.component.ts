@@ -14,6 +14,7 @@ export class ShipmentBidHistoryComponent implements OnInit {
   bidHistoryList: any;
   showLoader: boolean;
   pageLimit :any = 10;
+  shipmentDetails:any;
   pageNumber :any = 1;
   totalRecords:any=0;
   apiCallInProcess:boolean = false;
@@ -50,6 +51,7 @@ export class ShipmentBidHistoryComponent implements OnInit {
   }
 
   getShipmentBidHistory(isPaginated?){
+    this.getShipmentDetails();
     if(isPaginated){this.apiCallInProcess=true}
     else{this.showLoader=true;}    
     const url = APIURL.envConfig.SHIPMENTENDPOINTS.getShipmentBid + '?shipmentId=' + this.shipmentId +'&limit='+this.pageLimit+'&page='+this.pageNumber;
@@ -90,6 +92,29 @@ export class ShipmentBidHistoryComponent implements OnInit {
       this.pageNumber = this.pageNumber + 1;
       this.getShipmentBidHistory(true);
     }
+  }
+
+   getShipmentDetails(){
+    const url = APIURL.envConfig.SHIPMENTENDPOINTS.getShipmentDetails + '?id=' + this.shipmentId;
+    this.httpService.get(url).subscribe(resp => {
+      if(resp['response']){
+        this.showLoader = false;
+        this.shipmentDetails = resp['response'];
+        this.shipmentDetails.createdAt = this.shipmentDetails.createdAt ? new Date(this.shipmentDetails.createdAt +' '+'UTC') : null;
+        localStorage.setItem('shipmentNameUniqueId',this.shipmentDetails.title+'$*'+this.shipmentDetails.uniqueId);
+        localStorage.setItem('shipmentStatusLabel', this.shipmentDetails.statusLabel)
+        localStorage.setItem('shipmentStatusCount', this.shipmentDetails.status)
+        if(this.shipmentDetails.driverId && this.shipmentDetails.driverId!= null){
+          localStorage.setItem('shipmentDriverId', this.shipmentDetails.driverId);
+        }
+        if(this.shipmentDetails.shipperId!=null){
+          localStorage.setItem('shipmentShipperId', this.shipmentDetails.shipperId);
+        }
+      }
+    }, (err) => {
+      this.showLoader = false;
+      console.log('err', err)
+    });
   }
 
 }
