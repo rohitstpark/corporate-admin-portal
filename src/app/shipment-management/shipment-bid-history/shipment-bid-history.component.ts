@@ -61,6 +61,9 @@ export class ShipmentBidHistoryComponent implements OnInit {
         this.showLoader=false;
         this.apiCallInProcess=false;
         const responseList = resp['response'];
+        responseList.forEach(element => {
+          element.actionTs = element.actionTs ? new Date(element.actionTs +' '+'UTC') : null;
+        }); 
         this.bidHistoryList = isPaginated ? this.bidHistoryList.concat(responseList) : responseList;
         this.totalRecords = resp['totalBid'];  
       }

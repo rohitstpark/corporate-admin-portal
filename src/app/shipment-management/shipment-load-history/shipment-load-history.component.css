@@ -4,3 +4,4 @@
 .status_text { font-size: 12px; line-height: 16px; font-weight: 500; color: #fff; padding: 2px 4px; border-radius: 2px; margin: 0 6px 0 0; }
 
 .data_notFound { background: #fff; padding: 20px; text-align: center; font-size: 16px; font-weight: 500; color: #818181; }
+.location_show, .location_hide { cursor: pointer; color: #3a88e6; text-decoration: underline; margin: 0 0 0 4px; font-size: 12px; font-weight: 400; }
