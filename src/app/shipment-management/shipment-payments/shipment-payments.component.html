@@ -1,7 +1,7 @@
 <div class="site-loader" *ngIf="showLoader">
 	<div class="lds-ring"><div></div><div></div><div></div><div></div></div>
   </div>
-<div class="Container_scroll">
+<div *ngIf="shipmentDetails && !showLoader" class="Container_scroll">
 	<div class="container_header mb-3">
 		<div class="cus_breadculam">
 		  <ul>
@@ -23,9 +23,8 @@
 
 	<div class="tab_status" *ngIf="shipmentDetails">
 		<app-shipment-tabs [shipperId]="shipmentDetails?.shipperId"></app-shipment-tabs>
-
 	</div>
-	<div class="tab_label_two">
+	<div *ngIf="shipmentDetails" class="tab_label_two">
 		<div class="label_two_l">
 			<div class="tab_header" style="margin: 0 0 32px;">
 			<ul>
