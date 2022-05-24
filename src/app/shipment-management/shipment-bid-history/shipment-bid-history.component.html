@@ -58,7 +58,7 @@
 			</ng-container>
 			<ng-container matColumnDef="bidAmont">
 				<th mat-header-cell *matHeaderCellDef class="px-2">Bid Amount</th>
-				<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2" style="height: 64px;">${{element.bidAmount}} (${{(element.bidAmount/shipmentDetails?.miles).toFixed(2)}}/mi)</td>
+				<td mat-cell *matCellDef="let element" class="fs_14 fsn_4 txt_lb px-2" style="height: 64px;">${{element.bidAmount}} (${{shipmentDetails?.miles ? (element.bidAmount/shipmentDetails?.miles).toFixed(2) : '0.00'}}/mi)</td>
 			</ng-container>
 			<ng-container matColumnDef="notes">
 				<th mat-header-cell *matHeaderCellDef class="px-2">Notes</th>
