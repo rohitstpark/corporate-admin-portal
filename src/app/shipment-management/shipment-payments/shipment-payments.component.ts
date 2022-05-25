@@ -172,5 +172,10 @@ export class ShipmentPaymentsComponent implements OnInit {
     return indexes;
   }
   
+  UTCDate(date:any)
+  {
+    date =new Date(date +' '+'UTC');
+    return date;
+  }
 }
 
