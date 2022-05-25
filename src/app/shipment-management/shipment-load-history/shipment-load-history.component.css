@@ -5,3 +5,26 @@
 
 .data_notFound { background: #fff; padding: 20px; text-align: center; font-size: 16px; font-weight: 500; color: #818181; }
 .location_show, .location_hide { cursor: pointer; color: #3a88e6; text-decoration: underline; margin: 0 0 0 4px; font-size: 12px; font-weight: 400; }
+
+.event_status {
+    display: flex;
+    align-items: center; max-width: 420px;
+}
+
+.load_icon { position: relative; min-width: 38px; min-height: 38px; display: -webkit-box; display: inline-flex; -webkit-box-align: center; align-items: center; -webkit-box-pack: center; justify-content: center; /*border: 1.5px solid var(--clGrna);*/ border-radius: 30px; margin: 0 6px 0 0; background: var(--clGrna); }
+/*.load_icon:before { position: absolute; content: ""; width: 1.5px; height: 24px; background: #EDEDED; top: 42px; }*/
+.load_icon span { font-size: 16px; color: var(--clBlkd); }
+.load_icon img { max-width: 22px; }
+
+
+.event_dateTxt { min-width: 85px; }
+.no_location { margin: 0 0 0 4px; }
+.location_show, .location_hide { cursor: pointer; color: #3a88e6; text-decoration: underline; margin: 0 0 0 4px; font-size: 14px; font-weight: 400; }
+.location_no { color: #818181; margin: 0 0 0 4px; font-size: 14px; font-weight: 400; }
+.event_location { display: flex; align-items: center; }
+.location_detail { font-size: 14px; line-height: 16px; font-weight: 400; margin: 0 0 0 4px; display: flex; align-items: center; }
+
+.curt_location {
+    display: flex;
+    align-items: center;
+}

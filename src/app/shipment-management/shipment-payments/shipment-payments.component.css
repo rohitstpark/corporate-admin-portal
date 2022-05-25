@@ -9,24 +9,18 @@
 .tab_header li:focus { outline: none; }
 .tab_header li.active_tab { border-bottom: 2px solid #3787e6; }
 
-.con_wrapper_row {
-  display: flex;
-  margin: 0 0 16px;
+.con_wrapper_row { display: flex; margin: 0 0 16px; }
+.row_label { font-size: 16px; line-height: 20px; font-weight: 400; color: #818181; min-width: 212px; }
+.pay_attempt_r {
+    background: #ededed;
+    padding: 18px 28px;
+    border-radius: 6px;
 }
-.row_label {
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 400;
-  color: #818181;
-  min-width: 212px;
+.pay_attempt_r .con_wrapper_row {
+    justify-content: space-between;
 }
 .pay_attempt_r .row_label { min-width: 312px; }
-.row_value {
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 500;
-  color: #000000;
-}
+.row_value { font-size: 16px; line-height: 20px; font-weight: 500; color: #000000; }
 
 /*skt*/
 .pay_card_skt { background: #fff; padding: 24px; border-radius: 6px; }
@@ -35,3 +29,5 @@
 .pay_card_skt_rowr { display: inline-block; width: 50%; float: left; }
 
 .data_notFound { background: #fff; padding: 20px; text-align: center; font-size: 16px; font-weight: 500; color: #818181; }
+
+.total_amount { padding: 12px 0 0; margin: 0; border-top: 1px solid #818181; }
