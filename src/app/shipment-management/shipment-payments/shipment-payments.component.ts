@@ -124,9 +124,14 @@ export class ShipmentPaymentsComponent implements OnInit {
           this.rescheduleButton=true;
         }
         this.emptyScreen=false;
-        if(!this.historyDetailsCarrier.length )
+        console.log('history detail');
+        console.log(this.historyDetailsShipper.length);
+        if(!this.historyDetailsCarrier.length || !this.historyDetailsShipper.length )
         {
           if(this.selectedTab==='carrier')
+          this.emptyScreen=true;
+
+          if(this.selectedTab==='shipper')
           this.emptyScreen=true;
           
         }
